@@ -123,5 +123,12 @@ namespace ThreeAddressCode
             Program.Add(new Goto(beginWhile));
             Program.Add(new NoOperation(endWhile));
         }
+
+        public override void VisitPrint(PrintStatement printStatement)
+        {
+            Visit(printStatement.Expression);
+            var print = new Print(ExpressionStack.Pop(), printStatement.NewLine);
+            Program.Add(print);
+        }
     }
 }

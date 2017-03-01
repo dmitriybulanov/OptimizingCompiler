@@ -46,6 +46,7 @@
     <Compile Include="Model\Identifier.cs" />
     <Compile Include="Model\Int32Const.cs" />
     <Compile Include="Model\NoOperation.cs" />
+    <Compile Include="Model\Print.cs" />
     <Compile Include="Model\Program.cs" />
     <Compile Include="Model\ThreeAddressCommand.cs" />
     <Compile Include="Model\ConditionalGoto.cs" />
