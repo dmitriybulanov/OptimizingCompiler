@@ -1,0 +1,196 @@
+
+// ==========================================================================
+//  GPPG error listing for yacc source file <SimpleYacc.y>
+// ==========================================================================
+//  Version:  1.3.6
+//  Machine:  ALEXANDER-PC
+//  DateTime: 21.02.2017 20:27:39
+//  UserName: Alexander
+// ==========================================================================
+
+
+%{
+// Ýòè îáúÿâëåíèÿ äîáàâëÿþòñÿ â êëàññ GPPGParser, ïðåäñòàâëÿþùèé ñîáîé ïàðñåð, ãåíåðèðóåìûé ñèñòåìîé gppg
+    public Parser(AbstractScanner<Union, LexLocation> scanner) : base(scanner) { }
+    public SyntaxNode Root;
+%}
+%using SimpleLang.SyntaxNodes;
+%using ParserHelper;
+
+%output = SimpleYacc.cs
+
+%namespace SimpleParser
+
+%YYSTYPE ParserHelper.Union
+
+%token <String> ID
+%token <Int> INUM
+%token BEGIN END INUM ASSIGN SEMICOLON WHILE DOUBLEDOT FOR IF ELSE PRINT PRINTLN
+%token AND OR LESSER GREATER LESSEREQ GREATEREQ AND OR EQ NOTEQ
+%token PLUS MINUS DIVIDE MULT
+
+%type <SyntaxNode> progr
+%type <Statement> statement stlist assign block while_cycle for_cycle if print
+%type <Expression> expr ident parenth mulop addop compar andop
+
+%start root
+
+%%
+
+root : progr
+        { Root = $1; }
+
+progr   : stlist
+//^^^
+// Error: Syntax error, unexpected anchoredSymbol
+// ----------------------------------------------
+            {
+                $$ = new Program($1);
+            }
+		;
+
+stlist	: statement
+            { 
+                $$ = new StatementList($1); 
+            }
+		| stlist statement
+            {
+                $$ = ($1 as StatementList).Add($2); 
+            }
+		;
+
+statement: assign SEMICOLON
+		| block 
+		| while_cycle  
+		| for_cycle
+		| if
+		| print SEMICOLON
+		;
+
+ident 	: ID 
+            { 
+                $$ = new Identifier($1); 
+            }
+		;
+	
+assign 	: ident ASSIGN expr 
+            {
+                $$ = new AssignmentStatement($1 as Identifier, $3);
+            }
+		;
+
+expr	: andop
+            { $$ = $1; }
+		| expr OR andop
+            {
+                $$ = new BinaryExpression($1, Operation.LogicalOr, $3);
+            }
+		;
+
+andop   : compar
+            { $$ = $1; }
+		| andop AND compar
+            {
+                $$ = new BinaryExpression($1, Operation.LogicalAnd, $3);
+            }
+		; 
+		
+compar	: addop 
+            { $$ = $1; }
+		| compar EQ addop
+            {
+                $$ = new BinaryExpression($1, Operation.Equal, $3);
+            }
+		| compar NOTEQ addop
+            {
+                $$ = new BinaryExpression($1, Operation.NotEqual, $3);
+            }
+		| compar LESSER addop
+            {
+                $$ = new BinaryExpression($1, Operation.Lesser, $3);
+            }
+		| compar GREATER addop
+            {
+                $$ = new BinaryExpression($1, Operation.Greater, $3);
+            }
+		| compar LESSEREQ addop
+            {
+                $$ = new BinaryExpression($1, Operation.LesserEqual, $3);
+            }
+		| compar GREATEREQ addop
+            {
+                $$ = new BinaryExpression($1, Operation.GreaterEqual, $3);
+            }
+		;
+		
+addop 	: mulop
+            { $$ = $1; }
+		| addop PLUS mulop
+            {
+                $$ = new BinaryExpression($1, Operation.Add, $3);
+            }
+		| addop MINUS mulop
+            {
+                $$ = new BinaryExpression($1, Operation.Subtract, $3);
+            }
+		;
+
+mulop  	: parenth
+            { $$ = $1; }
+		| mulop MULT parenth
+            {
+                $$ = new BinaryExpression($1, Operation.Multiply, $3);
+            }
+		| mulop DIVIDE parenth
+            {
+                $$ = new BinaryExpression($1, Operation.Divide, $3);
+            }
+		;
+
+parenth : ident 
+            { $$ = $1; }
+		| INUM
+            { $$ = new Int32Const($1); }
+		| '(' expr ')'
+            { $$ = $2; }
+		;
+
+block	: BEGIN stlist END 
+            { $$ = $2; }
+		;
+
+while_cycle	: WHILE expr statement 
+            { 
+                $$ = new WhileStatement($2, $3); 
+            }
+		;
+
+for_cycle	: FOR ident ASSIGN addop DOUBLEDOT addop statement 
+            {
+                $$ = new ForStatement($2 as Identifier, $4, $6, $7);
+            }
+		;
+
+if		: IF expr statement
+            {
+                $$ = new IfStatement($2, $3);
+            }
+		| IF expr statement ELSE statement
+            {
+                $$ = new IfStatement($2, $3, $5);
+            }
+		;
+
+print	: PRINT '(' expr ')'
+            {
+                $$ = new PrintStatement($3, newLine: false);
+            }
+		| PRINTLN '(' expr ')'
+            {
+                $$ = new PrintStatement($3, newLine: true);
+            }
+		;
+
+%%
+// ==========================================================================
+
