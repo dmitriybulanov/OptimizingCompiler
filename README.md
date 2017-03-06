@@ -19,6 +19,8 @@
 * Скиба
 * Хритоненков
 
+[Посещение](https://docs.google.com/spreadsheets/d/1nqCRnxQ8e4WUuJopnV718vXQG6LPi29PySZhQeGYSOw/edit#gid=0)
+
 ## Список команд:
 
 ### End Frame
