@@ -2,13 +2,13 @@
 using SyntaxTree;
 using SyntaxTree.SyntaxNodes;
 using SyntaxTree.Visitors;
-using ThreeAddressCode.Model;
-using Expression = ThreeAddressCode.Model.Expression;
-using Identifier = ThreeAddressCode.Model.Identifier;
-using Int32Const = ThreeAddressCode.Model.Int32Const;
-using Program = ThreeAddressCode.Model.Program;
+using DataFlowAnalysis.ThreeAddressCode.Model;
+using Expression = DataFlowAnalysis.ThreeAddressCode.Model.Expression;
+using Identifier = DataFlowAnalysis.ThreeAddressCode.Model.Identifier;
+using Int32Const = DataFlowAnalysis.ThreeAddressCode.Model.Int32Const;
+using Program = DataFlowAnalysis.ThreeAddressCode.Model.Program;
 
-namespace ThreeAddressCode
+namespace DataFlowAnalysis.ThreeAddressCode
 {
     /// <summary>
     /// Генератор трехадресного кода по синтаксическому дереву

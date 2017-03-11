@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using GPPGParser;
 using SyntaxTree.SyntaxNodes;
 using SyntaxTree.Visitors;
-using ThreeAddressCode;
+using DataFlowAnalysis.ThreeAddressCode;
 
 namespace ConsoleInterface
 {

@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F0EA01D7-ED54-424D-8DDC-3EB637EA5BE7}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{5A1248A8-78EC-4EDF-B888-97DB22F9C802}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleInterface</RootNamespace>
-    <AssemblyName>OptimizingCompiler</AssemblyName>
+    <RootNamespace>DataFlowAnalysis</RootNamespace>
+    <AssemblyName>DataFlowAnalysis</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,28 +40,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="IntermediateRepresentation\BasicBlock\BasicBlock.cs" />
+    <Compile Include="IntermediateRepresentation\CFGComponents\SampleComponent.cs" />
+    <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Assignment.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\BinaryOperation.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ConditionalGoto.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Expression.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Goto.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Identifier.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Int32Const.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\NoOperation.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Print.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Program.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ThreeAddressCommand.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\UnaryOperation.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\ThreeAddressCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataFlowAnalysis\DataFlowAnalysis.csproj">
-      <Project>{5a1248a8-78ec-4edf-b888-97db22f9c802}</Project>
-      <Name>DataFlowAnalysis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GPPGParser\GPPGParser.csproj">
-      <Project>{56378a73-9dc5-414c-9bfe-dbf32f252ad7}</Project>
-      <Name>GPPGParser</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SyntaxTree\SyntaxTree.csproj">
       <Project>{C9ECD184-80DD-4834-80AD-1C2B50C1A53C}</Project>
       <Name>SyntaxTree</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ThreeAddressCode\ThreeAddressCode.csproj">
-      <Project>{563332d8-00b9-41be-9702-748159bb9459}</Project>
-      <Name>ThreeAddressCode</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

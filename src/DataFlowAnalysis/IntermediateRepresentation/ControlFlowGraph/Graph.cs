@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ThreeAddressCode.Model
+namespace DataFlowAnalysis.ControlFlowGraph
 {
-    public abstract class Expression
+    public class Graph
     {
     }
 }

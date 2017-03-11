@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ThreeAddressCode.Model
+﻿namespace DataFlowAnalysis.ThreeAddressCode.Model
 {
     public class Int32Const : Expression
     {
