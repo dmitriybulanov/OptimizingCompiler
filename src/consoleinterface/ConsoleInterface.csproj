@@ -61,10 +61,6 @@
       <Project>{C9ECD184-80DD-4834-80AD-1C2B50C1A53C}</Project>
       <Name>SyntaxTree</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ThreeAddressCode\ThreeAddressCode.csproj">
-      <Project>{563332d8-00b9-41be-9702-748159bb9459}</Project>
-      <Name>ThreeAddressCode</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
