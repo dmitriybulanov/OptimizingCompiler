@@ -35,6 +35,8 @@ namespace DataFlowAnalysis.BasicBlockCode
                 }
             }
             lastCommandsOfBlocks.Add(commands.Count - 1);
+            firstCommandsOfBlocks = firstCommandsOfBlocks.Distinct().ToList();
+            lastCommandsOfBlocks = lastCommandsOfBlocks.Distinct().ToList();
 
             int[] BlockByFirstCommand = new int[commands.Count];
             int[] BlockByLastCommand = new int[commands.Count];
