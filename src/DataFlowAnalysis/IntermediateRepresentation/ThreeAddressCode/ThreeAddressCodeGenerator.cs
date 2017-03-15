@@ -75,6 +75,7 @@ namespace DataFlowAnalysis.ThreeAddressCode
             Program.Add(check);
             Visit(forStatement.Body);
             Program.Add(Assignment.Increment(forVariable.Name));
+            Program.Add(new Goto(forBegin));
             Program.Add(new NoOperation(forEnd));
         }
 
