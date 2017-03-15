@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IntermediateRepresentation\BasicBlock\BasicBlock.cs" />
+    <Compile Include="IntermediateRepresentation\BasicBlockCode\Model\BasicBlock.cs" />
+    <Compile Include="IntermediateRepresentation\BasicBlockCode\BasicBlocksGenerator.cs" />
+    <Compile Include="IntermediateRepresentation\BasicBlockCode\Model\BasicBlocksList.cs" />
     <Compile Include="IntermediateRepresentation\CFGComponents\SampleComponent.cs" />
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Assignment.cs" />
