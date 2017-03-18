@@ -57,7 +57,9 @@
     <Compile Include="IntermediateRepresentation\BasicBlockCode\Model\BasicBlocksList.cs" />
     <Compile Include="IntermediateRepresentation\CFGComponents\SampleComponent.cs" />
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
+    <Compile Include="IntermediateRepresentation\GenKillCalculator\Model\CommandNumber.cs" />
     <Compile Include="IntermediateRepresentation\GenKillCalculator\GenKillOneCommandCalculator.cs" />
+    <Compile Include="IntermediateRepresentation\GenKillCalculator\Model\GenKillOneCommand.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Assignment.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\BinaryOperation.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ConditionalGoto.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ThreeAddressCommand.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\UnaryOperation.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\ThreeAddressCodeGenerator.cs" />
+    <Compile Include="IntermediateRepresentation\TransferFunction\TransferFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
