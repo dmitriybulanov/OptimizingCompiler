@@ -15,6 +15,7 @@ namespace DataFlowAnalysis.ControlFlowGraph
 	{
 		public BidirectionalGraph<BasicBlock, Edge<BasicBlock>> CFG =
 		  new BidirectionalGraph<BasicBlock, Edge<BasicBlock>>();
+
 		private Dictionary<int, BasicBlock> blockMap = new Dictionary<int, BasicBlock>();
 
 		public Graph() { }
