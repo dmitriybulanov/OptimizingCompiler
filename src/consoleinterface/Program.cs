@@ -40,7 +40,6 @@ namespace ConsoleInterface
             {
                 Console.WriteLine("Синтаксическая ошибка. " + e.Message);
             }
-
             Console.ReadLine();
         }
     }

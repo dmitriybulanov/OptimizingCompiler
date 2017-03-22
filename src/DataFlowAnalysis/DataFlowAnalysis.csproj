@@ -57,9 +57,12 @@
     <Compile Include="IntermediateRepresentation\BasicBlockCode\Model\BasicBlocksList.cs" />
     <Compile Include="IntermediateRepresentation\CFGComponents\SampleComponent.cs" />
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
-    <Compile Include="IntermediateRepresentation\GenKillCalculator\Model\CommandNumber.cs" />
+    <Compile Include="IntermediateRepresentation\IterativeAlgorithmParameters\Model\CommandNumber.cs" />
     <Compile Include="IntermediateRepresentation\GenKillCalculator\GenKillOneCommandCalculator.cs" />
     <Compile Include="IntermediateRepresentation\GenKillCalculator\Model\GenKillOneCommand.cs" />
+    <Compile Include="IntermediateRepresentation\IterativeAlgorithmParameters\BasicIterativeAlgorithmParameters.cs" />
+    <Compile Include="IntermediateRepresentation\IterativeAlgorithmParameters\IterativeAlgorithmParameters.cs" />
+    <Compile Include="IntermediateRepresentation\SetFactory\SetFactory.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Assignment.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\BinaryOperation.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ConditionalGoto.cs" />
