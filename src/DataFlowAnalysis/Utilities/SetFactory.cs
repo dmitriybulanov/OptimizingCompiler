@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataFlowAnalysis.IntermediateRepresentation.SetFactory
+namespace DataFlowAnalysis.Utilities
 {
-    public class MainSetFactory
+    public class SetFactory
     {
         public static ISet<T> GetSet<T>(IEnumerable<T> data)
         {
