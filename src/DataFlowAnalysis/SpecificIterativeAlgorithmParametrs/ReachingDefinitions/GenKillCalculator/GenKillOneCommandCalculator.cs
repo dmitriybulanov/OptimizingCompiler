@@ -1,7 +1,7 @@
 ﻿using DataFlowAnalysis.BasicBlockCode.Model;
 using DataFlowAnalysis.ControlFlowGraph;
 using DataFlowAnalysis.GenKillCalculator.Model;
-using DataFlowAnalysis.IntermediateRepresentation.SetFactory;
+using DataFlowAnalysis.Utilities;
 using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
 using DataFlowAnalysis.ThreeAddressCode.Model;
 using System.Collections.Generic;
@@ -29,9 +29,9 @@ namespace DataFlowAnalysis.GenKillCalculator
                             CommandStorage[(command as Assignment).Target].Add(new CommandNumber(i, j));
                         else
                             CommandStorage.Add((command as Assignment).Target,
-                                MainSetFactory.GetSet(new CommandNumber(i, j)));
+                                SetFactory.GetSet(new CommandNumber(i, j)));
                 }
-            Kill = MainSetFactory.GetSet< CommandNumber>();
+            Kill = SetFactory.GetSet< CommandNumber>();
         }
 
         public GenKillOneCommand CalculateGenAndKill(BasicBlock block, ThreeAddressCommand command)
