@@ -15,24 +15,20 @@ namespace DataFlowAnalysis.ControlFlowGraph
 	{
 		public BidirectionalGraph<BasicBlock, Edge<BasicBlock>> CFG =
 		  new BidirectionalGraph<BasicBlock, Edge<BasicBlock>>();
+		private Dictionary<int, BasicBlock> blockMap = new Dictionary<int, BasicBlock>();
 
 		public Graph() { }
-
-		// returns null if such id doesn't exist
-		public BasicBlock getBlockById(int id)
-		{
-			foreach (var v in CFG.Vertices)
-			{
-				if (v.BlockId == id) return v;
-			}
-			return null;
-		}
 
 		// constructor from recently prepared BasicBlocksList
 		public Graph(BasicBlocksList listBlocks)
 		{
 			CFG.AddVertexRange(listBlocks.Blocks);
-			//CFG.Vertices.ToList().ForEach(Console.WriteLine);
+
+			foreach (BasicBlock block in listBlocks.Blocks)
+			{
+				blockMap.Add(block.BlockId, block);
+			}
+
 			foreach (var block in listBlocks.Blocks)
 			{
 				foreach (var numIn in block.InputBlocks)
@@ -42,20 +38,23 @@ namespace DataFlowAnalysis.ControlFlowGraph
 			}
 		}
 
+		// returns null if such id doesn't exist
+		public BasicBlock getBlockById(int id)
+		{
+			return blockMap[id];
+		}
+
 		// get BasicBlocksList of all ancestors of the block
 		public BasicBlocksList getAncestors(int id)
 		{
 			var result = new BasicBlocksList();
-			foreach (var v in CFG.Vertices)
+			var v = getBlockById(id);
+
+			foreach (var edge in CFG.OutEdges(v))
 			{
-				if (v.BlockId == id)
-				{
-					foreach (var edge in CFG.InEdges(v))
-					{
-						result.Add(edge.Target);
-					}
-				}
+				result.Add(edge.Target);
 			}
+
 			return result;
 		}
 
@@ -63,16 +62,12 @@ namespace DataFlowAnalysis.ControlFlowGraph
 		public BasicBlocksList getParents(int id)
 		{
 			BasicBlocksList blockList = new BasicBlocksList();
-			foreach (var v in CFG.Vertices)
+			var v = getBlockById(id);
+			foreach (var edge in CFG.InEdges(v))
 			{
-				if (v.BlockId == id)
-				{
-					foreach (var edge in CFG.InEdges(v))
-					{
-						blockList.Add(edge.Source);
-					}
-				}
+				blockList.Add(edge.Source);
 			}
+
 			return blockList;
 		}
 
