@@ -6,16 +6,16 @@ using System.Linq;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.IterativeAlgorithmParameters
 {
-    public abstract class IterativeAlgorithmParameters : BasicIterativeAlgorithmParameters
+    public abstract class IterativeAlgorithmParameters<T> : BasicIterativeAlgorithmParameters<T>
     {
-        public override ISet<CommandNumber> TransferFunction(ISet<CommandNumber> input, BasicBlock block)
+        public override ISet<T> TransferFunction(ISet<T> input, BasicBlock block)
         {
-            return SetFactory.GetSet<CommandNumber>(GetGen(block).Union(input.Except(GetKill(block))));
+            return SetFactory.GetSet<T>(GetGen(block).Union(input.Except(GetKill(block))));
         }
 
-        public abstract ISet<CommandNumber> GetGen(BasicBlock block);
+        public abstract ISet<T> GetGen(BasicBlock block);
 
-        public abstract ISet<CommandNumber> GetKill(BasicBlock block);
+        public abstract ISet<T> GetKill(BasicBlock block);
 
     }
    

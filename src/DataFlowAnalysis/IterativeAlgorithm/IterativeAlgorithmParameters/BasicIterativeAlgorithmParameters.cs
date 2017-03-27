@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.IterativeAlgorithmParameters
 {
-    public abstract class BasicIterativeAlgorithmParameters
+    public abstract class BasicIterativeAlgorithmParameters<T>
     {
         public bool ForwardDirection { get; }
 
-        public ISet<CommandNumber> StartingValue { get; }
+        public ISet<T> StartingValue { get; }
 
-        public abstract ISet<CommandNumber> GatherOperation(IEnumerable<BasicBlock> blocks);
+        public abstract ISet<T> GatherOperation(IEnumerable<BasicBlock> blocks);
 
-        public abstract ISet<CommandNumber> TransferFunction(ISet<CommandNumber> input, BasicBlock block);
+        public abstract ISet<T> TransferFunction(ISet<T> input, BasicBlock block);
     }
 }
