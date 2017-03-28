@@ -5,9 +5,9 @@ using DataFlowAnalysis.Utilities;
 using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
 using System.Collections.Generic;
 
-namespace DataFlowAnalysis.ReachingDefinitions.TransferFunction
+namespace DataFlowAnalysis.ReachingDefinitions.CompositionTransferFunction
 {
-    public static class TransferFunction
+    public static class CompositionTransferFunction
     {
         public static ISet<CommandNumber> CalculateTransferFunction(GenKillOneCommandCalculator calc, BasicBlock block, ISet<CommandNumber> x)
         {

@@ -58,7 +58,7 @@
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\GenKillCalculator\GenKillOneCommandCalculator.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\GenKillCalculator\Model\GenKillOneCommand.cs" />
-    <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\TransferFunction\TransferFunction.cs" />
+    <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\CompositionTransferFunction\CompositionTransferFunction.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\Model\CommandNumber.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\BasicIterativeAlgorithmParameters.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\IterativeAlgorithmParameters.cs" />
