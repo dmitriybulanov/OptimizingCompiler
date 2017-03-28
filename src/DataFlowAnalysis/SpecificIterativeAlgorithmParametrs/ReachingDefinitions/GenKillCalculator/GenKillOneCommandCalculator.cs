@@ -31,7 +31,7 @@ namespace DataFlowAnalysis.GenKillCalculator
                             CommandStorage.Add((command as Assignment).Target,
                                 SetFactory.GetSet(new CommandNumber(i, j)));
                 }
-            Kill = SetFactory.GetSet< CommandNumber>();
+            Kill = SetFactory.GetSet<CommandNumber>();
         }
 
         public GenKillOneCommand CalculateGenAndKill(BasicBlock block, ThreeAddressCommand command)

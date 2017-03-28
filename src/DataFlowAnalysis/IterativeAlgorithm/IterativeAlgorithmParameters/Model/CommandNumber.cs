@@ -20,5 +20,10 @@ namespace DataFlowAnalysis.IterativeAlgorithmParameters.Model
             return BlockId == other.BlockId ?
                 CommandId.CompareTo(other.CommandId) : BlockId.CompareTo(other.BlockId);
         }
+
+        public override string ToString()
+        {
+            return "BlockId: " + BlockId + " CommandId: " + CommandId;
+        }
     }
 }
