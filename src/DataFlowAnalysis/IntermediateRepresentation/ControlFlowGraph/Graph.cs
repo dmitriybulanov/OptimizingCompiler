@@ -8,12 +8,13 @@ using QuickGraph;
 using QuickGraph.Algorithms.Search;
 
 using DataFlowAnalysis.BasicBlockCode.Model;
+using System.Collections;
 
 namespace DataFlowAnalysis.ControlFlowGraph
 {
-	public class Graph
+	public class Graph : IEnumerable
 	{
-		public BidirectionalGraph<BasicBlock, Edge<BasicBlock>> CFG =
+		private BidirectionalGraph<BasicBlock, Edge<BasicBlock>> CFG =
 		  new BidirectionalGraph<BasicBlock, Edge<BasicBlock>>();
 
 		private Dictionary<int, BasicBlock> blockMap = new Dictionary<int, BasicBlock>();
@@ -89,6 +90,11 @@ namespace DataFlowAnalysis.ControlFlowGraph
 				res += "\n";
 			}
 			return res;
+		}
+
+		public IEnumerator GetEnumerator()
+		{
+			return blockMap.Values.GetEnumerator();
 		}
 	}
 }
