@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.IterativeAlgorithmParameters
 {
-    public abstract class IterativeAlgorithmParameters<T> : BasicIterativeAlgorithmParameters<T>
+    public abstract class IterativeAlgorithmParameters<T> : BasicIterativeAlgorithmParameters<ISet<T>>
     {
         public override ISet<T> TransferFunction(ISet<T> input, BasicBlock block)
         {
@@ -17,6 +17,10 @@ namespace DataFlowAnalysis.IntermediateRepresentation.IterativeAlgorithmParamete
 
         public abstract ISet<T> GetKill(BasicBlock block);
 
+        public override bool Compare(ISet<T> t1, ISet<T> t2)
+        {
+            return t1.IsSubsetOf(t2) && t2.IsSubsetOf(t1);
+        }    
     }
    
 }

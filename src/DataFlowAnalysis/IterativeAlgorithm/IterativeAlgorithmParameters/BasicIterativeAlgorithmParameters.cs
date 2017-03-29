@@ -8,10 +8,14 @@ namespace DataFlowAnalysis.IntermediateRepresentation.IterativeAlgorithmParamete
     {
         public bool ForwardDirection { get; }
 
-        public ISet<T> StartingValue { get; }
+        public virtual T StartingValue { get; }
 
-        public abstract ISet<T> GatherOperation(IEnumerable<BasicBlock> blocks);
+        public virtual T FirstValue { get { return StartingValue; } }
 
-        public abstract ISet<T> TransferFunction(ISet<T> input, BasicBlock block);
+        public abstract T GatherOperation(IEnumerable<BasicBlock> blocks);
+
+        public abstract T TransferFunction(T input, BasicBlock block);
+
+        public abstract bool Compare(T t1, T t2);
     }
 }
