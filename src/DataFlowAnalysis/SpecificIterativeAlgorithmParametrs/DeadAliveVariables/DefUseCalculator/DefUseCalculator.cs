@@ -18,7 +18,7 @@ namespace DataFlowAnalysis.DefUseCalculator
 		{
 			SetStorage = new Dictionary<int, Tuple<ISet<string>, ISet<string>>>();
 			foreach (BasicBlock block in g) {
-				SetStorage.Add(block.BlockId, CreateDefUseSets(v));
+				//SetStorage.Add(block.BlockId, CreateDefUseSets(v));
 			}
 		}
 

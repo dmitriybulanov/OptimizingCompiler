@@ -20,16 +20,16 @@ namespace DataFlowAnalysis.GenKillCalculator
         {
             graph = g;
             CommandStorage = new Dictionary<string, ISet<CommandNumber>>();
-            for (int i = 0; i < graph.CFG.Vertices.Count(); i++)
-                for (int j = 0; j < graph.CFG.Vertices.ElementAt(i).Commands.Count; j++)
+            foreach (BasicBlock block in graph)
+                for (int i = 0; i < block.Commands.Count(); i++)
                 {
-                    var command = graph.CFG.Vertices.ElementAt(i).Commands[j];
+                    var command = block.Commands[i];
                     if (command is Assignment)
                         if (CommandStorage.ContainsKey((command as Assignment).Target))
-                            CommandStorage[(command as Assignment).Target].Add(new CommandNumber(i, j));
+                            CommandStorage[(command as Assignment).Target].Add(new CommandNumber(block.BlockId, i));
                         else
                             CommandStorage.Add((command as Assignment).Target,
-                                SetFactory.GetSet(new CommandNumber(i, j)));
+                                SetFactory.GetSet(new CommandNumber(block.BlockId, i)));
                 }
             Kill = SetFactory.GetSet<CommandNumber>();
         }
@@ -50,7 +50,7 @@ namespace DataFlowAnalysis.GenKillCalculator
 
         public GenKillOneCommand CalculateGenAndKill(int blockId, int commandId)
         {
-            var block = graph.CFG.Vertices.ElementAt(blockId);
+            var block = graph.getBlockById(blockId);
             return CalculateGenAndKill(block, block.Commands[commandId]);
         }
 
