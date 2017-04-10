@@ -56,12 +56,14 @@
     <Compile Include="IntermediateRepresentation\BasicBlockCode\BasicBlocksGenerator.cs" />
     <Compile Include="IntermediateRepresentation\BasicBlockCode\Model\BasicBlocksList.cs" />
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
+    <Compile Include="IterativeAlgorithm\IterativeAlgorithmOutput.cs" />
+    <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\CompositionIterativeAlgorithmParameters.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\GenKillCalculator\GenKillOneCommandCalculator.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\GenKillCalculator\Model\GenKillOneCommand.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\CompositionTransferFunction\CompositionTransferFunction.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\Model\CommandNumber.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\BasicIterativeAlgorithmParameters.cs" />
-    <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\IterativeAlgorithmParameters.cs" />
+    <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\SetIterativeAlgorithmParameters.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithm.cs" />
     <Compile Include="Utilities\SetFactory.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Assignment.cs" />
@@ -83,8 +85,6 @@
   <ItemGroup>
     <Folder Include="bin\" />
     <Folder Include="obj\" />
-    <Folder Include="SpecificIterativeAlgorithmParametrs\DeadAliveVariables\" />
-    <Folder Include="SpecificIterativeAlgorithmParametrs\DeadAliveVariables\DefUseCalculator\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SyntaxTree\SyntaxTree.csproj">

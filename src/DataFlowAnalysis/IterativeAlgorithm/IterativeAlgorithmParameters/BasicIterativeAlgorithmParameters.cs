@@ -2,7 +2,7 @@
 using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
 using System.Collections.Generic;
 
-namespace DataFlowAnalysis.IntermediateRepresentation.IterativeAlgorithmParameters
+namespace DataFlowAnalysis.IterativeAlgorithmParameters
 {
     public abstract class BasicIterativeAlgorithmParameters<T>
     {
@@ -12,7 +12,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.IterativeAlgorithmParamete
 
         public virtual T FirstValue { get { return StartingValue; } }
 
-        public abstract T GatherOperation(IEnumerable<BasicBlock> blocks);
+        public abstract T GatherOperation(IEnumerable<T> blocks);
 
         public abstract T TransferFunction(T input, BasicBlock block);
 
