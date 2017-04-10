@@ -4,9 +4,9 @@ using DataFlowAnalysis.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataFlowAnalysis.IntermediateRepresentation.IterativeAlgorithmParameters
+namespace DataFlowAnalysis.IterativeAlgorithmParameters
 {
-    public abstract class IterativeAlgorithmParameters<T> : BasicIterativeAlgorithmParameters<ISet<T>>
+    public abstract class SetIterativeAlgorithmParameters<T> : BasicIterativeAlgorithmParameters<ISet<T>>
     {
         public override ISet<T> TransferFunction(ISet<T> input, BasicBlock block)
         {
