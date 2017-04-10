@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataFlowAnalysis.ThreeAddressCode.Model;
 
 namespace DataFlowAnalysis.Utilities
 {
@@ -16,6 +17,16 @@ namespace DataFlowAnalysis.Utilities
         public static ISet<T> GetSet<T>(params T[] data)
         {
             return new SortedSet<T>(data);
+        }
+
+        public static ISet<Expression> GetSet(IEnumerable<Expression> data)
+        {
+            return new HashSet<Expression>(data);
+        }
+
+        public static ISet<Expression> GetSet(params Expression[] data)
+        {
+            return new HashSet<Expression>(data);;
         }
     }
 }
