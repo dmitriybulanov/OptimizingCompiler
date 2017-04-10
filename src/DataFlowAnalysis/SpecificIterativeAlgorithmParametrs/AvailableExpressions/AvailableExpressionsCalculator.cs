@@ -4,17 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.IntermediateRepresentation.IterativeAlgorithmParameters;
+using DataFlowAnalysis.IterativeAlgorithmParameters;
 using DataFlowAnalysis.ThreeAddressCode.Model;
 using DataFlowAnalysis.Utilities;
 
 namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressions
 {
-    public class AvailableExpressionsCalculator : IterativeAlgorithmParameters<Expression>
+    public class AvailableExpressionsCalculator : SetIterativeAlgorithmParameters<Expression>
     {
-        public override ISet<Expression> GatherOperation(IEnumerable<BasicBlock> blocks)
+        public override ISet<Expression> GatherOperation(IEnumerable<ISet<Expression>> blocks)
         {
-            throw new NotImplementedException();
+            ISet<Expression> intersection = SetFactory.GetSet((IEnumerable<Expression>)blocks.First());
+            foreach (var block in blocks.Skip(1))
+            {
+                intersection.IntersectWith(block);
+            }
+
+            return intersection;
         }
 
         public override ISet<Expression> GetGen(BasicBlock block)
