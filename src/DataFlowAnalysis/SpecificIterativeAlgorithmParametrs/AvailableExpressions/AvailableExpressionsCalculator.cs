@@ -42,10 +42,12 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
         public override ISet<Expression> TransferFunction(ISet<Expression> input, BasicBlock block)
         {
             var kill = GetKill(block).Cast<Identifier>();
-
-            return SetFactory.GetSet(
-                input.Where(inputExpression => 
+            var result = SetFactory.GetSet(
+                input.Where(inputExpression =>
                 !kill.Any(inputExpression.HasIdentifiedSubexpression)));
+            result.UnionWith(GetGen(block));
+
+            return result;
             /*
              * Non-LINQ realization
             var difference = SetFactory.GetSet();
