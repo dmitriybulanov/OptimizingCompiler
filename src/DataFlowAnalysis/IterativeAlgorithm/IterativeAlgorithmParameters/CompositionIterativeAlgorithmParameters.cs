@@ -10,13 +10,10 @@ namespace DataFlowAnalysis.IterativeAlgorithmParameters
     {
         public override T TransferFunction(T input, BasicBlock block)
         {
-            T result = CommandTransferFunction(input, new CommandNumber(block.BlockId, 0));
-            for(int i = 1; i < block.Commands.Count; ++i)
-                result = CommandTransferFunction(result, new CommandNumber(block.BlockId, i));
-            return result;
+            return Enumerable.Range(0, block.Commands.Count - 1).Aggregate(input, (result, c) => CommandTransferFunction(result, block, c));
         }
 
-        public abstract T CommandTransferFunction(T input, CommandNumber command);
+        public abstract T CommandTransferFunction(T input, BasicBlock block, int commandNumber);
         
     }
    

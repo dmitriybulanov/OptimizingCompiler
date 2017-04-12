@@ -15,7 +15,7 @@ namespace DataFlowAnalysis.IterativeAlgorithm
         public static IterativeAlgorithmOutput<V> Apply<T, V>(Graph graph, BasicIterativeAlgorithmParameters<V> param) where T : BasicIterativeAlgorithmParameters<V>
         {
             IterativeAlgorithmOutput<V> result = new IterativeAlgorithmOutput<V>();
-
+            
             foreach (BasicBlock bb in graph)
                 result.Out[bb.BlockId] = param.StartingValue;
 
@@ -25,7 +25,11 @@ namespace DataFlowAnalysis.IterativeAlgorithm
                 changed = false;
                 foreach (BasicBlock bb in graph)
                 {
-                    result.In[bb.BlockId] = param.GatherOperation((param.ForwardDirection ? graph.getParents(bb.BlockId) : graph.getAncestors(bb.BlockId)).Blocks.Select(b => result.Out[b.BlockId]));
+                    BasicBlocksList parents = (param.ForwardDirection ? graph.getParents(bb.BlockId) : graph.getAncestors(bb.BlockId);
+                    if (parents.Blocks.Count > 0)
+                        result.In[bb.BlockId] = param.GatherOperation(parents.Blocks.Select(b => result.Out[b.BlockId]));
+                    else
+                        result.In[bb.BlockId] = param.FirstValue;
                     V newOut = param.TransferFunction(result.In[bb.BlockId], bb);
                     changed = changed || !param.Compare(result.Out[bb.BlockId], newOut);
                     result.Out[bb.BlockId] = param.TransferFunction(result.In[bb.BlockId], bb);
