@@ -2,12 +2,12 @@
 
 namespace DataFlowAnalysis.ThreeAddressCode.Model
 {
-    public class UnaryOperation : Expression
+    public class UnaryOperation : ComplexExpression
     {
         public Operation Operation { get; set; }
-        public Expression Operand { get; set; }
+        public SimpleExpression Operand { get; set; }
 
-        public UnaryOperation(Operation operation, Expression operand)
+        public UnaryOperation(Operation operation, SimpleExpression operand)
         {
             Operation = operation;
             Operand = operand;

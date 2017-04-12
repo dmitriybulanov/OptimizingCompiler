@@ -41,10 +41,15 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
 
         public override ISet<Expression> TransferFunction(ISet<Expression> input, BasicBlock block)
         {
-            var difference = SetFactory.GetSet();
-            var kill = GetKill(block);
-            var foundInKill = false;
+            var kill = GetKill(block).Cast<Identifier>();
 
+            return SetFactory.GetSet(
+                input.Where(inputExpression => 
+                !kill.Any(inputExpression.HasIdentifiedSubexpression)));
+            /*
+             * Non-LINQ realization
+            var difference = SetFactory.GetSet();
+            var foundInKill = false;
             foreach (var inputExpression in input)
             {
                 foreach (var killExpression in kill)
@@ -62,6 +67,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
                 foundInKill = false;
             }
             return SetFactory.GetSet(GetGen(block).Union(difference));
+            */
         }
     }
 }

@@ -10,15 +10,32 @@ using System;
 
 namespace DataFlowAnalysis.DefUseCalculator
 {
-	public class DefUseCalculator
+	public class DefUseBlockCalculator
 	{
 		private Dictionary<int, Tuple<ISet<string>, ISet<string>>> SetStorage;
 
-		public DefUseCalculator(Graph g)
+		public DefUseBlockCalculator()
 		{
 			SetStorage = new Dictionary<int, Tuple<ISet<string>, ISet<string>>>();
-			foreach (BasicBlock block in g) {
-				//SetStorage.Add(block.BlockId, CreateDefUseSets(v));
+		}
+
+		private void ExpressionParser(Expression expr, ISet<string> Def, ISet<string> Use)
+		{
+			if (expr.GetType() == typeof(BinaryOperation))
+			{
+				ExpressionParser(((BinaryOperation)expr).Left, Def, Use);
+				ExpressionParser(((BinaryOperation)expr).Right, Def, Use);
+			}
+			if (expr.GetType() == typeof(Identifier))
+			{
+				if (!Def.Contains(((Identifier)expr).Name))
+				{
+					Use.Add(((Identifier)expr).Name);
+				}
+			}
+			if (expr.GetType() == typeof(UnaryOperation))
+			{
+				ExpressionParser(((UnaryOperation)expr).Operand, Def, Use);
 			}
 		}
 
@@ -29,27 +46,31 @@ namespace DataFlowAnalysis.DefUseCalculator
 
 			foreach (var command in block.Commands)
 			{
-				if (command is Assignment)  // todo switch
-				{   
+				if (command.GetType() == typeof(Assignment))  // todo switch
+				{
 					Def.Add(((Assignment)command).Target);
-					// todo parsing expression
+					ExpressionParser(((Assignment)command).Value, Def, Use);
 				}
-				if (command is ConditionalGoto)
+				if (command.GetType() == typeof(ConditionalGoto))
 				{
-					// todo parsing expression
+					ExpressionParser(((ConditionalGoto)command).Condition, Def, Use);
 				}
-				if (command is Print)
+				if (command.GetType() == typeof(Print))
 				{
-					// todo parsing expression
+					ExpressionParser(((Print)command).Argument, Def, Use);
 				}
 			}
 			return new Tuple<ISet<string>, ISet<string>>(Def, Use);
 		}
 
 
-		public Tuple<ISet<string>, ISet<string>> GetDefUseSetsById(int id)
+		public Tuple<ISet<string>, ISet<string>> GetDefUseSetsByBlock(BasicBlock block)
 		{
-			return SetStorage[id];
+			if (!SetStorage.Keys.Contains(block.BlockId))
+			{
+				SetStorage.Add(block.BlockId, CreateDefUseSets(block));
+			}
+			return SetStorage[block.BlockId];
 		}
 	}
 }
