@@ -24,7 +24,7 @@ namespace DataFlowAnalysis.GenKillCalculator
                 for (int i = 0; i < block.Commands.Count(); i++)
                 {
                     var command = block.Commands[i];
-                    if (command is Assignment)
+                    if (command.GetType() == typeof(Assignment))
                         if (CommandStorage.ContainsKey((command as Assignment).Target))
                             CommandStorage[(command as Assignment).Target].Add(new CommandNumber(block.BlockId, i));
                         else
@@ -37,7 +37,7 @@ namespace DataFlowAnalysis.GenKillCalculator
         public GenKillOneCommand CalculateGenAndKill(BasicBlock block, ThreeAddressCommand command)
         {
             Kill.Clear();
-            if (command is Assignment)
+            if (command.GetType() == typeof(Assignment))
             {
                 Gen = new CommandNumber(block.BlockId, block.Commands.IndexOf(command));
                 string target = (command as Assignment).Target;
