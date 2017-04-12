@@ -1,6 +1,6 @@
 ﻿namespace DataFlowAnalysis.ThreeAddressCode.Model
 {
-    public class Identifier : Expression
+    public class Identifier : SimpleExpression
     {
         public string Name { get; set; }
 

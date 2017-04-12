@@ -2,43 +2,43 @@
 
 namespace DataFlowAnalysis.ThreeAddressCode.Model
 {
-    public class BinaryOperation : Expression
+    public class BinaryOperation : ComplexExpression
     {
-        public Expression Left { get; set; }
+        public SimpleExpression Left { get; set; }
 
-        public Expression Right { get; set; }
+        public SimpleExpression Right { get; set; }
 
         public Operation Operation { get; set; }
 
-        public BinaryOperation(Expression left, Operation op, Expression right)
+        public BinaryOperation(SimpleExpression left, Operation op, SimpleExpression right)
         {
             Left = left;
             Operation = op;
             Right = right;
         }
 
-        public BinaryOperation(Expression left, Operation op, int right)
+        public BinaryOperation(SimpleExpression left, Operation op, int right)
         {
             Left = left;
             Operation = op;
             Right = new Int32Const(right);
         }
 
-        public BinaryOperation(Expression left, Operation op, string right)
+        public BinaryOperation(SimpleExpression left, Operation op, string right)
         {
             Left = left;
             Operation = op;
             Right = new Identifier(right);
         }
 
-        public BinaryOperation(int left, Operation op, Expression right)
+        public BinaryOperation(int left, Operation op, SimpleExpression right)
         {
             Left = new Int32Const(left);
             Operation = op;
             Right = right;
         }
 
-        public BinaryOperation(string left, Operation op, Expression right)
+        public BinaryOperation(string left, Operation op, SimpleExpression right)
         {
             Left = new Identifier(left);
             Operation = op;

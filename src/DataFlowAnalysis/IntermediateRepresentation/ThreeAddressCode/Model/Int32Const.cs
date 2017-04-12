@@ -1,6 +1,6 @@
 ﻿namespace DataFlowAnalysis.ThreeAddressCode.Model
 {
-    public class Int32Const : Expression
+    public class Int32Const : SimpleExpression
     {
         public int Value
         {

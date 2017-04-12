@@ -22,7 +22,7 @@ namespace DataFlowAnalysis.ThreeAddressCode
         protected string NewVariable => $"t{GeneratedVariableNumber++}";
 
         public Program Program { get; } = new Program();
-        protected Stack<Expression> ExpressionStack { get; } = new Stack<Expression>();
+        protected Stack<SimpleExpression> ExpressionStack { get; } = new Stack<SimpleExpression>();
 
         public static ThreeAddressCodeGenerator CreateAndVisit(SyntaxNode root)
         {
