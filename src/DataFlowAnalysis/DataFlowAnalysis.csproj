@@ -56,6 +56,8 @@
     <Compile Include="IntermediateRepresentation\BasicBlockCode\BasicBlocksGenerator.cs" />
     <Compile Include="IntermediateRepresentation\BasicBlockCode\Model\BasicBlocksList.cs" />
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ComplexExpression.cs" />
+    <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\SimpleExpression.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\AvailableExpressions\AvailableExpressionsCalculator.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmOutput.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\CompositionIterativeAlgorithmParameters.cs" />
