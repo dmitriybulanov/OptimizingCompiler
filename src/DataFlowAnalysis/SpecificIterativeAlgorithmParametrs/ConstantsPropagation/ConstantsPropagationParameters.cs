@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataFlowAnalysis.BasicBlockCode.Model;
 using SyntaxTree;
+using DataFlowAnalysis.Utilities;
 
 namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagation
 {
@@ -33,41 +34,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
         {
             return calculateVal(x1, "0", op);
         }
-        int calculateOperation(int lx, int rx, Operation op)
-        {
-            switch (op)
-            {
-                case Operation.Add:
-                    return lx + rx;
-                case Operation.Divide:
-                    return lx / rx;
-                case Operation.Equal:
-                    return lx == rx ? 1 : 0;
-                case Operation.Greater:
-                    return lx > rx ? 1 : 0;
-                case Operation.GreaterEqual:
-                    return lx >= rx ? 1 : 0;
-                case Operation.Lesser:
-                    return lx < rx ? 1 : 0;
-                case Operation.LesserEqual:
-                    return lx <= rx ? 1 : 0;
-                case Operation.LogicalAnd:
-                    return lx != 0 && rx != 0 ? 1 : 0;
-                case Operation.LogicalOr:
-                    return lx != 0 || rx != 0 ? 1 : 0;
-                case Operation.Multiply:
-                    return lx * rx;
-                case Operation.NotEqual:
-                    return lx != rx ? 1 : 0;
-                case Operation.Subtract:
-                    return lx - rx;
-                case Operation.UnaryMinus:
-                    return -lx;
-                case Operation.UnaryNot:
-                    return lx == 0 ? 1 : 0;
-            }
-            return 0;
-        }
+        
         string calculateVal(string x1, string x2, Operation op)
         {
             if (x1 == NAC || x2 == NAC)
@@ -78,7 +45,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
             {
                 int lx = int.Parse(x1);
                 int rx = int.Parse(x2);
-                return calculateOperation(lx, rx, op).ToString();
+                return ArithmeticOperationCalculator.Calculate(op, lx, rx).ToString();
             }
         }
         string gatherVal(string x1, string x2)
