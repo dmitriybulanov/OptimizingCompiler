@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataFlowAnalysis.ThreeAddressCode.Model;
 using DataFlowAnalysis.BasicBlockCode.Model;
 using SyntaxTree;
 using DataFlowAnalysis.Utilities;
@@ -23,7 +24,37 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
 
         public override Dictionary<string, string> CommandTransferFunction(Dictionary<string, string> input, BasicBlock block, int commandNumber)
         {
-            throw new NotImplementedException();
+            ThreeAddressCommand command = block.Commands[commandNumber];
+            if (command.GetType() == typeof(Assignment))
+            {
+                string newValue = NAC;
+                Expression expr = (command as Assignment).Value;
+                if (expr.GetType() == typeof(Int32Const) || expr.GetType() == typeof(Identifier))
+                    newValue = getConstantFromSimpleExpression(input, (expr as SimpleExpression));
+                else if (expr.GetType() == typeof(UnaryOperation))
+                {
+                    UnaryOperation operation = (expr as UnaryOperation);
+                    newValue = calculateVal(getConstantFromSimpleExpression(input, operation.Operand), operation.Operation);
+                }
+                else if (expr.GetType() == typeof(BinaryOperation))
+                {
+                    BinaryOperation operation = (expr as BinaryOperation);
+                    newValue = calculateVal(getConstantFromSimpleExpression(input, operation.Left), getConstantFromSimpleExpression(input, operation.Right), operation.Operation);
+                }
+                string leftOperand = (command as Assignment).Target;
+                input[leftOperand] = newValue;
+            }
+            return input;
+        }
+
+        string getConstantFromSimpleExpression(Dictionary<string, string> input, SimpleExpression expr)
+        {
+            string result = NAC;
+            if (expr.GetType() == typeof(Int32Const))
+                result = (expr as Int32Const).ToString();
+            else if (expr.GetType() == typeof(Identifier))
+                result = input[(expr as Identifier).ToString()];
+            return result;
         }
 
         public override bool Compare(Dictionary<string, string> t1, Dictionary<string, string> t2)
