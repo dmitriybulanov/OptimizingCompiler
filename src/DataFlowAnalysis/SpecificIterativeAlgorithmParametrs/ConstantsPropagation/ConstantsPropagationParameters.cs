@@ -13,6 +13,13 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
     {
         public const string NAC = "NAC";
         public const string UNDEF = "UNDEF";
+
+        public override bool ForwardDirection { get { return true; } }
+
+        public override Dictionary<string, string> FirstValue { get { return new Dictionary<string, string>(); } }
+
+        public override Dictionary<string, string> StartingValue { get { return new Dictionary<string, string>(); } }
+
         public override Dictionary<string, string> CommandTransferFunction(Dictionary<string, string> input, BasicBlock block, int commandNumber)
         {
             throw new NotImplementedException();

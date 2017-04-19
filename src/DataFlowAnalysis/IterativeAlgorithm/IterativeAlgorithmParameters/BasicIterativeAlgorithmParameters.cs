@@ -6,11 +6,11 @@ namespace DataFlowAnalysis.IterativeAlgorithmParameters
 {
     public abstract class BasicIterativeAlgorithmParameters<T>
     {
-        public bool ForwardDirection { get; }
+        public abstract bool ForwardDirection { get; }
 
-        public virtual T StartingValue { get; }
+        public abstract T StartingValue { get; }
 
-        public virtual T FirstValue { get { return StartingValue; } }
+        public abstract T FirstValue { get { return StartingValue; } }
 
         public abstract T GatherOperation(IEnumerable<T> blocks);
 

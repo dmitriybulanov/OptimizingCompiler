@@ -14,6 +14,12 @@ namespace DataFlowAnalysis.ReachingDefinitions.CompositionTransferFunction
 {
     public class CompositionReachingDefinitionsParameters : CompositionIterativeAlgorithmParameters<ISet<CommandNumber>>
     {
+        public override bool ForwardDirection { get { return true; } }
+
+        public override ISet<CommandNumber> FirstValue { get { return SetFactory.GetSet<CommandNumber>(); } }
+
+        public override ISet<CommandNumber> StartingValue { get { return SetFactory.GetSet<CommandNumber>(); } }
+
         GenKillOneCommandCalculator calculator;
         public CompositionReachingDefinitionsParameters(ControlFlowGraph.Graph g)
         {
