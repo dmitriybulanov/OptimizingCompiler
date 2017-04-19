@@ -10,6 +10,8 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
 {
     public class ConstantsPropagationParameters : CompositionIterativeAlgorithmParameters<Dictionary<string, string>>
     {
+        public const string NAC = "NAC";
+        public const string UNDEF = "UNDEF";
         public override Dictionary<string, string> CommandTransferFunction(Dictionary<string, string> input, BasicBlock block, int commandNumber)
         {
             throw new NotImplementedException();
@@ -20,9 +22,28 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
             return t1.Count == t2.Count && t1.Keys.All(key => t2.ContainsKey(key) && t1[key] == t2[key]);
         }
 
+        string calculateVal(string x1, string x2)
+        {
+            if (x1 == NAC || x2 == NAC)
+                return NAC;
+            else if (x1 == UNDEF || x2 == UNDEF)
+                return UNDEF;
+            else
+            {
+                return "";
+            }
+        }
+        
         public override Dictionary<string, string> GatherOperation(IEnumerable<Dictionary<string, string>> blocks)
         {
-            throw new NotImplementedException();
+            return blocks.Aggregate(new Dictionary<string, string>(), (result, x) =>
+            {
+                foreach(KeyValuePair<string, string> pair in x)
+                {
+                    
+                }
+                return result;
+            });
         }
     }
 }

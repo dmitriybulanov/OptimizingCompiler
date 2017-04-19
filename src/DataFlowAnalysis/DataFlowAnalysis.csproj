@@ -61,6 +61,7 @@
     <Compile Include="SpecificIterativeAlgorithmParametrs\AvailableExpressions\AvailableExpressionsCalculator.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmOutput.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\CompositionIterativeAlgorithmParameters.cs" />
+    <Compile Include="SpecificIterativeAlgorithmParametrs\ConstantsPropagation\ConstantsPropagationParameters.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\DeadAliveVariables\DeadAliveVariablesCalculator.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\CompositionTransferFunction\CompositionReachingDefinitionsParameters.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\GenKillCalculator\GenKillOneCommandCalculator.cs" />
