@@ -96,5 +96,10 @@ namespace DataFlowAnalysis.ControlFlowGraph
 		{
 			return blockMap.Values.GetEnumerator();
 		}
-	}
+
+        public int Count()
+        {
+            return CFG.Vertices.Count();
+        }
+    }
 }

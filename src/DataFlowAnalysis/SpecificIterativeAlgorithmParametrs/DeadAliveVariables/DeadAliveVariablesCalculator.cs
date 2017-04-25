@@ -42,5 +42,11 @@ namespace DataFlowAnalysis.DeadAliveVariables
         {
             return SetFactory.GetSet(GetGen(block).Union(input.Except(GetKill(block))));
         }
+
+        public override bool ForwardDirection { get { return false; } }
+
+        public override ISet<string> FirstValue { get { return SetFactory.GetSet<string>(); } }
+
+        public override ISet<string> StartingValue { get { return SetFactory.GetSet<string>(); } }
     }
 }

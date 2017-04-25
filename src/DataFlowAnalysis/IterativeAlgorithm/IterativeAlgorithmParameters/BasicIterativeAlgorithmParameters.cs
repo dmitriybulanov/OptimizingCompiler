@@ -10,7 +10,7 @@ namespace DataFlowAnalysis.IterativeAlgorithmParameters
 
         public abstract T StartingValue { get; }
 
-        public abstract T FirstValue { get { return StartingValue; } }
+        public abstract T FirstValue { get; }
 
         public abstract T GatherOperation(IEnumerable<T> blocks);
 

@@ -8,6 +8,11 @@ using GPPGParser;
 using SyntaxTree.SyntaxNodes;
 using SyntaxTree.Visitors;
 using DataFlowAnalysis.ThreeAddressCode;
+using DataFlowAnalysis.IterativeAlgorithm;
+using DataFlowAnalysis.ControlFlowGraph;
+using DataFlowAnalysis.BasicBlockCode;
+using DataFlowAnalysis.BasicBlockCode.Model;
+using DataFlowAnalysis.Dominators;
 
 namespace ConsoleInterface
 {
@@ -26,6 +31,15 @@ namespace ConsoleInterface
                     //var result = PrettyPrinter.CreateAndVisit(root).FormattedCode;
                     var result = ThreeAddressCodeGenerator.CreateAndVisit(root).Program;
                     Console.WriteLine(result);
+
+                    Console.WriteLine("\nУправляющий граф программы");
+                    Graph g = new Graph(BasicBlocksGenerator.CreateBasicBlocks(result));
+
+                    Console.WriteLine(g);
+
+                    Console.WriteLine("Дерево доминаторов");
+                    var dTree = new DominatorsTree(g);
+                    Console.WriteLine(dTree);
                 }
             }
             catch (FileNotFoundException)

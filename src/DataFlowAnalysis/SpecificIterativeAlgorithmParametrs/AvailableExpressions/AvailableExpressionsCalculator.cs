@@ -71,5 +71,11 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
             return SetFactory.GetSet(GetGen(block).Union(difference));
             */
         }
+
+        public override bool ForwardDirection { get { return true; } }
+
+        public override ISet<Expression> FirstValue { get { return SetFactory.GetSet<Expression>(); } }
+
+        public override ISet<Expression> StartingValue { get { return SetFactory.GetSet<Expression>(); } }
     }
 }
