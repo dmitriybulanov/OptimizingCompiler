@@ -17,6 +17,11 @@ namespace DataFlowAnalysis.ControlFlowGraph
 		private BidirectionalGraph<BasicBlock, Edge<BasicBlock>> CFG =
 		  new BidirectionalGraph<BasicBlock, Edge<BasicBlock>>();
 
+		private BidirectionalGraph<BasicBlock, Edge<BasicBlock>> spanTree =
+		  new BidirectionalGraph<BasicBlock, Edge<BasicBlock>>();
+
+		private Dictionary<int, int> spanTreeOrder = new Dictionary<int, int>();
+
 		private Dictionary<int, BasicBlock> blockMap = new Dictionary<int, BasicBlock>();
 
 		public Graph() { }
@@ -38,14 +43,42 @@ namespace DataFlowAnalysis.ControlFlowGraph
 					CFG.AddEdge(new Edge<BasicBlock>(this.getBlockById(numIn), block));
 				}
 			}
+
+			spanTree.AddVertexRange(listBlocks.Blocks);
+			var visited = new Dictionary<BasicBlock, bool>();
+
+			foreach (var v in spanTree.Vertices)
+			{
+				visited[v] = false;
+			}
+			int c = spanTree.Vertices.Count();
+
+			dfs(CFG.Roots().First(), visited, c);
 		}
+
+		// not tested yet
+		private void dfs(BasicBlock block, Dictionary<BasicBlock, bool> visited, int c)
+		{
+			visited[block] = true;
+			foreach (var node in getChildren(block.BlockId).Blocks)
+			{
+				if (!visited[node])
+				{
+					CFG.AddEdge(new Edge<BasicBlock>(block, node));
+					dfs(node, visited, c);
+				}
+			}
+			spanTreeOrder[block.BlockId] = c;
+			c--;
+		}
+
 
 		// returns null if such id doesn't exist
 		public BasicBlock getBlockById(int id)
 		{
 			return blockMap[id];
 		}
-
+			                                 
 		// get BasicBlocksList of all ancestors of the block
 		public BasicBlocksList getChildren(int id)
 		{
