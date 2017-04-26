@@ -41,7 +41,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
                     BinaryOperation operation = (expr as BinaryOperation);
                     newValue = calculateVal(getConstantFromSimpleExpression(input, operation.Left), getConstantFromSimpleExpression(input, operation.Right), operation.Operation);
                 }
-                string leftOperand = (command as Assignment).Target;
+                string leftOperand = (command as Assignment).Target.Name;
                 input[leftOperand] = newValue;
             }
             return input;
