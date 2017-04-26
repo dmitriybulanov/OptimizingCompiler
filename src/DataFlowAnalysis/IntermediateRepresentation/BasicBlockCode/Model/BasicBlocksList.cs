@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DataFlowAnalysis.BasicBlockCode.Model
 {
-    public class BasicBlocksList
+    public class BasicBlocksList : IEnumerable<BasicBlock>
     {
         public List<BasicBlock> Blocks { get; set; } = new List<BasicBlock>();
         public Dictionary<int, BasicBlock> BlockByID { get; set; } = new Dictionary<int, BasicBlock>();
@@ -32,6 +33,16 @@ namespace DataFlowAnalysis.BasicBlockCode.Model
                     Blocks.Remove(bl);
                     BlockByID.Remove(BlockId);
                 }
+        }
+
+        public IEnumerator<BasicBlock> GetEnumerator()
+        {
+            return Blocks.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public override string ToString()
