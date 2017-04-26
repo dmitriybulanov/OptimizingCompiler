@@ -93,5 +93,10 @@ namespace SyntaxTree.Visitors
         {
             DefaultVisit(parenthesizedExpression);
         }
+
+        public virtual void VisitGotoStatement(GotoStatement gotoStatement)
+        {
+            DefaultVisit(gotoStatement);
+        }
     }
 }

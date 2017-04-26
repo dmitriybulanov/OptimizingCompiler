@@ -46,6 +46,7 @@ ID {Alpha}{AlphaDigit}*
 "("		{ return (int)Tokens.OPENROUND; }
 ")"		{ return (int)Tokens.CLOSEROUND; }
 "!"     { return (int)Tokens.NOT; }
+":"		{ return (int)Tokens.COLON; }
 
 [^ \r\n] {
 	LexError();
@@ -84,6 +85,7 @@ class ScannerHelper
     keywords.Add("else",(int)Tokens.ELSE);
 	keywords.Add("print",(int)Tokens.PRINT);
 	keywords.Add("println",(int)Tokens.PRINTLN);
+	keywords.Add("goto", (int)Tokens.GOTO);
   }
   public static int GetIDToken(string s)
   {

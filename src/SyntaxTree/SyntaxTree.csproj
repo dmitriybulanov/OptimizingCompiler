@@ -47,6 +47,7 @@
     <Compile Include="SyntaxNodes\Block.cs" />
     <Compile Include="SyntaxNodes\Expression.cs" />
     <Compile Include="SyntaxNodes\ForStatement.cs" />
+    <Compile Include="SyntaxNodes\GotoStatement.cs" />
     <Compile Include="SyntaxNodes\Identifier.cs" />
     <Compile Include="SyntaxNodes\IfStatement.cs" />
     <Compile Include="SyntaxNodes\Int32Const.cs" />

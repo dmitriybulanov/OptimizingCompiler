@@ -14,13 +14,14 @@
 
 %token <String> ID
 %token <Int> INUM
-%token BEGIN END INUM ASSIGN SEMICOLON WHILE DOUBLEDOT FOR IF ELSE PRINT PRINTLN OPENROUND CLOSEROUND
+%token BEGIN END INUM ASSIGN SEMICOLON WHILE DOUBLEDOT FOR IF ELSE PRINT PRINTLN OPENROUND CLOSEROUND GOTO COLON
 %token AND OR LESSER GREATER LESSEREQ GREATEREQ AND OR EQ NOTEQ NOT
 %token PLUS MINUS DIVIDE MULT
 
-%type <SyntaxNode> progr
-%type <Statement> statement stlist assign block while_cycle for_cycle if print
-%type <Expression> expr ident unaryop parenth mulop addop compar andop
+%type <SyntaxNode> progr 
+%type <Statement> statement stlist assign block while_cycle for_cycle if print goto
+%type <Expression> expr ident unaryop parenth mulop addop compar andop 
+%type <String> goto_label
 
 %start root
 
@@ -52,6 +53,7 @@ statement: assign SEMICOLON
 		| for_cycle
 		| if
 		| print SEMICOLON
+		| goto SEMICOLON
 		;
 
 ident 	: ID 
@@ -190,4 +192,16 @@ print	: PRINT OPENROUND expr CLOSEROUND
             }
 		;
 
+goto 	: GOTO goto_label
+			{
+				$$ = new GotoStatement($2);
+			}
+		;
+
+goto_label 
+	: ID
+		{ $$ = $1; }
+	| INUM
+		{ $$ = $1.ToString(); }
+	;
 %%
