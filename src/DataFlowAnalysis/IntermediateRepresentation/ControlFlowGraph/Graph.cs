@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using QuickGraph;
-using QuickGraph.Algorithms.Search;
+using QuickGraph.Algorithms;
 
 using DataFlowAnalysis.BasicBlockCode.Model;
 using System.Collections;
@@ -47,7 +47,7 @@ namespace DataFlowAnalysis.ControlFlowGraph
 		}
 
 		// get BasicBlocksList of all ancestors of the block
-		public BasicBlocksList getAncestors(int id)
+		public BasicBlocksList getChildren(int id)
 		{
 			var result = new BasicBlocksList();
 			var v = getBlockById(id);
@@ -101,5 +101,7 @@ namespace DataFlowAnalysis.ControlFlowGraph
         {
             return CFG.Vertices.Count();
         }
+
+
     }
 }
