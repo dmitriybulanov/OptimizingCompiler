@@ -67,6 +67,7 @@
     <Compile Include="SpecificIterativeAlgorithmParametrs\Dominators\DominatorsIterativeAlgorithmParametrs.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\Dominators\DominatorsTree.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\Dominators\ImmediateDominator.cs" />
+    <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\ExplicitTransferFunction\ExplicitTransferFunction.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\CompositionTransferFunction\CompositionReachingDefinitionsParameters.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\GenKillCalculator\GenKillOneCommandCalculator.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\ReachingDefinitions\GenKillCalculator\Model\GenKillOneCommand.cs" />
