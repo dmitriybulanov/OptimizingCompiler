@@ -48,7 +48,7 @@ namespace DataFlowAnalysis.DefUseCalculator
 			{
 				if (command.GetType() == typeof(Assignment))  // todo switch
 				{
-					Def.Add(((Assignment)command).Target);
+					Def.Add(((Assignment)command).Target.Name);
 					ExpressionParser(((Assignment)command).Value, Def, Use);
 				}
 				if (command.GetType() == typeof(ConditionalGoto))

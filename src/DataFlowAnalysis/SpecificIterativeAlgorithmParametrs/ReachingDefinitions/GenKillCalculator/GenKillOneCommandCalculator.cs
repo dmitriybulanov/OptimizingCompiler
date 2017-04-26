@@ -25,10 +25,10 @@ namespace DataFlowAnalysis.GenKillCalculator
                 {
                     var command = block.Commands[i];
                     if (command.GetType() == typeof(Assignment))
-                        if (CommandStorage.ContainsKey((command as Assignment).Target))
-                            CommandStorage[(command as Assignment).Target].Add(new CommandNumber(block.BlockId, i));
+                        if (CommandStorage.ContainsKey((command as Assignment).Target.Name))
+                            CommandStorage[(command as Assignment).Target.Name].Add(new CommandNumber(block.BlockId, i));
                         else
-                            CommandStorage.Add((command as Assignment).Target,
+                            CommandStorage.Add((command as Assignment).Target.Name,
                                 SetFactory.GetSet(new CommandNumber(block.BlockId, i)));
                 }
             Kill = SetFactory.GetSet<CommandNumber>();
@@ -40,7 +40,7 @@ namespace DataFlowAnalysis.GenKillCalculator
             if (command.GetType() == typeof(Assignment))
             {
                 Gen = new CommandNumber(block.BlockId, block.Commands.IndexOf(command));
-                string target = (command as Assignment).Target;
+                string target = (command as Assignment).Target.Name;
                 foreach (var c in CommandStorage[target])
                     if (c.BlockId != block.BlockId && c.CommandId != block.Commands.IndexOf(command))
                         Kill.Add(new CommandNumber(c.BlockId, c.CommandId));

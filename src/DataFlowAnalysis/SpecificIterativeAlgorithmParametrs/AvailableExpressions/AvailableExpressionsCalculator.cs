@@ -12,6 +12,12 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
 {
     public class AvailableExpressionsCalculator : SetIterativeAlgorithmParameters<Expression>
     {
+        private ControlFlowGraph.Graph Graph;
+        public AvailableExpressionsCalculator(ControlFlowGraph.Graph g)
+        {
+            Graph = g;
+        }
+
         public override ISet<Expression> GatherOperation(IEnumerable<ISet<Expression>> blocks)
         {
             ISet<Expression> intersection = SetFactory.GetSet((IEnumerable<Expression>)blocks.First());
@@ -36,7 +42,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
             return SetFactory.GetSet(
                 block.Commands
                     .OfType<Assignment>()
-                    .Select(x => new Identifier(x.Target) as Expression));
+                    .Select(x => x.Target as Expression));
         }
 
         public override ISet<Expression> TransferFunction(ISet<Expression> input, BasicBlock block)
@@ -76,6 +82,20 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
 
         public override ISet<Expression> FirstValue { get { return SetFactory.GetSet<Expression>(); } }
 
-        public override ISet<Expression> StartingValue { get { return SetFactory.GetSet<Expression>(); } }
+        public override ISet<Expression> StartingValue
+        {
+            get
+            {
+                SortedSet<Expression> result = new SortedSet<Expression>();
+                foreach (BasicBlock b in Graph)
+                    foreach (ThreeAddressCommand c in b.Commands)
+                        if (c.GetType() == typeof(Assignment))
+                        {
+                            result.Add((c as Assignment).Value);
+                            result.Add((c as Assignment).Target);
+                        }
+                return SetFactory.GetSet<Expression>(result);
+            }
+        }
     }
 }
