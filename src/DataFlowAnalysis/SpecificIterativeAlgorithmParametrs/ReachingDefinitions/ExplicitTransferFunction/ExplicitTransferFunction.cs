@@ -18,6 +18,30 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitio
             commandCalc = new GenKillOneCommandCalculator(g);
         }
 
+        public override ISet<CommandNumber> FirstValue
+        {
+            get
+            {
+                return SetFactory.GetSet<CommandNumber>();
+            }
+        }
+
+        public override bool ForwardDirection
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public override ISet<CommandNumber> StartingValue
+        {
+            get
+            {
+                return SetFactory.GetSet<CommandNumber>();
+            }
+        }
+
         public override ISet<CommandNumber> GatherOperation(IEnumerable<ISet<CommandNumber>> blocks)
         {
             ISet<CommandNumber> res = SetFactory.GetSet<CommandNumber>();
