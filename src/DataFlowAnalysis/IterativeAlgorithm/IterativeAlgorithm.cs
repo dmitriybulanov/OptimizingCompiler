@@ -25,7 +25,7 @@ namespace DataFlowAnalysis.IterativeAlgorithm
                 changed = false;
                 foreach (BasicBlock bb in graph)
                 {
-                    BasicBlocksList parents = param.ForwardDirection ? graph.getParents(bb.BlockId) : graph.getAncestors(bb.BlockId);
+                    BasicBlocksList parents = param.ForwardDirection ? graph.getParents(bb.BlockId) : graph.getChildren(bb.BlockId);
                     if (parents.Blocks.Count > 0)
                         result.In[bb.BlockId] = param.GatherOperation(parents.Blocks.Select(b => result.Out[b.BlockId]));
                     else
