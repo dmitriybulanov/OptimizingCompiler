@@ -12,18 +12,18 @@ namespace DataFlowAnalysis.IterativeAlgorithm
 {
     public static class IterativeAlgorithm
     {
-        public static IterativeAlgorithmOutput<V> Apply<T, V>(Graph graph, BasicIterativeAlgorithmParameters<V> param) where T : BasicIterativeAlgorithmParameters<V>
+        public static IterativeAlgorithmOutput<V> Apply<T, V>(Graph graph, BasicIterativeAlgorithmParameters<V> param, int[] order = null) where T : BasicIterativeAlgorithmParameters<V>
         {
             IterativeAlgorithmOutput<V> result = new IterativeAlgorithmOutput<V>();
             
             foreach (BasicBlock bb in graph)
                 result.Out[bb.BlockId] = param.StartingValue;
-
+            IEnumerable<BasicBlock> g = order == null ? graph : order.Select(i => graph.getBlockById(i));
             bool changed = true;
             while (changed)
             {
                 changed = false;
-                foreach (BasicBlock bb in graph)
+                foreach (BasicBlock bb in g)
                 {
                     BasicBlocksList parents = param.ForwardDirection ? graph.getParents(bb.BlockId) : graph.getChildren(bb.BlockId);
                     if (parents.Blocks.Count > 0)

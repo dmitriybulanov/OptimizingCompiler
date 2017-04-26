@@ -12,7 +12,7 @@ using System.Collections;
 
 namespace DataFlowAnalysis.ControlFlowGraph
 {
-	public class Graph : IEnumerable
+	public class Graph : IEnumerable<BasicBlock>
 	{
 		private BidirectionalGraph<BasicBlock, Edge<BasicBlock>> CFG =
 		  new BidirectionalGraph<BasicBlock, Edge<BasicBlock>>();
@@ -102,6 +102,9 @@ namespace DataFlowAnalysis.ControlFlowGraph
             return CFG.Vertices.Count();
         }
 
-
+        IEnumerator<BasicBlock> IEnumerable<BasicBlock>.GetEnumerator()
+        {
+            return blockMap.Values.GetEnumerator();
+        }
     }
 }
