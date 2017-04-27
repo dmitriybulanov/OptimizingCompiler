@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 
 using QuickGraph;
 
@@ -14,7 +15,7 @@ namespace DataFlowAnalysis.Dominators
         private AdjacencyGraph<int, Edge<int>> Tree = new AdjacencyGraph<int, Edge<int>>();
         private Dictionary<int, int> Map;
 
-        public DominatorsTree(ControlFlowGraph.Graph g)
+        public DominatorsTree(Graph g)
         {
             Map = ImmediateDominator.FindImmediateDominator(g);
 

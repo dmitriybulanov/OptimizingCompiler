@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using QuickGraph;
 using QuickGraph.Algorithms;
 
-using DataFlowAnalysis.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using System.Collections;
 
-namespace DataFlowAnalysis.ControlFlowGraph
+namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 {
 	public class Graph : IEnumerable<BasicBlock>
 	{

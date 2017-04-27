@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataFlowAnalysis.ThreeAddressCode.Model
+namespace DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model
 {
     public abstract class ComplexExpression : Expression
     {

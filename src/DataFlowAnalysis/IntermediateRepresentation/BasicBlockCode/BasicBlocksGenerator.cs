@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.ThreeAddressCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 
-namespace DataFlowAnalysis.BasicBlockCode
+namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode
 {
     public class BasicBlocksGenerator
     {

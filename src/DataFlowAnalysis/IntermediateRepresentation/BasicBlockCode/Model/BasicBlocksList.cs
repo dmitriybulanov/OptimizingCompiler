@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataFlowAnalysis.BasicBlockCode.Model
+namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model
 {
     public class BasicBlocksList : IEnumerable<BasicBlock>
     {

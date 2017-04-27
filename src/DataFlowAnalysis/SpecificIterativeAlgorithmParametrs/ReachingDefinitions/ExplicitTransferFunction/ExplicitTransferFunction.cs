@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataFlowAnalysis.IterativeAlgorithmParameters;
-using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
-using DataFlowAnalysis.ControlFlowGraph;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.GenKillCalculator;
 using DataFlowAnalysis.Utilities;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 
 namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.ExplicitTransferFunction
 {

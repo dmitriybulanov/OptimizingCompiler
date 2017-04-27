@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataFlowAnalysis.EdgeClassification
+namespace DataFlowAnalysis.IntermediateRepresentation.EdgeClassification
 {
     public enum EdgeType
     {

@@ -1,6 +1,6 @@
 ﻿using SyntaxTree;
 
-namespace DataFlowAnalysis.ThreeAddressCode.Model
+namespace DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model
 {
     public class BinaryOperation : ComplexExpression
     {

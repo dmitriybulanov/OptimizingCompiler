@@ -1,8 +1,8 @@
-﻿using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
+﻿using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
 using System.Collections.Generic;
 
-namespace DataFlowAnalysis.IterativeAlgorithmParameters
+namespace DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters
 {
     public abstract class BasicIterativeAlgorithmParameters<T>
     {

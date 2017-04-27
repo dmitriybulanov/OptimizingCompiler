@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using GPPGParser;
 using SyntaxTree.SyntaxNodes;
 using SyntaxTree.Visitors;
-using DataFlowAnalysis.ThreeAddressCode;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode;
 using DataFlowAnalysis.IterativeAlgorithm;
-using DataFlowAnalysis.ControlFlowGraph;
-using DataFlowAnalysis.BasicBlockCode;
-using DataFlowAnalysis.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.Dominators;
 
 namespace ConsoleInterface

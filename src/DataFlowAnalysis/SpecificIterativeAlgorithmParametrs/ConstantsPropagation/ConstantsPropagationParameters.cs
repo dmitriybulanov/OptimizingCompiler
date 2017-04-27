@@ -1,13 +1,15 @@
-﻿using DataFlowAnalysis.IterativeAlgorithmParameters;
+﻿using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataFlowAnalysis.ThreeAddressCode.Model;
-using DataFlowAnalysis.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using SyntaxTree;
 using DataFlowAnalysis.Utilities;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
+
 
 namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagation
 {

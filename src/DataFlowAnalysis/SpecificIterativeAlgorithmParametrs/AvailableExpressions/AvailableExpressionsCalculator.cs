@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.IterativeAlgorithmParameters;
-using DataFlowAnalysis.ThreeAddressCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 using DataFlowAnalysis.Utilities;
 
 namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressions
 {
     public class AvailableExpressionsCalculator : SetIterativeAlgorithmParameters<Expression>
     {
-        private ControlFlowGraph.Graph Graph;
-        public AvailableExpressionsCalculator(ControlFlowGraph.Graph g)
+        private Graph Graph;
+        public AvailableExpressionsCalculator(Graph g)
         {
             Graph = g;
         }

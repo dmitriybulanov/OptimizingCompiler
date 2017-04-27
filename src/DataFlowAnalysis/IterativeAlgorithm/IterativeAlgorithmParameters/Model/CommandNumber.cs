@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataFlowAnalysis.IterativeAlgorithmParameters.Model
+namespace DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model
 {
     // Information about the "coordinates" of the instruction
     public class CommandNumber : IComparable<CommandNumber>

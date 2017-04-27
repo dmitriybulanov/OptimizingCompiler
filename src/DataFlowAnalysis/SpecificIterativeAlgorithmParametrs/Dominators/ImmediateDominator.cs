@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 
 namespace DataFlowAnalysis.Dominators
 {
     public static class ImmediateDominator
     {
-        public static Dictionary<int, int> FindImmediateDominator(ControlFlowGraph.Graph g)
+        public static Dictionary<int, int> FindImmediateDominator(Graph g)
         {
             var _out = IterativeAlgorithm.IterativeAlgorithm.Apply<DominatorsIterativeAlgorithmParametrs, ISet<int>>
                 (g, new DominatorsIterativeAlgorithmParametrs(g)).Out;

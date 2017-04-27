@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.IterativeAlgorithmParameters;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.Utilities;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 
 namespace DataFlowAnalysis.Dominators
 {
     public class DominatorsIterativeAlgorithmParametrs : BasicIterativeAlgorithmParameters<ISet<int>>
     {
-        private ControlFlowGraph.Graph graph;
+        private Graph graph;
 
-        public DominatorsIterativeAlgorithmParametrs(ControlFlowGraph.Graph g)
+        public DominatorsIterativeAlgorithmParametrs(Graph g)
         {
             graph = g;
         }

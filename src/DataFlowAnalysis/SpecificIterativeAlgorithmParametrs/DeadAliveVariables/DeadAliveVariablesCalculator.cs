@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.IterativeAlgorithmParameters;
-using DataFlowAnalysis.ThreeAddressCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 using DataFlowAnalysis.Utilities;
 using DataFlowAnalysis.DefUseCalculator;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 
 namespace DataFlowAnalysis.DeadAliveVariables
 {

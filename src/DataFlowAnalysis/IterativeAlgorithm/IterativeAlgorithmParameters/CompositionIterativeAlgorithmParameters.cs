@@ -1,10 +1,10 @@
-﻿using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
+﻿using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
 using DataFlowAnalysis.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataFlowAnalysis.IterativeAlgorithmParameters
+namespace DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters
 {
     public abstract class CompositionIterativeAlgorithmParameters<T> : BasicIterativeAlgorithmParameters<T>
     {

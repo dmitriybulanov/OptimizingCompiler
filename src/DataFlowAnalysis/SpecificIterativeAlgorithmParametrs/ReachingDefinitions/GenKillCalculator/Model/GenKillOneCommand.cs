@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
 
 namespace DataFlowAnalysis.GenKillCalculator.Model
 {

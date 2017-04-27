@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataFlowAnalysis.ThreeAddressCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 
 namespace DataFlowAnalysis.Utilities
 {

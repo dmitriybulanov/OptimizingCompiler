@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataFlowAnalysis.ThreeAddressCode.Model
+namespace DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model
 {
     public class Program
     {

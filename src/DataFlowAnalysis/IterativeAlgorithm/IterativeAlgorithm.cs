@@ -1,12 +1,12 @@
-﻿using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.ControlFlowGraph;
-using DataFlowAnalysis.IterativeAlgorithmParameters;
+﻿using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.IterativeAlgorithm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 
 namespace DataFlowAnalysis.IterativeAlgorithm
 {

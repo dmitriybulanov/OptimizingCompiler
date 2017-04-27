@@ -1,4 +1,4 @@
-﻿namespace DataFlowAnalysis.ThreeAddressCode.Model
+﻿namespace DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model
 {
     public class Print : ThreeAddressCommand
     {

@@ -1,8 +1,9 @@
-﻿using DataFlowAnalysis.BasicBlockCode.Model;
-using DataFlowAnalysis.ControlFlowGraph;
+﻿using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.Utilities;
-using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
-using DataFlowAnalysis.ThreeAddressCode.Model;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System;

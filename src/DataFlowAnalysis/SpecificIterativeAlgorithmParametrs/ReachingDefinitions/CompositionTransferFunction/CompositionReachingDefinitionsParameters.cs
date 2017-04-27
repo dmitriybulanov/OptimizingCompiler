@@ -1,14 +1,15 @@
 ﻿using DataFlowAnalysis.GenKillCalculator;
-using DataFlowAnalysis.IterativeAlgorithmParameters;
-using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataFlowAnalysis.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.Utilities;
 using DataFlowAnalysis.GenKillCalculator.Model;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 
 namespace DataFlowAnalysis.ReachingDefinitions.CompositionTransferFunction
 {
@@ -21,7 +22,7 @@ namespace DataFlowAnalysis.ReachingDefinitions.CompositionTransferFunction
         public override ISet<CommandNumber> StartingValue { get { return SetFactory.GetSet<CommandNumber>(); } }
 
         GenKillOneCommandCalculator calculator;
-        public CompositionReachingDefinitionsParameters(ControlFlowGraph.Graph g)
+        public CompositionReachingDefinitionsParameters(Graph g)
         {
             calculator = new GenKillOneCommandCalculator(g);
         }
