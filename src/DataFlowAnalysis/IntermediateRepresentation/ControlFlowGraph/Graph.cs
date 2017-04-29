@@ -53,11 +53,11 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 			}
 			int c = spanTree.Vertices.Count();
 
-			dfs(CFG.Roots().First(), visited, c);
+			dfs(CFG.Roots().First(), visited, ref c);
 		}
 
 		// not tested yet
-		private void dfs(BasicBlock block, Dictionary<BasicBlock, bool> visited, int c)
+		private void dfs(BasicBlock block, Dictionary<BasicBlock, bool> visited, ref int c)
 		{
 			visited[block] = true;
 			foreach (var node in getChildren(block.BlockId).Blocks)
@@ -65,7 +65,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 				if (!visited[node])
 				{
 					spanTree.AddEdge(new Edge<BasicBlock>(block, node));
-					dfs(node, visited, c);
+					dfs(node, visited, ref c);
 				}
 			}
 			spanTreeOrder[block.BlockId] = c;
@@ -130,9 +130,30 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 			return blockMap.Values.GetEnumerator();
 		}
 
-        public int Count()
+        public int GetCount()
         {
             return CFG.Vertices.Count();
+        }
+
+        public Dictionary<int, int> GetDFN()
+        {
+            return spanTreeOrder;
+        }
+
+        public IEnumerable<Edge<BasicBlock>> GetEdges()
+        {
+            return CFG.Edges;
+        }
+
+        public bool IsAncestor(int id1, int id2)
+        {
+            var b = getBlockById(id1);
+            if (b.InputBlocks.Count() == 0)
+                return false;
+            else if (b.InputBlocks[0] == id2)
+                return true;
+            else
+                return IsAncestor(b.InputBlocks[0], id2);
         }
 
         IEnumerator<BasicBlock> IEnumerable<BasicBlock>.GetEnumerator()

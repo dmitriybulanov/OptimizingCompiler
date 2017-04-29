@@ -13,6 +13,7 @@ using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.Dominators;
+using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification;
 
 namespace ConsoleInterface
 {
@@ -40,6 +41,11 @@ namespace ConsoleInterface
                     Console.WriteLine("Дерево доминаторов");
                     var dTree = new DominatorsTree(g);
                     Console.WriteLine(dTree);
+
+                    Console.WriteLine("Классификация рёбер");
+                    var classEdge = EdgeClassification.ClassifyEdge(g);
+                    foreach (var p in classEdge)
+                        Console.WriteLine(p.Key.Source.BlockId + "->" + p.Key.Target.BlockId + "; type = " + p.Value);
                 }
             }
             catch (FileNotFoundException)
