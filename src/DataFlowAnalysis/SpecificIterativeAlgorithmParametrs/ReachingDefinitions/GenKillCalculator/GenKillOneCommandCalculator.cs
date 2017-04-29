@@ -2,7 +2,7 @@
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.GenKillCalculator.Model;
 using DataFlowAnalysis.Utilities;
-using DataFlowAnalysis.IterativeAlgorithmParameters.Model;
+using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
 using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 using System.Collections.Generic;
 using System.Linq;

@@ -8,7 +8,6 @@ using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using SyntaxTree;
 using DataFlowAnalysis.Utilities;
-using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 
 
 namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagation

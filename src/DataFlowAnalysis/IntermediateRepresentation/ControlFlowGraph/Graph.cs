@@ -64,7 +64,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 			{
 				if (!visited[node])
 				{
-					CFG.AddEdge(new Edge<BasicBlock>(block, node));
+					spanTree.AddEdge(new Edge<BasicBlock>(block, node));
 					dfs(node, visited, c);
 				}
 			}
