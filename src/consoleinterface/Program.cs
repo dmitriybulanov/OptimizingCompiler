@@ -30,12 +30,14 @@ namespace ConsoleInterface
                 Console.WriteLine(root == null ? "Ошибка" : "Программа распознана");
                 if (root != null)
                 {
-                    //var result = PrettyPrinter.CreateAndVisit(root).FormattedCode;
-                    var result = ThreeAddressCodeGenerator.CreateAndVisit(root).Program;
-                    Console.WriteLine(result);
+                    //var prettyPrintedProgram = PrettyPrinter.CreateAndVisit(root).FormattedCode;
+                    //Console.Write(prettyPrintedProgram);
+
+                    var threeAddressCode = ThreeAddressCodeGenerator.CreateAndVisit(root).Program;
+                    Console.WriteLine(threeAddressCode);
 
                     Console.WriteLine("\nУправляющий граф программы");
-                    Graph g = new Graph(BasicBlocksGenerator.CreateBasicBlocks(result));
+                    Graph g = new Graph(BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode));
 
                     Console.WriteLine(g);
 

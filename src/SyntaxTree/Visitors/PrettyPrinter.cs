@@ -163,5 +163,16 @@ namespace SyntaxTree.Visitors
             Visit(parenthesizedExpression.Expression);
             Write(")");
         }
+
+        public override void VisitGotoStatement(GotoStatement gotoStatement)
+        {
+            WriteLine($"goto {gotoStatement.Label};");
+        }
+
+        public override void VisitLabelledStatement(LabelledStatement labelledStatement)
+        {
+            Write(labelledStatement.Label + ": ");
+            Visit(labelledStatement.Statement);
+        }
     }
 }
