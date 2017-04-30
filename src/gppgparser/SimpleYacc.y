@@ -19,7 +19,7 @@
 %token PLUS MINUS DIVIDE MULT
 
 %type <SyntaxNode> progr 
-%type <Statement> statement stlist assign block while_cycle for_cycle if print goto
+%type <Statement> statement stlist assign block while_cycle for_cycle if print goto labelled_statement
 %type <Expression> expr ident unaryop parenth mulop addop compar andop 
 %type <String> goto_label
 
@@ -46,15 +46,24 @@ stlist	: statement
                 $$ = ($1 as StatementList).Add($2); 
             }
 		;
+    
+statement
+    : assign SEMICOLON
+	| block 
+	| while_cycle  
+	| for_cycle
+	| if
+	| print SEMICOLON
+	| goto SEMICOLON
+    | labelled_statement
+	;
 
-statement: assign SEMICOLON
-		| block 
-		| while_cycle  
-		| for_cycle
-		| if
-		| print SEMICOLON
-		| goto SEMICOLON
-		;
+labelled_statement :
+    goto_label COLON statement
+        {
+            $$ = new LabelledStatement($1, $3);
+        }
+    ;
 
 ident 	: ID 
             { 

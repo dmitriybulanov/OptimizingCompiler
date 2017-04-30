@@ -51,6 +51,7 @@
     <Compile Include="SyntaxNodes\Identifier.cs" />
     <Compile Include="SyntaxNodes\IfStatement.cs" />
     <Compile Include="SyntaxNodes\Int32Const.cs" />
+    <Compile Include="SyntaxNodes\LabelledStatement.cs" />
     <Compile Include="SyntaxNodes\ParenthesizedExpression.cs" />
     <Compile Include="SyntaxNodes\PrintStatement.cs" />
     <Compile Include="SyntaxNodes\Program.cs" />

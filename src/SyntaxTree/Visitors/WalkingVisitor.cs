@@ -77,5 +77,10 @@ namespace SyntaxTree.Visitors
         {
             Visit(parenthesizedExpression.Expression);
         }
+
+        public override void VisitLabelledStatement(LabelledStatement labelledStatement)
+        {
+            Visit(labelledStatement.Statement);
+        }
     }
 }

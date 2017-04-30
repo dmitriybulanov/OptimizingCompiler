@@ -16,7 +16,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode
     public class ThreeAddressCodeGenerator : WalkingVisitor
     {
         protected int LabelNumber { get; set; } = 1;
-        protected string NewLabel => LabelNumber++.ToString();
+        protected string NewLabel => $"$GL_{LabelNumber++}";
 
         protected int GeneratedVariableNumber { get; set; }
         protected string NewVariable => $"t{GeneratedVariableNumber++}";
@@ -130,6 +130,17 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode
             Visit(printStatement.Expression);
             var print = new Print(ExpressionStack.Pop(), printStatement.NewLine);
             Program.Add(print);
+        }
+
+        public override void VisitGotoStatement(GotoStatement gotoStatement)
+        {
+            Program.Add(new Goto(gotoStatement.Label));
+        }
+
+        public override void VisitLabelledStatement(LabelledStatement labelledStatement)
+        {
+            Program.Add(new NoOperation(labelledStatement.Label));
+            Visit(labelledStatement.Statement);
         }
     }
 }

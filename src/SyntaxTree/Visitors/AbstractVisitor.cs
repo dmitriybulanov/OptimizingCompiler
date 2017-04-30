@@ -98,5 +98,10 @@ namespace SyntaxTree.Visitors
         {
             DefaultVisit(gotoStatement);
         }
+
+        public virtual void VisitLabelledStatement(LabelledStatement labelledStatement)
+        {
+            DefaultVisit(labelledStatement);
+        }
     }
 }
