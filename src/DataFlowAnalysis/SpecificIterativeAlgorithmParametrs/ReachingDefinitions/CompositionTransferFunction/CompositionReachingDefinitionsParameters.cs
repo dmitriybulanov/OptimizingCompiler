@@ -1,4 +1,4 @@
-﻿using DataFlowAnalysis.GenKillCalculator;
+﻿using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
 using System;
 using System.Collections.Generic;
@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.Utilities;
-using DataFlowAnalysis.GenKillCalculator.Model;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator.Model;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 
-namespace DataFlowAnalysis.ReachingDefinitions.CompositionTransferFunction
+namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.CompositionTransferFunction
 {
     public class CompositionReachingDefinitionsParameters : CompositionIterativeAlgorithmParameters<ISet<CommandNumber>>
     {

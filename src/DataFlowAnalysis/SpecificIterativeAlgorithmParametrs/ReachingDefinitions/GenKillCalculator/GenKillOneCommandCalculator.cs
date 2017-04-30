@@ -1,13 +1,13 @@
 ﻿using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
-using DataFlowAnalysis.GenKillCalculator.Model;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator.Model;
 using DataFlowAnalysis.Utilities;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
 using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataFlowAnalysis.GenKillCalculator
+namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator
 {
     public class GenKillOneCommandCalculator
     {

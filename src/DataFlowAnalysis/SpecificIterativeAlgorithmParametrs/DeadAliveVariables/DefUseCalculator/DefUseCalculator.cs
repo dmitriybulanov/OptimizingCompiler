@@ -9,7 +9,7 @@ using System.Linq;
 using System;
 
 
-namespace DataFlowAnalysis.DefUseCalculator
+namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DefUseCalculator
 {
 	public class DefUseBlockCalculator
 	{

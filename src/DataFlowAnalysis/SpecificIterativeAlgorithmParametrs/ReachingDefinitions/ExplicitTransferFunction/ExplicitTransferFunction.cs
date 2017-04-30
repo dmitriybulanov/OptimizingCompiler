@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
-using DataFlowAnalysis.GenKillCalculator;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator;
 using DataFlowAnalysis.Utilities;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 

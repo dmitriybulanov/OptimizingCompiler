@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 using DataFlowAnalysis.Utilities;
-using DataFlowAnalysis.DefUseCalculator;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DefUseCalculator;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 
-namespace DataFlowAnalysis.DeadAliveVariables
+namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DeadAliveVariables
 {
     public class DeadAliveIterativeAlgorithmParameters : SetIterativeAlgorithmParameters<string>
     {

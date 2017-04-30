@@ -5,7 +5,7 @@ using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.Utilities;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
 
-namespace DataFlowAnalysis.Dominators
+namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators
 {
     public class DominatorsIterativeAlgorithmParametrs : BasicIterativeAlgorithmParameters<ISet<int>>
     {

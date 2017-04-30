@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 
-namespace DataFlowAnalysis.Dominators
+namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators
 {
     public static class ImmediateDominator
     {

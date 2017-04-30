@@ -12,7 +12,7 @@ using DataFlowAnalysis.IterativeAlgorithm;
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
-using DataFlowAnalysis.Dominators;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators;
 using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification;
 
 namespace ConsoleInterface

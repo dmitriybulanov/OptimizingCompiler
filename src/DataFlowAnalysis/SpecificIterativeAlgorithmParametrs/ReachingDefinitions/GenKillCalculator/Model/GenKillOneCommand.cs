@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
 
-namespace DataFlowAnalysis.GenKillCalculator.Model
+namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator.Model
 {
     public class GenKillOneCommand
     {

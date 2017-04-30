@@ -8,7 +8,7 @@ using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 
 using QuickGraph;
 
-namespace DataFlowAnalysis.Dominators
+namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators
 {
     public class DominatorsTree : IEnumerable
     {
