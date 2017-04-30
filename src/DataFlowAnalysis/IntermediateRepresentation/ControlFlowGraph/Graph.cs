@@ -112,14 +112,17 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 			foreach (var v in CFG.Vertices)
 			{
 				res += v.BlockId;
-				foreach (var e in CFG.OutEdges(v))
-				{
-					res += " " + e.Target.BlockId;
-				}
+                res += ":\n<-- ";
 				foreach (var e in CFG.InEdges(v))
 				{
 					res += " " + e.Source.BlockId;
 				}
+                res += "\n--> ";
+                foreach (var e in CFG.OutEdges(v))
+				{
+					res += " " + e.Target.BlockId;
+				}
+
 				res += "\n";
 			}
 			return res;
