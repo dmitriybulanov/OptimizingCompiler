@@ -14,6 +14,7 @@ using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators;
 using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification;
+using DataFlowAnalysis.IntermediateRepresentation.FindNaturalLoops;
 
 namespace ConsoleInterface
 {
@@ -46,6 +47,16 @@ namespace ConsoleInterface
                     var classEdge = EdgeClassification.ClassifyEdge(g);
                     foreach (var p in classEdge)
                         Console.WriteLine(p.Key.Source.BlockId + "->" + p.Key.Target.BlockId + "; type = " + p.Value);
+
+                    Console.WriteLine("\nНахождение естественных циклов");
+                    var findNL = FindNaturalLoops.FindAllNaturalLoops(g);
+                    foreach (var nl in findNL)
+                    {
+                        Console.Write(nl.Key.Source.BlockId + "->" + nl.Key.Target.BlockId + ": ");
+                        foreach (var node in nl.Value)
+                            Console.Write(node.ToString() + " ");
+                        Console.WriteLine();
+                    }
                 }
             }
             catch (FileNotFoundException)

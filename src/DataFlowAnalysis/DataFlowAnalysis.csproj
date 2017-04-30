@@ -58,6 +58,7 @@
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
     <Compile Include="IntermediateRepresentation\EdgeClassification\EdgeClassification.cs" />
     <Compile Include="IntermediateRepresentation\EdgeClassification\Model\EdgeType.cs" />
+    <Compile Include="IntermediateRepresentation\FindNaturalLoops\FindNaturalLoops.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ComplexExpression.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\SimpleExpression.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\AvailableExpressions\AvailableExpressionsCalculator.cs" />
