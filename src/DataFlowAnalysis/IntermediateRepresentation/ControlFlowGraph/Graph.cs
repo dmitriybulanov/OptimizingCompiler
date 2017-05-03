@@ -56,7 +56,6 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
             dfs(blockMap[0], visited, ref c);
 		}
 
-		// not tested yet
 		private void dfs(BasicBlock block, Dictionary<BasicBlock, bool> visited, ref int c)
 		{
 			visited[block] = true;
@@ -71,7 +70,6 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 			spanTreeOrder[block.BlockId] = c;
 			c--;
 		}
-
 
 		// returns null if such id doesn't exist
 		public BasicBlock getBlockById(int id)

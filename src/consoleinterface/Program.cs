@@ -22,7 +22,7 @@ namespace ConsoleInterface
     {
         static void Main(string[] args)
         {
-            string FileName = @"..\..\..\a.txt";
+            string FileName = @"../../../a.txt";
             try
             {
                 string text = File.ReadAllText(FileName);
@@ -58,6 +58,12 @@ namespace ConsoleInterface
                         foreach (var node in nl.Value)
                             Console.Write(node.ToString() + " ");
                         Console.WriteLine();
+                    }
+
+                    Console.WriteLine(("\nПостроение глубинного остовного дерева"));
+                    var DFN = g.GetDFN();
+                    foreach (var node in DFN) {
+                        Console.WriteLine("key: " + node.Key + " " + "value: " + node.Value);
                     }
                 }
             }
