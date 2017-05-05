@@ -59,6 +59,10 @@
     <Compile Include="IntermediateRepresentation\EdgeClassification\EdgeClassification.cs" />
     <Compile Include="IntermediateRepresentation\EdgeClassification\Model\EdgeType.cs" />
     <Compile Include="IntermediateRepresentation\FindNaturalLoops\FindNaturalLoops.cs" />
+    <Compile Include="IntermediateRepresentation\Regions\Model\LeafRegion.cs" />
+    <Compile Include="IntermediateRepresentation\Regions\Model\Region.cs" />
+    <Compile Include="IntermediateRepresentation\Regions\Model\BodyRegion.cs" />
+    <Compile Include="IntermediateRepresentation\Regions\Model\LoopRegion.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ComplexExpression.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\SimpleExpression.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\AvailableExpressions\AvailableExpressionsCalculator.cs" />
