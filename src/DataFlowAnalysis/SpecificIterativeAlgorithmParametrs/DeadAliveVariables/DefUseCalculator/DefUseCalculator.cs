@@ -1,15 +1,10 @@
-﻿using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
-using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
-using DataFlowAnalysis.Utilities;
-using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
-using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters.Model;
-using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 
-
-namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DefUseCalculator
+namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DeadAliveVariables.DefUseCalculator
 {
 	public class DefUseBlockCalculator
 	{

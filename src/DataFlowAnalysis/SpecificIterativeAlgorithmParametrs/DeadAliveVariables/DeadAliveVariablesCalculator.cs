@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 using DataFlowAnalysis.Utilities;
-using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DefUseCalculator;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DeadAliveVariables.DefUseCalculator;
 
 namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DeadAliveVariables
 {
