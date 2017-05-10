@@ -8,9 +8,9 @@ using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.Utilities;
 using QuickGraph;
 
-namespace DataFlowAnalysis.IntermediateRepresentation.FindNaturalLoops
+namespace DataFlowAnalysis.IntermediateRepresentation.NaturalLoops
 {
-    public static class FindNaturalLoops
+    public static class SearchNaturalLoops
     {
         private static ISet<int> Loop;
         private static Stack<int> Stack;

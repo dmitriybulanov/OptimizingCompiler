@@ -15,7 +15,7 @@ using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressions;
 using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification;
-using DataFlowAnalysis.IntermediateRepresentation.FindNaturalLoops;
+using DataFlowAnalysis.IntermediateRepresentation.NaturalLoops;
 
 namespace ConsoleInterface
 {
@@ -23,7 +23,7 @@ namespace ConsoleInterface
     {
         static void Main(string[] args)
         {
-            string FileName = @"../../../b.txt";
+            string FileName = @"../../../a.txt";
             try
             {
                 string text = File.ReadAllText(FileName);

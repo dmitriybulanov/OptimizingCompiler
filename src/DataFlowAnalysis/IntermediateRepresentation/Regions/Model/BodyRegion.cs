@@ -5,9 +5,9 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
 {
     public class BodyRegion : IntermediateRegion
     {
-        public ISet<Region> Regions { get; set; }
+        public List<Region> Regions { get; set; }
 
-        public BodyRegion(BasicBlock header, ISet<BasicBlock> outputBlocks, ISet<Region> regions) : base(header, outputBlocks)
+        public BodyRegion(BasicBlock header, List<int> outputBlocks, List<Region> regions) : base(header, outputBlocks)
         {
             Regions = regions;
         }

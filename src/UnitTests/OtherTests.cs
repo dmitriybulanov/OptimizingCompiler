@@ -15,9 +15,10 @@ using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators;
 using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification;
-using DataFlowAnalysis.IntermediateRepresentation.FindNaturalLoops;
+using DataFlowAnalysis.IntermediateRepresentation.NaturalLoops;
+using DataFlowAnalysis.IntermediateRepresentation.Regions.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using QuickGraph;
 
 
 namespace UnitTests
@@ -57,7 +58,7 @@ namespace UnitTests
                         Trace.WriteLine(p.Key.Source.BlockId + "->" + p.Key.Target.BlockId + "; type = " + p.Value);
 
                     Trace.WriteLine("\nНахождение естественных циклов");
-                    var findNL = FindNaturalLoops.FindAllNaturalLoops(g);
+                    var findNL = SearchNaturalLoops.FindAllNaturalLoops(g);
                     foreach (var nl in findNL)
                     {
                         Trace.Write(nl.Key.Source.BlockId + "->" + nl.Key.Target.BlockId + ": ");
@@ -71,6 +72,16 @@ namespace UnitTests
                     foreach (var node in DFN)
                     {
                         Trace.WriteLine("key: " + node.Key + " " + "value: " + node.Value);
+                    }
+
+                    List<Region> regions = new List<Region>();
+                    foreach (BasicBlock v in g)
+                        regions.Add(new LeafRegion(v));
+
+                    foreach (var l in findNL)
+                    {
+                        List<Region> regs = l.Value.Select(x => new LeafRegion(g.getBlockById(x)) as Region).ToList();
+                        regions.Add(new LoopRegion(new BodyRegion(l.Key.Target, l.Key.Source.OutputBlocks, regs)));
                     }
                 }
             }

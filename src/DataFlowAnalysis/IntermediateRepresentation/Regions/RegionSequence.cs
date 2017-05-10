@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DataFlowAnalysis.IntermediateRepresentation.Regions.Model;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
-using DataFlowAnalysis.IntermediateRepresentation.FindNaturalLoops;
+using DataFlowAnalysis.IntermediateRepresentation.NaturalLoops;
 using DataFlowAnalysis.Utilities;
 using QuickGraph;
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
@@ -28,7 +28,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
                 regionList.Add(block);
             }
 
-            Dictionary<Edge<BasicBlock>, ISet<int>> loops = FindNaturalLoops.FindNaturalLoops.FindAllNaturalLoops(g);
+            Dictionary<Edge<BasicBlock>, ISet<int>> loops = SearchNaturalLoops.FindAllNaturalLoops(g);
 
             if (loops.Count != 0) {
                 foreach (var loop in loops)

@@ -7,7 +7,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
     {
         public BodyRegion Body { get; set; }
 
-        public LoopRegion(BasicBlock header, ISet<BasicBlock> outputBlocks, BodyRegion body) : base(header, outputBlocks)
+        public LoopRegion(BasicBlock header, List<int> outputBlocks, BodyRegion body) : base(header, outputBlocks)
         {
             Body = body;
         }
