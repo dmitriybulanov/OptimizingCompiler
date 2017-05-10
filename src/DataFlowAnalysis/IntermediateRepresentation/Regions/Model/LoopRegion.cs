@@ -1,35 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
-using QuickGraph;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
 {
-    public class LoopRegion : BodyRegion
+    public class LoopRegion : IntermediateRegion
     {
-        protected ISet<Edge<BasicBlock>> backEdges;
+        public BodyRegion Body { get; set; }
 
-        public LoopRegion(BodyRegion body, ISet<Edge<BasicBlock>> backEdges): base(body)
+        public LoopRegion(BasicBlock header, ISet<BasicBlock> outputBlocks, BodyRegion body) : base(header, outputBlocks)
         {
-            this.backEdges = backEdges;
+            Body = body;
         }
 
-        public LoopRegion(BasicBlock header, ISet<BasicBlock> nodes, ISet<Edge<BasicBlock>> edges, 
-                            ISet<Edge<BasicBlock>> backEdges) : base(header, nodes, edges)
+        public LoopRegion(BodyRegion body) : base(body.Header, body.OutputBlocks)
         {
-            this.backEdges = backEdges;
-        }
-
-        public ISet<Edge<BasicBlock>> BackEdges
-        {
-            get
-            {
-                return backEdges;
-            }
+            Body = body;
         }
     }
 }
