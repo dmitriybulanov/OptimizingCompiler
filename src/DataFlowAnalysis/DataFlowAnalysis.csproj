@@ -58,7 +58,8 @@
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
     <Compile Include="IntermediateRepresentation\EdgeClassification\EdgeClassification.cs" />
     <Compile Include="IntermediateRepresentation\EdgeClassification\Model\EdgeType.cs" />
-    <Compile Include="IntermediateRepresentation\FindNaturalLoops\FindNaturalLoops.cs" />
+    <Compile Include="IntermediateRepresentation\NaturalLoops\SearchNaturalLoops.cs" />
+    <Compile Include="IntermediateRepresentation\Regions\Model\IntermediateRegion.cs" />
     <Compile Include="IntermediateRepresentation\Regions\Model\LeafRegion.cs" />
     <Compile Include="IntermediateRepresentation\Regions\Model\Region.cs" />
     <Compile Include="IntermediateRepresentation\Regions\Model\BodyRegion.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\ThreeAddressCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\DeadAliveVariables\DefUseCalculator\DefUseCalculator.cs" />
+    <Compile Include="IntermediateRepresentation\Regions\RegionSequence.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

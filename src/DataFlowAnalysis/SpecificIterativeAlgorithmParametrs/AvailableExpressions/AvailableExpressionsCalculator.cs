@@ -87,7 +87,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
         {
             get
             {
-                SortedSet<Expression> result = new SortedSet<Expression>();
+                HashSet<Expression> result = new HashSet<Expression>();
                 foreach (BasicBlock b in Graph)
                     foreach (ThreeAddressCommand c in b.Commands)
                         if (c.GetType() == typeof(Assignment))
