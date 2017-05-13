@@ -31,6 +31,24 @@ namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model
             OutputBlocks = outputBlocks;
         }
 
+        protected bool Equals(BasicBlock other)
+        {
+            return BlockId == other.BlockId;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((BasicBlock) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return BlockId;
+        }
+
         public override string ToString()
         {
             return "BlockId = " + BlockId.ToString() +

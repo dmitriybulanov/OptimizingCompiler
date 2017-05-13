@@ -10,5 +10,23 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
         {
             Block = block;
         }
+
+        protected bool Equals(LeafRegion other)
+        {
+            return Equals(Block, other.Block);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((LeafRegion) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Block != null ? Block.GetHashCode() : 0);
+        }
     }
 }

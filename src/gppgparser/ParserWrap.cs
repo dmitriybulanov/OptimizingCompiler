@@ -8,7 +8,7 @@ using SyntaxTree.SyntaxNodes;
 
 namespace GPPGParser
 {
-    public class ParserWrap
+    public static class ParserWrap
     {
         public static SyntaxNode Parse(string text)
         {
