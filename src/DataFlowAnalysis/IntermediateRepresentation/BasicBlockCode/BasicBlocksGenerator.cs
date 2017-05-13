@@ -70,16 +70,23 @@ namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode
                     PreviousBlocksByBlockID[numOfNextBlock].Add(numOfCurrentBlock);
                 }
             }
-
-            BasicBlock.newBlockList();
+            
             for (int i = 0; i < firstCommandsOfBlocks.Count; ++i)
             {
                 BasicBlock block = new BasicBlock();
                 block.Commands = new List<ThreeAddressCommand>(commands.Take(lastCommandsOfBlocks[i] + 1).Skip(firstCommandsOfBlocks[i]).ToList());
-                block.InputBlocks.AddRange(PreviousBlocksByBlockID[i]);
-                block.OutputBlocks.AddRange(NextBlocksByBlockID[i]);
                 basicBlocks.Blocks.Add(block);
                 basicBlocks.BlockByID[block.BlockId] = block;
+            }
+
+            for (int i = 0; i < basicBlocks.Count(); ++i)
+            {
+                for (int j = 0; j < NextBlocksByBlockID[i].Count; ++j)
+                    PreviousBlocksByBlockID[i][j] = basicBlocks.Blocks[PreviousBlocksByBlockID[i][j]].BlockId;
+                for (int j = 0; j < NextBlocksByBlockID[i].Count; ++j)
+                    NextBlocksByBlockID[i][j] = basicBlocks.Blocks[NextBlocksByBlockID[i][j]].BlockId;
+                basicBlocks.Blocks[i].InputBlocks.AddRange(PreviousBlocksByBlockID[i]);
+                basicBlocks.Blocks[i].OutputBlocks.AddRange(NextBlocksByBlockID[i]);
             }
 
             return basicBlocks;
