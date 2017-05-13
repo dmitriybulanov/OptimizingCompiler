@@ -8,6 +8,11 @@ namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model
     public class BasicBlock
     {
         private static int BlockIdNumber = 0;
+        public static void newBlockList()
+        {
+            BlockIdNumber = 0;
+        }
+
         public int BlockId { get; set; }
         public List<ThreeAddressCommand> Commands { get; set; }
         public List<int> InputBlocks { get; set; } = new List<int>();

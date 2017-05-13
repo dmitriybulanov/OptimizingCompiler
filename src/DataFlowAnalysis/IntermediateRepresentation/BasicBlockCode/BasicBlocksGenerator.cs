@@ -71,6 +71,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode
                 }
             }
 
+            BasicBlock.newBlockList();
             for (int i = 0; i < firstCommandsOfBlocks.Count; ++i)
             {
                 BasicBlock block = new BasicBlock();
