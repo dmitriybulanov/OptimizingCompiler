@@ -58,6 +58,7 @@
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
     <Compile Include="IntermediateRepresentation\EdgeClassification\EdgeClassification.cs" />
     <Compile Include="IntermediateRepresentation\EdgeClassification\Model\EdgeType.cs" />
+    <Compile Include="IntermediateRepresentation\FindReverseEdges\FindReverseEdges.cs" />
     <Compile Include="IntermediateRepresentation\NaturalLoops\SearchNaturalLoops.cs" />
     <Compile Include="IntermediateRepresentation\Regions\Model\IntermediateRegion.cs" />
     <Compile Include="IntermediateRepresentation\Regions\Model\LeafRegion.cs" />

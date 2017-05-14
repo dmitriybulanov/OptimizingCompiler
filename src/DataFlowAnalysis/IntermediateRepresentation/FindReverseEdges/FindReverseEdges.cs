@@ -15,7 +15,6 @@ namespace DataFlowAnalysis.IntermediateRepresentation.FindReverseEdges
     {
         public static ISet<Edge<BasicBlock>> FindReverseEdges(ControlFlowGraph.Graph g)
         {
-            
             ISet<Edge<BasicBlock>> res = new SortedSet<Edge <BasicBlock>>();
 
             Dictionary<Edge<BasicBlock>, EdgeType> ClassifiedEdges =
