@@ -11,8 +11,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators
     {
         public static Dictionary<int, int> FindImmediateDominator(Graph g)
         {
-            var _out = IterativeAlgorithm.IterativeAlgorithm.Apply<DominatorsIterativeAlgorithmParametrs, ISet<int>>
-                (g, new DominatorsIterativeAlgorithmParametrs(g)).Out;
+            var _out = IterativeAlgorithm.IterativeAlgorithm.Apply(g, new DominatorsIterativeAlgorithmParametrs(g)).Out;
 
             return _out.Select(x => new KeyValuePair<int, int>(x.Key,
                                           x.Key > 0 ? _out[x.Key].Intersect(g.getBlockById(x.Key).InputBlocks).First() : 0))

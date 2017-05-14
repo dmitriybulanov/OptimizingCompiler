@@ -66,6 +66,7 @@
     <Compile Include="IntermediateRepresentation\Regions\Model\LoopRegion.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ComplexExpression.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\SimpleExpression.cs" />
+    <Compile Include="RegionsAlgorithm\RegionsAlgorithm.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\AvailableExpressions\AvailableExpressionsCalculator.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmOutput.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\CompositionIterativeAlgorithmParameters.cs" />

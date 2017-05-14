@@ -1,4 +1,6 @@
-﻿using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+﻿using System;
+using System.Collections.Generic;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
 {
@@ -6,6 +8,13 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
     {
         public BasicBlock Block { get; set; }
 
+        public override List<int> OutputBlocks
+        {
+            get
+            {
+                return new List<int> { Block.BlockId };
+            }
+        }
         public LeafRegion(BasicBlock block)
         {
             Block = block;

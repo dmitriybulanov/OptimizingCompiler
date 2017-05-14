@@ -12,7 +12,7 @@ namespace DataFlowAnalysis.IterativeAlgorithm
 {
     public static class IterativeAlgorithm
     {
-        public static IterativeAlgorithmOutput<V> Apply<T, V>(Graph graph, BasicIterativeAlgorithmParameters<V> param, int[] order = null) where T : BasicIterativeAlgorithmParameters<V>
+        public static IterativeAlgorithmOutput<V> Apply<V>(Graph graph, BasicIterativeAlgorithmParameters<V> param, int[] order = null)
         {
             IterativeAlgorithmOutput<V> result = new IterativeAlgorithmOutput<V>();
             

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 
@@ -7,12 +8,13 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
     public class IntermediateRegion : Region
     {
         public BasicBlock Header { get; set; }
-        public List<int> OutputBlocks { get; set; }
 
+        List<int> outputBlocks;
+        public override List<int> OutputBlocks { get { return outputBlocks; } }
         public IntermediateRegion(BasicBlock header, List<int> outputBlocks)
         {
             Header = header;
-            OutputBlocks = outputBlocks;
+            this.outputBlocks = outputBlocks;
         }
 
         protected bool Equals(IntermediateRegion other)

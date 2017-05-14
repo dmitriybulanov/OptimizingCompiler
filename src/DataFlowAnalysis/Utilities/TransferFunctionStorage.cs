@@ -8,7 +8,7 @@ using DataFlowAnalysis.IntermediateRepresentation.Regions.Model;
 
 namespace DataFlowAnalysis.Utilities
 {
-    public delegate T TransferFunction<T>(T input, BasicBlock block);
+    public delegate T TransferFunction<T>(T input);
 
     public class TransferFunctionStorage<T> : AbstractTransferFunctionStorage<TransferFunction<T>> { }
 

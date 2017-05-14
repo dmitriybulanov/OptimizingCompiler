@@ -12,7 +12,7 @@ namespace DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters
 
         public abstract T FirstValue { get; }
 
-        public abstract T GatherOperation(IEnumerable<T> blocks);
+        public abstract T GatherOperation(IEnumerable<T> inputs);
 
         public abstract T TransferFunction(T input, BasicBlock block);
 
