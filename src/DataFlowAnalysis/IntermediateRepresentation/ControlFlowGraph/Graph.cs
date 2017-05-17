@@ -156,6 +156,11 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
             return CFG.Vertices;
 		}
 
+        public bool Contains(BasicBlock block)
+        {
+            return CFG.Vertices.Contains(block);
+        }
+
         public bool IsAncestor(int id1, int id2)
         {
             var b = getBlockById(id1);

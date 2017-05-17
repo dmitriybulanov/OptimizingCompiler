@@ -13,6 +13,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
     {
 
         private List<Region> regionList = new List<Region>();
+        private Dictionary<int, LeafRegion> leafBlockMap = new Dictionary<int, LeafRegion>(); 
 
 	    public RegionSequence()
 	    {
@@ -26,33 +27,84 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
             {
                 LeafRegion block = new LeafRegion(vertex);
                 regionList.Add(block);
+                leafBlockMap.Add(vertex.BlockId, block);
             }
 
-            Dictionary<Edge<BasicBlock>, ISet<int>> loops = SearchNaturalLoops.FindAllNaturalLoops(g);
 
-            if (loops.Count != 0) {
-                foreach (var loop in loops)
-                {
-                    //getGraphFromLoop();
-                    //AddLoopRegions();
-                }
-
-            }
-
-            return null;
+             return null;
         }
 
-        private Graph getGraphFromLoop(KeyValuePair<Edge<BasicBlock>, ISet<int>> loop)
+        private Graph GetGraphFromLoop(KeyValuePair<Edge<BasicBlock>, ISet<int>> loop, Graph g)
         {
-            // нужно добавлять дуги, которые ведут только к вершинам, котоыре находятся в цикле
-            // или написать фукнцию такую в Graph или использовать BidirectionalGraph здесь
-            return null;
+            BasicBlocksList blockList = new BasicBlocksList();
+            foreach (var blockId in loop.Value)
+            {
+                BasicBlock curBlock = new BasicBlock(g.getBlockById(blockId));
+                blockList.Add(curBlock);
+            }
+
+            foreach (var block in blockList)
+            {
+                foreach (var inBlockId in block.InputBlocks)
+                {
+                    BasicBlock inBlock = g.getBlockById(inBlockId);
+
+                    if (!blockList.Blocks.Contains(inBlock))
+                    {
+                        block.InputBlocks.Remove(inBlockId);
+                    }
+                }
+
+                foreach (var inBlockId in block.OutputBlocks)
+				{
+					BasicBlock inBlock = g.getBlockById(inBlockId);
+
+					if (!blockList.Blocks.Contains(inBlock))
+					{
+						block.OutputBlocks.Remove(inBlockId);
+					}
+				}
+            }
+
+            return new Graph(blockList);
         }
 
 		// Рекурсивная функция для добавления 
 		private void AddLoopRegions(Graph g)
         {
-            //CFG.AddVertexRange(listBlocks.Blocks);
+			Dictionary<Edge<BasicBlock>, ISet<int>> loops = SearchNaturalLoops.FindAllNaturalLoops(g);
+
+            if (loops.Count != 0)
+            {
+				foreach (var loop in loops)
+				{
+					Graph loopGraph = GetGraphFromLoop(loop, g);
+					AddLoopRegions(loopGraph);
+                }
+
+
+            } else {
+                BasicBlock headerBlock = g.getRoot();
+                List<Region> regions = new List<Region>();
+                List<int> outputBlocks = new List<int>();
+
+                foreach (var vertex in g.GetVertices())
+                {
+                    foreach (var outBlockId in vertex.OutputBlocks)
+                    {
+                        if (!g.Contains(g.getBlockById(outBlockId)))
+                        {
+                            outputBlocks.Add(outBlockId);
+                        }
+                    }
+                    regions.Add(leafBlockMap[vertex.BlockId]);
+                }
+
+                BodyRegion bodyRegion = new BodyRegion(headerBlock, outputBlocks, regions);
+                LoopRegion loopRegion = new LoopRegion(bodyRegion);
+                regionList.Add(bodyRegion);
+                regionList.Add(loopRegion);
+            }
         }
 
     }
