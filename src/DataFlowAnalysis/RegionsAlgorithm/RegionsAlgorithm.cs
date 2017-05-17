@@ -15,7 +15,8 @@ namespace DataFlowAnalysis.RegionsAlgorithm
         public static IterativeAlgorithmOutput<ISet<V>> Apply<V>(Graph graph, SetIterativeAlgorithmParameters<V> param)
         {
             List<Region> regions = new RegionSequence().CreateSequence(graph);
-            return ApplyDescendingPart(regions, ApplyAscendingPart<V>(graph, regions, param));
+
+            return ApplyDescendingPart<V>(regions, ApplyAscendingPart<V>(graph, regions, param), param, graph);
         }
         
         static T Identity<T>(T input)
@@ -55,6 +56,7 @@ namespace DataFlowAnalysis.RegionsAlgorithm
         {
             return param.GatherOperation(inputBlocks.Select(i => result[r, RegionDirection.Out, new LeafRegion(graph.getBlockById(i))](input)));
         }
+
         static void CalculateForOutputBlocks<V>(TransferFunctionStorage<ISet<V>> result, Region r, Region s, List<int> outputBlocks, Graph graph)
         {
             foreach (BasicBlock bb in outputBlocks.Select(i => graph.getBlockById(i)))
@@ -64,9 +66,42 @@ namespace DataFlowAnalysis.RegionsAlgorithm
             }
         }
 
-        static IterativeAlgorithmOutput<V> ApplyDescendingPart<V>(List<Region> regions, TransferFunctionStorage<V> functions)
+        static IterativeAlgorithmOutput<ISet<V>> ApplyDescendingPart<V>(List<Region> regions,
+            TransferFunctionStorage<ISet<V>> functions, SetIterativeAlgorithmParameters<V> param, Graph graph)
         {
-            throw new System.NotImplementedException();
+            Dictionary<int, ISet<V>> regionsInputs = new Dictionary<int, ISet<V>>();
+            IterativeAlgorithmOutput<ISet<V>> result = new IterativeAlgorithmOutput<ISet<V>>();
+
+            Dictionary<Region, int> RegionIndexes = new Dictionary<Region, int>();
+            for (int i = 0; i < regions.Count; ++i)
+            {
+                RegionIndexes[regions[i]] = i;
+            }
+
+            int lastIndex = RegionIndexes[regions.Last()];
+            int prevIndex = lastIndex;
+            regionsInputs[lastIndex] = param.FirstValue;
+
+            foreach (var r in regions.Reverse<Region>())
+            {
+                int curIndex = RegionIndexes[r];
+                if (curIndex != lastIndex)
+                {
+                    regionsInputs[curIndex] = functions[regions[prevIndex], RegionDirection.In, regions[curIndex]](regionsInputs[prevIndex]);
+                }
+            }
+
+            int numOfBlocks = graph.Count();
+            for(int i = 0; i < numOfBlocks; ++i)
+            {
+                int curBlockId =  regions[i].OutputBlocks.First();
+                var curBlock = graph.getBlockById(curBlockId);
+
+                result.In[curBlockId] = regionsInputs[i];
+                result.Out[curBlockId] = param.TransferFunction(result.In[curBlockId], curBlock);
+            }
+
+            return result;
         }
     }
 }
