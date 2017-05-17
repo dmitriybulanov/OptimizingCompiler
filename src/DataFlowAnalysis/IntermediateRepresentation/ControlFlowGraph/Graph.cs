@@ -53,7 +53,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 			}
 			int c = spanTree.Vertices.Count();
 
-            dfs(blockMap[0], visited, ref c);
+            dfs(blockMap[blockMap.Keys.First()], visited, ref c);
 		}
 
 		private void dfs(BasicBlock block, Dictionary<BasicBlock, bool> visited, ref int c)
