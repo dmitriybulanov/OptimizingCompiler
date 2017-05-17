@@ -13,37 +13,46 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
         /// <summary>
         /// Is used for MOP. Works only on non-cyclic graphs.
         /// </summary>
-        public static IEnumerable<List<BasicBlock>> FindAllPath(Graph graph, int idTargetBlock)
+        public static IEnumerable<List<BasicBlock>> FindAllPaths(Graph graph, int idTargetBlock)
         {
-            //var path = new Stack<BasicBlock>();
-            var pathEnumators = new Stack<IEnumerator<BasicBlock>>();
-            BasicBlock first = graph.GetRoot();
-            //path.Push(first);
-            if (first.BlockId == idTargetBlock)
+            var pathEnumerators = new Stack<IEnumerator<BasicBlock>>();
+            var root = graph.getRoot();
+            
+            // when target and root are the same
+            if (root.BlockId == idTargetBlock)
                 yield break;
 
-            var firstChildrens = graph.getChildren(first.BlockId).GetEnumerator();
-            if (!firstChildrens.MoveNext())
+            var rootChildrens = graph.getChildren(root.BlockId).GetEnumerator();
+            
+            // check enumerator for emptiness 
+            if (!rootChildrens.MoveNext())
                 yield break;
-            pathEnumators.Push(firstChildrens);
-            while (pathEnumators.Count > 0)
+            pathEnumerators.Push(rootChildrens);
+
+            while (pathEnumerators.Count > 0)
             {
-                var currentBlockEnumerator = pathEnumators.Peek();
+                var currentBlockEnumerator = pathEnumerators.Peek();
                 if (currentBlockEnumerator.Current.BlockId == idTargetBlock)
                 {
-                    yield return pathEnumators.Select(x => x.Current).ToList();
-                    if (!currentBlockEnumerator.MoveNext())
+                    yield return pathEnumerators.Select(x => x.Current).ToList();
+                    if (currentBlockEnumerator.MoveNext())
                     {
-                        pathEnumators.Pop();
+                        continue;
                     }
                 }
                 else
                 {
-                    pathEnumators.Push(graph.getChildren(currentBlockEnumerator.Current.BlockId).GetEnumerator());
-                    while (!currentBlockEnumerator.MoveNext())
+                    var tmpEnumerator = graph.getChildren(currentBlockEnumerator.Current.BlockId).GetEnumerator();
+            
+                    if (tmpEnumerator.MoveNext())
                     {
-                        pathEnumators.Pop();
+                        pathEnumerators.Push(tmpEnumerator);
+                        continue;
                     }
+                }
+                while (!pathEnumerators.Peek().MoveNext())
+                {
+                    pathEnumerators.Pop();
                 }
             }
         }
