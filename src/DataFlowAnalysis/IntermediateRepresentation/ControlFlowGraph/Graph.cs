@@ -104,6 +104,11 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 			return blockList;
 		}
 
+        public BasicBlock getRoot()
+		{
+            return CFG.Roots().First();
+		}
+
 		public override string ToString()
 		{
 			string res = "";
