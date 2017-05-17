@@ -19,6 +19,14 @@ namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model
             BlockId = BlockIdNumber++;
         }
 
+        public BasicBlock(BasicBlock newBlock)
+        {
+            BlockId = newBlock.BlockId;
+            Commands = newBlock.Commands;
+            InputBlocks = newBlock.InputBlocks;
+            OutputBlocks = newBlock.OutputBlocks;
+        }
+
         public BasicBlock(List<ThreeAddressCommand> commands, List<int> inputBlocks, List<int> outputBlocks)
         {
             BlockId = BlockIdNumber++;
