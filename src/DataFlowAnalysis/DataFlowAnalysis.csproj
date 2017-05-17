@@ -56,6 +56,7 @@
     <Compile Include="IntermediateRepresentation\BasicBlockCode\BasicBlocksGenerator.cs" />
     <Compile Include="IntermediateRepresentation\BasicBlockCode\Model\BasicBlocksList.cs" />
     <Compile Include="IntermediateRepresentation\ControlFlowGraph\Graph.cs" />
+    <Compile Include="IntermediateRepresentation\ControlFlowGraph\GraphAlgorithms.cs" />
     <Compile Include="IntermediateRepresentation\EdgeClassification\EdgeClassification.cs" />
     <Compile Include="IntermediateRepresentation\EdgeClassification\Model\EdgeType.cs" />
     <Compile Include="IntermediateRepresentation\FindReverseEdges\FindReverseEdges.cs" />
@@ -105,7 +106,9 @@
     <Compile Include="Utilities\TransferFunctionKey.cs" />
     <Compile Include="Utilities\TransferFunctionStorage.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MeetOverPath\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SyntaxTree\SyntaxTree.csproj">
       <Project>{C9ECD184-80DD-4834-80AD-1C2B50C1A53C}</Project>
