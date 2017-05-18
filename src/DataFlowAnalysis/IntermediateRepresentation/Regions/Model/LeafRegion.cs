@@ -12,7 +12,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
         {
             get
             {
-                return new List<int> { Block.BlockId };
+                return Block.OutputBlocks;
             }
         }
         public LeafRegion(BasicBlock block)
