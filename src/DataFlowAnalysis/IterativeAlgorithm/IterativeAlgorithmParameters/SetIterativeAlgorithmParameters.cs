@@ -19,7 +19,7 @@ namespace DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters
 
         public override bool AreEqual(ISet<T> t1, ISet<T> t2)
         {
-            return t1.IsSubsetOf(t2) && t2.IsSubsetOf(t1);
+            return t1.SetEquals(t2);
         }    
     }
    
