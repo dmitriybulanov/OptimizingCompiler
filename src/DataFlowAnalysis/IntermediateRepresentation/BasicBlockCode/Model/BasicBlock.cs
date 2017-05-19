@@ -30,6 +30,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model
         public BasicBlock(List<ThreeAddressCommand> commands, List<int> inputBlocks, List<int> outputBlocks)
         {
             BlockId = BlockIdNumber++;
+            Commands = new List<ThreeAddressCommand>();
             Commands.AddRange(commands);
             InputBlocks = inputBlocks;
             OutputBlocks = outputBlocks;
