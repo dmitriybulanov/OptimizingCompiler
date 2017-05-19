@@ -54,39 +54,39 @@ namespace UnitTests
             var graph = new Graph(blocks);
 
             // Check block 0
-            var block0Childrens = graph.getChildren(0);
+            var block0Childrens = graph.getChildren(blocks.Blocks[0].BlockId);
             Assert.AreEqual(block0Childrens.Blocks.Count, 2);
             Assert.IsTrue(block0Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[1].BlockId));
             Assert.IsTrue(block0Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[2].BlockId));
 
             // Check block 1
-            var block1Childrens = graph.getChildren(1);
+            var block1Childrens = graph.getChildren(blocks.Blocks[1].BlockId);
             Assert.AreEqual(block1Childrens.Blocks.Count, 1);
             Assert.IsTrue(block1Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[3].BlockId));
 
             // Check block 2
-            var block2Childrens = graph.getChildren(2);
+            var block2Childrens = graph.getChildren(blocks.Blocks[2].BlockId);
             Assert.AreEqual(block2Childrens.Blocks.Count, 1);
             Assert.IsTrue(block2Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[3].BlockId));
             
             // Check block 3
-            var block3Childrens = graph.getChildren(3);
+            var block3Childrens = graph.getChildren(blocks.Blocks[3].BlockId);
             Assert.AreEqual(block3Childrens.Blocks.Count, 2);
             Assert.IsTrue(block3Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[4].BlockId));
             Assert.IsTrue(block3Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[5].BlockId));
 
             // Check block 4
-            var block4Childrens = graph.getChildren(4);
+            var block4Childrens = graph.getChildren(blocks.Blocks[4].BlockId);
             Assert.AreEqual(block4Childrens.Blocks.Count, 1);
             Assert.IsTrue(block4Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[6].BlockId));
 
             // Check block 5
-            var block5Childrens = graph.getChildren(5);
+            var block5Childrens = graph.getChildren(blocks.Blocks[5].BlockId);
             Assert.AreEqual(block5Childrens.Blocks.Count, 1);
             Assert.IsTrue(block5Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[6].BlockId));
 
             // Check block 6
-            var block6Childrens = graph.getChildren(6);
+            var block6Childrens = graph.getChildren(blocks.Blocks[6].BlockId);
             Assert.AreEqual(block6Childrens.Blocks.Count, 0);
         }
 
