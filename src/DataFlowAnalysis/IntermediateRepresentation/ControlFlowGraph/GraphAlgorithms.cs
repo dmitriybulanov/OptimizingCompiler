@@ -8,7 +8,7 @@ using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 {
-    class GraphAlgorithms
+    public class GraphAlgorithms
     {
         /// <summary>
         /// Is used for MOP. Works only on non-cyclic graphs.
@@ -34,7 +34,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
                 var currentBlockEnumerator = pathEnumerators.Peek();
                 if (currentBlockEnumerator.Current.BlockId == idTargetBlock)
                 {
-                    yield return pathEnumerators.Select(x => x.Current).ToList();
+                    yield return pathEnumerators.Select(x => x.Current).Reverse().ToList();
                     if (currentBlockEnumerator.MoveNext())
                     {
                         continue;
@@ -53,6 +53,10 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
                 while (!pathEnumerators.Peek().MoveNext())
                 {
                     pathEnumerators.Pop();
+                    if (pathEnumerators.Count == 0)
+                    {
+                        yield break;
+                    }
                 }
             }
         }
