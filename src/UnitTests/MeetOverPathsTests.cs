@@ -15,6 +15,117 @@ namespace UnitTests
     public class MeetOverPathsTests
     {
         /// Generates example graph:
+        ///        B0
+        ///     /  |  \
+        ///   /    |    \
+        ///  B1    B4   B8
+        ///   |   / \    |\
+        ///  B2  B5 B6   | B9
+        ///   | / \ / \  |/
+        ///   B3   B7  B10
+        ///     \  |  /
+        ///       B11
+        public BasicBlocksList CreateTestGraph2Blocks()
+        {
+            var blocks = new BasicBlocksList();
+            for (int i = 0; i < 12; i++)
+            {
+                blocks.Add(new BasicBlock(new List<ThreeAddressCommand>(), new List<int>(), null));
+            }
+            blocks.Blocks[0].InputBlocks = new List<int>();
+            blocks.Blocks[1].InputBlocks = new List<int> { blocks.Blocks[0].BlockId };
+            blocks.Blocks[2].InputBlocks = new List<int> { blocks.Blocks[1].BlockId };
+            blocks.Blocks[3].InputBlocks = new List<int> { blocks.Blocks[2].BlockId, blocks.Blocks[5].BlockId };
+            blocks.Blocks[4].InputBlocks = new List<int> { blocks.Blocks[0].BlockId };
+            blocks.Blocks[5].InputBlocks = new List<int> { blocks.Blocks[4].BlockId };
+            blocks.Blocks[6].InputBlocks = new List<int> { blocks.Blocks[4].BlockId };
+            blocks.Blocks[7].InputBlocks = new List<int> { blocks.Blocks[5].BlockId, blocks.Blocks[6].BlockId };
+            blocks.Blocks[8].InputBlocks = new List<int> { blocks.Blocks[0].BlockId };
+            blocks.Blocks[9].InputBlocks = new List<int> { blocks.Blocks[8].BlockId };
+            blocks.Blocks[10].InputBlocks = new List<int> { blocks.Blocks[8].BlockId, blocks.Blocks[9].BlockId, blocks.Blocks[6].BlockId };
+            blocks.Blocks[11].InputBlocks = new List<int> { blocks.Blocks[3].BlockId, blocks.Blocks[7].BlockId, blocks.Blocks[10].BlockId };
+
+            return blocks;
+        }
+        public Graph CreateTestGraph2()
+        {
+            return new Graph(CreateTestGraph2Blocks());
+        }
+        
+        [TestMethod]
+        public void TestGraph2()
+        {
+            var blocks = CreateTestGraph2Blocks();
+            var graph = new Graph(blocks);
+
+            // Check block 0
+            var block0Childrens = graph.getChildren(blocks.Blocks[0].BlockId);
+            Assert.AreEqual(block0Childrens.Blocks.Count, 3);
+            Assert.IsTrue(block0Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[1].BlockId));
+            Assert.IsTrue(block0Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[4].BlockId));
+            Assert.IsTrue(block0Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[8].BlockId));
+
+            // Check block 1
+            var block1Childrens = graph.getChildren(blocks.Blocks[1].BlockId);
+            Assert.AreEqual(block1Childrens.Blocks.Count, 1);
+            Assert.IsTrue(block1Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[2].BlockId));
+
+            // Check block 2
+            var block2Childrens = graph.getChildren(blocks.Blocks[2].BlockId);
+            Assert.AreEqual(block2Childrens.Blocks.Count, 1);
+            Assert.IsTrue(block2Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[3].BlockId));
+
+            // Check block 3
+            var block3Childrens = graph.getChildren(blocks.Blocks[3].BlockId);
+            Assert.AreEqual(block3Childrens.Blocks.Count, 1);
+            Assert.IsTrue(block3Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[11].BlockId));
+
+            // Check block 4
+            var block4Childrens = graph.getChildren(blocks.Blocks[4].BlockId);
+            Assert.AreEqual(block4Childrens.Blocks.Count, 2);
+            Assert.IsTrue(block4Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[5].BlockId));
+            Assert.IsTrue(block4Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[6].BlockId));
+
+            // Check block 5
+            var block5Childrens = graph.getChildren(blocks.Blocks[5].BlockId);
+            Assert.AreEqual(block5Childrens.Blocks.Count, 2);
+            Assert.IsTrue(block5Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[3].BlockId));
+            Assert.IsTrue(block5Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[7].BlockId));
+
+            // Check block 6
+            var block6Childrens = graph.getChildren(blocks.Blocks[6].BlockId);
+            Assert.AreEqual(block6Childrens.Blocks.Count, 2);
+            Assert.IsTrue(block6Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[7].BlockId));
+            Assert.IsTrue(block6Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[10].BlockId));
+
+            // Check block 7
+            var block7Childrens = graph.getChildren(blocks.Blocks[7].BlockId);
+            Assert.AreEqual(block7Childrens.Blocks.Count, 1);
+            Assert.IsTrue(block7Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[11].BlockId));
+
+            // Check block 8
+            var block8Childrens = graph.getChildren(blocks.Blocks[8].BlockId);
+            Assert.AreEqual(block8Childrens.Blocks.Count, 2);
+            Assert.IsTrue(block8Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[9].BlockId));
+            Assert.IsTrue(block8Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[10].BlockId));
+
+            // Check block 9
+            var block9Childrens = graph.getChildren(blocks.Blocks[9].BlockId);
+            Assert.AreEqual(block9Childrens.Blocks.Count, 1);
+            Assert.IsTrue(block9Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[10].BlockId));
+
+            // Check block 10
+            var block10Childrens = graph.getChildren(blocks.Blocks[10].BlockId);
+            Assert.AreEqual(block10Childrens.Blocks.Count, 1);
+            Assert.IsTrue(block10Childrens.Blocks.Exists(block => block.BlockId == blocks.Blocks[11].BlockId));
+
+            // Check block 11
+            var block11Childrens = graph.getChildren(blocks.Blocks[11].BlockId);
+            Assert.AreEqual(block11Childrens.Blocks.Count, 0);
+
+        }
+
+        /// Generates example graph:
         ///    B0
         ///   /  \
         ///  B1  B2
