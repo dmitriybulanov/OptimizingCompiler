@@ -31,7 +31,7 @@ namespace DataFlowAnalysis.IterativeAlgorithm
                     else
                         result.In[bb.BlockId] = param.FirstValue;
                     V newOut = param.TransferFunction(result.In[bb.BlockId], bb);
-                    changed = changed || !param.Compare(result.Out[bb.BlockId], newOut);
+                    changed = changed || !param.AreEqual(result.Out[bb.BlockId], newOut);
                     result.Out[bb.BlockId] = param.TransferFunction(result.In[bb.BlockId], bb);
                 }
             }

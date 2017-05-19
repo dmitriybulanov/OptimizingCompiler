@@ -16,6 +16,6 @@ namespace DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters
 
         public abstract T TransferFunction(T input, BasicBlock block);
 
-        public abstract bool Compare(T t1, T t2);
+        public abstract bool AreEqual(T t1, T t2);
     }
 }

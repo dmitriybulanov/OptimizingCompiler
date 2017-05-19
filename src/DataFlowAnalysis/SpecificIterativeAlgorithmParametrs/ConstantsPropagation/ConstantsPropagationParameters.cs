@@ -58,7 +58,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
             return result;
         }
 
-        public override bool Compare(Dictionary<string, string> t1, Dictionary<string, string> t2)
+        public override bool AreEqual(Dictionary<string, string> t1, Dictionary<string, string> t2)
         {
             return t1.Count == t2.Count && t1.Keys.All(key => t2.ContainsKey(key) && t1[key] == t2[key]);
         }

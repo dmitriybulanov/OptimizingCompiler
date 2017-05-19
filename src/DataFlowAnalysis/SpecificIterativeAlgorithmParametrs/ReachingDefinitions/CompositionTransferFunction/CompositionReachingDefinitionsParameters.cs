@@ -33,7 +33,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitio
             return SetFactory.GetSet<CommandNumber>(SetFactory.GetSet(genKill.Gen).Union(input.Except(genKill.Kill)));
         }
 
-        public override bool Compare(ISet<CommandNumber> t1, ISet<CommandNumber> t2)
+        public override bool AreEqual(ISet<CommandNumber> t1, ISet<CommandNumber> t2)
         {
             return t1.IsSubsetOf(t2) && t2.IsSubsetOf(t1);
         }

@@ -17,7 +17,7 @@ namespace DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters
 
         public abstract ISet<T> GetKill(BasicBlock block);
 
-        public override bool Compare(ISet<T> t1, ISet<T> t2)
+        public override bool AreEqual(ISet<T> t1, ISet<T> t2)
         {
             return t1.IsSubsetOf(t2) && t2.IsSubsetOf(t1);
         }    

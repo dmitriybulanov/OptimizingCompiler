@@ -30,7 +30,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators
             return SetFactory.GetSet<int>(input.Union(new int[] { block.BlockId }));
         }
 
-        public override bool Compare(ISet<int> t1, ISet<int> t2)
+        public override bool AreEqual(ISet<int> t1, ISet<int> t2)
         {
             return t1.IsSubsetOf(t2) && t2.IsSubsetOf(t1);
         }
