@@ -1,3 +1,5 @@
-1:for i = 1 + 2 * 3 .. 10
-  println(i);
-goto 1;
+b = 1;
+if 1 
+  b = 3;
+else
+  b = 2;

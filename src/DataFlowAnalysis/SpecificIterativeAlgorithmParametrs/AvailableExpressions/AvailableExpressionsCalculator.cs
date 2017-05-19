@@ -79,15 +79,15 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
             */
         }
 
-        public override bool ForwardDirection { get { return true; } }
+        public override bool ForwardDirection => true;
 
-        public override ISet<Expression> FirstValue { get { return SetFactory.GetSet<Expression>(); } }
+        public override ISet<Expression> FirstValue => SetFactory.GetSet();
 
         public override ISet<Expression> StartingValue
         {
             get
             {
-                HashSet<Expression> result = new HashSet<Expression>();
+                ISet<Expression> result = SetFactory.GetSet();//new HashSet<Expression>();
                 foreach (BasicBlock b in Graph)
                     foreach (ThreeAddressCommand c in b.Commands)
                         if (c.GetType() == typeof(Assignment))
@@ -95,7 +95,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressi
                             result.Add((c as Assignment).Value);
                             result.Add((c as Assignment).Target);
                         }
-                return SetFactory.GetSet<Expression>(result);
+                return result; //SetFactory.GetSet<Expression>(result);
             }
         }
     }
