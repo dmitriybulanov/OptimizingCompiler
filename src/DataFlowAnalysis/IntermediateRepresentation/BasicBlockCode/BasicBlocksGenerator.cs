@@ -57,7 +57,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode
             {
                 ThreeAddressCommand currentCommand = commands[currentNumOfLastCommand];
                 int numOfCurrentBlock = BlockByLastCommand[currentNumOfLastCommand];
-                if ((currentCommand.GetType() != typeof(Goto)) && (currentNumOfLastCommand < commands.Count - 1))
+                if (!(currentCommand is Goto) && (currentNumOfLastCommand < commands.Count - 1))
                 {
                     int numOfNextBlock = numOfCurrentBlock + 1;
                     NextBlocksByBlockID[numOfCurrentBlock].Add(numOfNextBlock);
@@ -81,8 +81,8 @@ namespace DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode
 
             for (int i = 0; i < basicBlocks.Count(); ++i)
             {
-                for (int j = 0; j < NextBlocksByBlockID[i].Count; ++j)
-                    PreviousBlocksByBlockID[i][j] = basicBlocks.Blocks[PreviousBlocksByBlockID[i][j]].BlockId;
+                for (int j = 0; j < PreviousBlocksByBlockID[i].Count; ++j)
+                        PreviousBlocksByBlockID[i][j] = basicBlocks.Blocks[PreviousBlocksByBlockID[i][j]].BlockId;
                 for (int j = 0; j < NextBlocksByBlockID[i].Count; ++j)
                     NextBlocksByBlockID[i][j] = basicBlocks.Blocks[NextBlocksByBlockID[i][j]].BlockId;
                 basicBlocks.Blocks[i].InputBlocks.AddRange(PreviousBlocksByBlockID[i]);
