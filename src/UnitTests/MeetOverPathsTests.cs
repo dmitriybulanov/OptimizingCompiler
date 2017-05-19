@@ -96,15 +96,55 @@ namespace UnitTests
             var blocks = CreateTestGraph1Blocks();
             var graph = new Graph(blocks);
 
-            var paths = GraphAlgorithms.FindAllPaths(graph, blocks.Blocks[6].BlockId);
+            var benchmarkPaths = new List<List<int>>
+            {
+                // 1 -> 3 -> 4 -> 6
+                new List<int>{
+                blocks.Blocks[1].BlockId,
+                blocks.Blocks[3].BlockId,
+                blocks.Blocks[4].BlockId,
+                blocks.Blocks[6].BlockId },
+                // 1 -> 3 -> 5 -> 6
+                new List<int>{
+                blocks.Blocks[1].BlockId,
+                blocks.Blocks[3].BlockId,
+                blocks.Blocks[5].BlockId,
+                blocks.Blocks[6].BlockId
+                },
+                // 2 -> 3 -> 4 -> 6
+                new List<int>{
+                blocks.Blocks[2].BlockId,
+                blocks.Blocks[3].BlockId,
+                blocks.Blocks[4].BlockId,
+                blocks.Blocks[6].BlockId
+                },
+                // 2 -> 3 -> 5 -> 6
+                new List<int>{
+                blocks.Blocks[2].BlockId,
+                blocks.Blocks[3].BlockId,
+                blocks.Blocks[5].BlockId,
+                blocks.Blocks[6].BlockId
+                }
+            };
+            var benchmarkPathsChecked = Enumerable.Repeat(false, benchmarkPaths.Count).ToList();
+
+            var paths = GraphAlgorithms.FindAllPaths(graph, blocks.Blocks[6].BlockId).ToList();
+            Assert.AreEqual(paths.Count, 4);
             foreach (var path in paths)
             {
                 foreach (var block in path)
                 {
-                    Trace.Write(blocks.Blocks.FindIndex(basicBlock => basicBlock.BlockId == block.BlockId) , " ");
+                    Trace.Write(blocks.Blocks.FindIndex(basicBlock => basicBlock.BlockId == block.BlockId) + " ");
                 }
                 Trace.WriteLine("");
+
+                for (int i = 0; i < benchmarkPaths.Count; i++)
+                {
+                    benchmarkPathsChecked[i] = benchmarkPathsChecked[i] || benchmarkPaths[i].SequenceEqual(path.Select(block => block.BlockId));
+                }
             }
+
+            Assert.IsTrue(benchmarkPathsChecked.All(x => x));
         }
     }
 }
