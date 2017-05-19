@@ -23,7 +23,7 @@ namespace UnitTests.IterativeAlgorithmTests
     public class AvailableExpressionTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void AvailableExpressionsTest()
         {
             string programText = @"
 a = 4;
@@ -59,7 +59,8 @@ print(c);
                 Trace.WriteLine(outInfo);
             }
 
-            Assert.IsTrue(availableExprs.Out[0]
+            int startIndex = availableExprs.Out.Keys.Min();
+            Assert.IsTrue(availableExprs.Out[startIndex]
                 .SetEquals(
                     new HashSet<Expression>(new Expression[]
                     {
@@ -68,7 +69,7 @@ print(c);
                         new identifier("t0")
                     })));
 
-            Assert.IsTrue(availableExprs.Out[1]
+            Assert.IsTrue(availableExprs.Out[startIndex + 1]
                 .SetEquals(
                     new HashSet<Expression>(new Expression[]
                     {
@@ -77,7 +78,7 @@ print(c);
                         new identifier("t0")
                     })));
 
-            Assert.IsTrue(availableExprs.Out[2]
+            Assert.IsTrue(availableExprs.Out[startIndex + 2]
                 .SetEquals(
                     new HashSet<Expression>(new Expression[]
                     {
@@ -86,7 +87,7 @@ print(c);
                         new identifier("t0")
                     })));
 
-            Assert.IsTrue(availableExprs.Out[3]
+            Assert.IsTrue(availableExprs.Out[startIndex + 3]
                 .SetEquals(
                     new HashSet<Expression>(new Expression[]
                     {
