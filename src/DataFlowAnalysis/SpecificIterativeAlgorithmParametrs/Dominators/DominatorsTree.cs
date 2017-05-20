@@ -49,5 +49,10 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators
         {
             return Map.Values.GetEnumerator();
         }
+
+        public Dictionary<int, int> GetMap()
+        {
+            return Map;
+        }
     }
 }

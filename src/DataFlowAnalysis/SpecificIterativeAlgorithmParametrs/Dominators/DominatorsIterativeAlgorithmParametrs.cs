@@ -35,9 +35,9 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators
             return t1.IsSubsetOf(t2) && t2.IsSubsetOf(t1);
         }
 
-        public override ISet<int> StartingValue { get { return SetFactory.GetSet<int>(Enumerable.Range(0, graph.Count())); } }
+        public override ISet<int> StartingValue { get { return SetFactory.GetSet<int>(Enumerable.Range(graph.GetMinBlockId(), graph.Count())); } }
 
-        public override ISet<int> FirstValue { get { return SetFactory.GetSet<int>(Enumerable.Repeat(0, 1)); } }
+        public override ISet<int> FirstValue { get { return SetFactory.GetSet<int>(Enumerable.Repeat(graph.GetMinBlockId(), 1)); } }
 
         public override bool ForwardDirection { get { return true; } }
 

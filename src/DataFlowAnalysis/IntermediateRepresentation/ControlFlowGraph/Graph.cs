@@ -176,5 +176,10 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
         {
             return blockMap.Values.GetEnumerator();
         }
+
+        public int GetMinBlockId()
+        {
+            return blockMap.Keys.Min();
+        }
     }
 }

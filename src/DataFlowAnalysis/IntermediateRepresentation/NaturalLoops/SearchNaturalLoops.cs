@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.Utilities;
 using QuickGraph;
@@ -33,7 +29,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.NaturalLoops
                 if (pair.Value == EdgeClassification.Model.EdgeType.Retreating)
                 {
                     Stack = new Stack<int>();
-                    Loop = SetFactory.GetSet<int>(new int[] { pair.Key.Target.BlockId });
+                    Loop = SetFactory.GetSet(new int[] { pair.Key.Target.BlockId });
                     Insert(pair.Key.Source.BlockId);
                     while (Stack.Count() > 0)
                     {

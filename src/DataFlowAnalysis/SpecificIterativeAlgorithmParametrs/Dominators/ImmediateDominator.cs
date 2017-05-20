@@ -13,8 +13,10 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators
         {
             var _out = IterativeAlgorithm.IterativeAlgorithm.Apply(g, new DominatorsIterativeAlgorithmParametrs(g)).Out;
 
+            int min = _out.Keys.Min();
+
             return _out.Select(x => new KeyValuePair<int, int>(x.Key,
-                                          x.Key > 0 ? _out[x.Key].Intersect(g.getBlockById(x.Key).InputBlocks).First() : 0))
+                                            x.Key > min ? _out[x.Key].Take(_out[x.Key].Count - 1).Last() : min))
                                           .ToDictionary(x => x.Key, x => x.Value);
         }
     }
