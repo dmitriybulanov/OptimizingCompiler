@@ -68,6 +68,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="IntermediateRepresentationTests\EdgeClassificationTest.cs" />
     <Compile Include="IterativeAlgorithmTests\AvailableExpressionTest.cs" />
     <Compile Include="IterativeAlgorithmTests\DominatorsTreeTest.cs" />
     <Compile Include="OtherTests.cs" />
