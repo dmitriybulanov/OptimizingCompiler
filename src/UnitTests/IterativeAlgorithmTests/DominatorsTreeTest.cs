@@ -60,8 +60,10 @@ if i > 0
             var dominatorsTree = new DominatorsTree(g);
             foreach (var v in dominatorsTree.GetMap())
                 Trace.WriteLine(v.Key + " " + v.Value);
+
+            int start = g.GetMinBlockId();
             Assert.IsTrue(dominatorsTree.GetMap().OrderBy(x => x.Key).SequenceEqual(
-                new Dictionary<int, int> { { 34, 34 }, { 35, 34 }, { 36, 34 }, { 37, 34 } }
+                new Dictionary<int, int> { { start, start }, { start + 1, start }, { start + 2, start }, { start + 3, start } }
                 .OrderBy(x => x.Key)));
 
             Trace.WriteLine("===============");
@@ -83,8 +85,9 @@ if i > 0
             dominatorsTree = new DominatorsTree(g);
             foreach (var v in dominatorsTree.GetMap())
                 Trace.WriteLine(v.Key + " " + v.Value);
+            start = g.GetMinBlockId();
             Assert.IsTrue(dominatorsTree.GetMap().OrderBy(x => x.Key).SequenceEqual(
-                new Dictionary<int, int> { { 38, 38 }, { 39, 38 }, { 40, 38 }, { 41, 40 }, { 42, 41 }, { 43, 41 }, { 44, 38 }  }
+                new Dictionary<int, int> { { start, start }, { start + 1, start }, { start + 2, start }, { start + 3, start + 2 }, { start + 4, start + 3 }, { start + 5, start + 3 }, { start + 6, start }  }
                 .OrderBy(x => x.Key)));
 
             Trace.WriteLine("===============");
@@ -106,8 +109,9 @@ if i > 0
             dominatorsTree = new DominatorsTree(g);
             foreach (var v in dominatorsTree.GetMap())
                 Trace.WriteLine(v.Key + " " + v.Value);
+            start = g.GetMinBlockId();
             Assert.IsTrue(dominatorsTree.GetMap().OrderBy(x => x.Key).SequenceEqual(
-                new Dictionary<int, int> { { 45, 45 }, { 46, 45 }, { 47, 46 }, { 48, 46 } }
+                new Dictionary<int, int> { { start, start }, { start + 1, start }, { start + 2, start + 1 }, { start + 3, start + 1 } }
                 .OrderBy(x => x.Key)));
         }
     }
