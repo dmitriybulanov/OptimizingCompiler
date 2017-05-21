@@ -8,6 +8,7 @@ using QuickGraph;
 using QuickGraph.Algorithms;
 
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
 using System.Collections;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
@@ -180,6 +181,84 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
         public int GetMinBlockId()
         {
             return blockMap.Keys.Min();
+        }
+
+        public List<ThreeAddressCommand>  transformToThreeAddressCode()
+        {
+            var res = new List<ThreeAddressCommand>();
+
+            var done = new HashSet<BasicBlock>();
+            var stack = new Stack<BasicBlock>();
+            stack.Push(getBlockById(0));
+
+            BasicBlock cur = null;
+
+            while (done.Count < this.GetCount())
+            {
+                cur = stack.Pop();
+                done.Add(cur);
+
+                foreach (var c in cur.Commands)
+                {
+                    res.Add(c);
+                }
+
+                switch (cur.OutputBlocks.Count)
+                {
+                    case 0:
+                        continue;
+                    case 1:
+                        BasicBlock outBlock = getBlockById(cur.OutputBlocks[0]);
+                        if (!done.Contains(outBlock) && !stack.Contains(outBlock))
+                        {
+                            stack.Push(outBlock);
+                        }
+                        break;
+                    case 2:
+                        int lastStatementIndex = cur.Commands.Count - 1;
+                        ConditionalGoto lastStatement = (ConditionalGoto)cur.Commands[lastStatementIndex];
+
+                        BasicBlock outFirst = getBlockById(cur.OutputBlocks[0]);
+                        BasicBlock outSecond = getBlockById(cur.OutputBlocks[1]);
+
+                        string labelFirst = outFirst.Commands[0].Label;
+                        string labelSecond = outSecond.Commands[0].Label;
+                        string gotoLabel = lastStatement.GotoLabel;
+
+                        if (gotoLabel == labelSecond)
+                        {
+                            BasicBlock t = outFirst;
+                            outFirst = outSecond;
+                            outSecond = t;
+                        }
+
+                        int secondLastIndex = outSecond.Commands.Count - 1;
+                        ThreeAddressCommand secondLast = outSecond.Commands[secondLastIndex];
+                        if ((secondLast is Goto) && !(secondLast is ConditionalGoto))
+                        {
+                            BasicBlock afterIfStatement = getBlockById(outSecond.OutputBlocks[0]);
+                            if (!stack.Contains(afterIfStatement) && !done.Contains(afterIfStatement))
+                            {
+                                stack.Push(afterIfStatement);
+                            }
+                        }
+
+                        if (!done.Contains(outFirst) && !stack.Contains(outFirst))
+                        {
+                            stack.Push(outFirst);
+                        }
+
+                        if (!done.Contains(outSecond) && !stack.Contains(outSecond))
+                        {
+                            stack.Push(outSecond);
+                        }
+                        break;
+                    default:
+                        throw new Exception("There cannot be more than two output blocks!");
+                }
+            }
+
+            return res;
         }
     }
 }
