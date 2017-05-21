@@ -4,8 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
-using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification;
-using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification.Model;
+using DataFlowAnalysis.IntermediateRepresentation.NaturalLoops;
 using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode;
 using GPPGParser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,10 +13,10 @@ using SyntaxTree.SyntaxNodes;
 namespace UnitTests.IntermediateRepresentationTests
 {
     [TestClass]
-    public class EdgesClassificationTest
+    public class NaturalLoopTest
     {
         [TestMethod]
-        public void EdgeClassificationTest()
+        public void NaturalLoopsTest()
         {
             string programText_1 = @"
 b = 1;
@@ -58,22 +57,20 @@ if i > 0
             Graph g = new Graph(basicBlocks);
             Trace.WriteLine(g);
 
-            var edgeClassify = EdgeClassification.ClassifyEdge(g);
-            List<Tuple<int, int, EdgeType>> tuples = new List<Tuple<int, int, EdgeType>>();
-            foreach (var v in edgeClassify)
+            var allNaturalLoops = SearchNaturalLoops.FindAllNaturalLoops(g);
+            var tuples = new List<Tuple<int, int, SortedSet<int>>>();
+            foreach (var v in allNaturalLoops)
             {
-                Trace.WriteLine(v.Key.Source.BlockId + " -> " + v.Key.Target.BlockId + " : " + v.Value);
-                tuples.Add(new Tuple<int, int, EdgeType>(v.Key.Source.BlockId, v.Key.Target.BlockId, v.Value));
+                Trace.Write(v.Key.Source.BlockId + " -> " + v.Key.Target.BlockId + " : ");
+                foreach (int k in v.Value)
+                    Trace.Write(k.ToString() + " ");
+                Trace.WriteLine("");
+                tuples.Add(new Tuple<int, int, SortedSet<int>>(v.Key.Source.BlockId, v.Key.Target.BlockId, new SortedSet<int>(v.Value)));
             }
 
             int start = g.GetMinBlockId();
 
-            Assert.IsTrue(tuples.SequenceEqual(new List<Tuple<int, int, EdgeType>>()
-            { new Tuple<int, int, EdgeType>(start, start + 1, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start, start + 2, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start + 1, start + 3, EdgeType.Cross),
-              new Tuple<int, int, EdgeType>(start + 2, start + 3, EdgeType.Cross)}
-            ));
+            Assert.IsTrue(tuples.SequenceEqual(new List<Tuple<int, int, SortedSet<int>>>()));
 
             Trace.WriteLine("===============");
             Trace.WriteLine("Тест 2");
@@ -91,27 +88,28 @@ if i > 0
             g = new Graph(basicBlocks);
             Trace.WriteLine(g);
 
-            edgeClassify = EdgeClassification.ClassifyEdge(g);
-            tuples = new List<Tuple<int, int, EdgeType>>();
-            foreach (var v in edgeClassify)
+            allNaturalLoops = SearchNaturalLoops.FindAllNaturalLoops(g);
+            tuples = new List<Tuple<int, int, SortedSet<int>>>();
+            foreach (var v in allNaturalLoops)
             {
-                Trace.WriteLine(v.Key.Source.BlockId + " -> " + v.Key.Target.BlockId + " : " + v.Value);
-                tuples.Add(new Tuple<int, int, EdgeType>(v.Key.Source.BlockId, v.Key.Target.BlockId, v.Value));
+                Trace.Write(v.Key.Source.BlockId + " -> " + v.Key.Target.BlockId + " : ");
+                foreach (int k in v.Value)
+                    Trace.Write(k.ToString() + " ");
+                Trace.WriteLine("");
+                tuples.Add(new Tuple<int, int, SortedSet<int>>(v.Key.Source.BlockId, v.Key.Target.BlockId, new SortedSet<int>(v.Value)));
             }
 
             start = g.GetMinBlockId();
 
-            Assert.IsTrue(tuples.SequenceEqual(new List<Tuple<int, int, EdgeType>>()
-            { new Tuple<int, int, EdgeType>(start, start + 1, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start, start + 2, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start + 1, start + 6, EdgeType.Cross),
-              new Tuple<int, int, EdgeType>(start + 2, start + 3, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start + 3, start + 4, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start + 3, start + 5, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start + 4, start + 3, EdgeType.Retreating),
-              new Tuple<int, int, EdgeType>(start + 5, start + 6, EdgeType.Cross)
-            }
-            ));
+            var check = new List<Tuple<int, int, SortedSet<int>>>()
+            {
+               new Tuple<int, int, SortedSet<int>>(start + 4, start + 3, new SortedSet<int>() { start + 3, start + 4 })
+            };
+
+            Assert.IsTrue(tuples.Count == 1);
+            Assert.IsTrue(tuples[0].Item1 == check[0].Item1);
+            Assert.IsTrue(tuples[0].Item2 == check[0].Item2);
+            Assert.IsTrue(tuples[0].Item3.SequenceEqual(check[0].Item3));
 
             Trace.WriteLine("===============");
             Trace.WriteLine("Тест 3");
@@ -129,22 +127,28 @@ if i > 0
             g = new Graph(basicBlocks);
             Trace.WriteLine(g);
 
-            edgeClassify = EdgeClassification.ClassifyEdge(g);
-            tuples = new List<Tuple<int, int, EdgeType>>();
-            foreach (var v in edgeClassify)
+            allNaturalLoops = SearchNaturalLoops.FindAllNaturalLoops(g);
+            tuples = new List<Tuple<int, int, SortedSet<int>>>();
+            foreach (var v in allNaturalLoops)
             {
-                Trace.WriteLine(v.Key.Source.BlockId + " -> " + v.Key.Target.BlockId + " : " + v.Value);
-                tuples.Add(new Tuple<int, int, EdgeType>(v.Key.Source.BlockId, v.Key.Target.BlockId, v.Value));
+                Trace.Write(v.Key.Source.BlockId + " -> " + v.Key.Target.BlockId + " : ");
+                foreach (int k in v.Value)
+                    Trace.Write(k.ToString() + " ");
+                Trace.WriteLine("");
+                tuples.Add(new Tuple<int, int, SortedSet<int>>(v.Key.Source.BlockId, v.Key.Target.BlockId, new SortedSet<int>(v.Value)));
             }
 
             start = g.GetMinBlockId();
 
-            Assert.IsTrue(tuples.SequenceEqual(new List<Tuple<int, int, EdgeType>>()
-            { new Tuple<int, int, EdgeType>(start, start + 1, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start + 1, start + 2, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start + 1, start + 3, EdgeType.Advancing),
-              new Tuple<int, int, EdgeType>(start + 2, start + 1, EdgeType.Retreating)}
-            ));
+            check = new List<Tuple<int, int, SortedSet<int>>>()
+            {
+               new Tuple<int, int, SortedSet<int>>(start + 2, start + 1, new SortedSet<int>() { start + 1, start + 2 })
+            };
+
+            Assert.IsTrue(tuples.Count == 1);
+            Assert.IsTrue(tuples[0].Item1 == check[0].Item1);
+            Assert.IsTrue(tuples[0].Item2 == check[0].Item2);
+            Assert.IsTrue(tuples[0].Item3.SequenceEqual(check[0].Item3));
         }
     }
 }
