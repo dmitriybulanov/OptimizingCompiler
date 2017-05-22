@@ -35,7 +35,7 @@
 
 ### Реализация алгоритма
 
-```
+``` C#
 // Метод получения множества Gen
 public override ISet<Expression> GetGen(BasicBlock block)
 {
@@ -58,7 +58,7 @@ public override ISet<Expression> GetKill(BasicBlock block)
 ### Пример использования
 
 Трехадресный код программы:
-```
+``` C#
 1: <no-op>
 t0 = a + b
 x = t0
@@ -72,7 +72,7 @@ a = t2
 
 Вызов алгоритма
 
-```
+``` C#
 // ----
 // фомирование графа g
 // ----
@@ -90,7 +90,7 @@ var outExpressions = availableExprs.Out.Select(
 ```
 ### Тест
 
-```
+``` C#
 string programText = @"
 a = 4;
 b = 4;
