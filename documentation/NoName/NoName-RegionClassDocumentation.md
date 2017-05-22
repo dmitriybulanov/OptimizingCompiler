@@ -144,7 +144,7 @@ public class LoopRegion : IntermediateRegion
     }
 }
 
-// Класс "область листа". Каждый базовый блок рассматривается как область-лист
+// Класс "область лист". Каждый базовый блок рассматривается как область-лист
 public class LeafRegion : Region
 {
     public BasicBlock Block { get; set; }
