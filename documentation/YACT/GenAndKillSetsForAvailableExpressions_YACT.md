@@ -57,8 +57,95 @@ public override ISet<Expression> GetKill(BasicBlock block)
 
 ### Пример использования
 
-/*результат работы*/
+Трехадресный код программы:
+```
+1: <no-op>
+t0 = a + b
+x = t0
+2: <no-op>
+t1 = a * b
+y = t1
+3: <no-op>
+t2 = a + 1
+a = t2
+```
 
+Вызов алгоритма
+
+```
+// ----
+// фомирование графа g
+// ----
+...
+var availableExprs = IterativeAlgorithm.Apply(g, new AvailableExpressionsCalculator(g));
+var outExpressions = availableExprs.Out.Select(
+    pair => $"{pair.Key}: {string.Join(", ", pair.Value.Select(ex => ex.ToString()))}");
+```
+Вывод `outExpressions`:
+```
+// Доступные выражения
+0: a + b, t0
+1: a + b, t0, a * b, t1
+2: t0, t1, a + 1, t2
+```
 ### Тест
 
-/*небольшой тест на входных данных.*/
+```
+string programText = @"
+a = 4;
+b = 4;
+c = a + b;
+if 1 
+  a = 3;
+else
+  b = 2;
+print(c);
+";
+
+// Формирование CFG и вызов алгоритма
+SyntaxNode root = ParserWrap.Parse(programText);
+var threeAddressCode = ThreeAddressCodeGenerator.CreateAndVisit(root).Program;
+var basicBlocks = BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode);
+Graph g = new Graph(basicBlocks);
+
+var availableExprs = IterativeAlgorithm.Apply(g, new AvailableExpressionsCalculator(g));
+var outExpressions = availableExprs.Out.Select(
+    pair => $"{pair.Key}: {string.Join(", ", pair.Value.Select(ex => ex.ToString()))}");
+
+// Сравнение с эталоном
+int startIndex = availableExprs.Out.Keys.Min();
+Assert.IsTrue(availableExprs.Out[startIndex]
+    .SetEquals(
+        new HashSet<Expression>(new Expression[]
+        {
+            new Int32Const(4),
+            new BinaryOperation(new identifier("a"), Operation.Add, new identifier("b")),
+            new identifier("t0")
+        })));
+
+Assert.IsTrue(availableExprs.Out[startIndex + 1]
+    .SetEquals(
+        new HashSet<Expression>(new Expression[]
+        {
+            new Int32Const(4),
+            new Int32Const(3),
+            new identifier("t0")
+        })));
+
+Assert.IsTrue(availableExprs.Out[startIndex + 2]
+    .SetEquals(
+        new HashSet<Expression>(new Expression[]
+        {
+            new Int32Const(4),
+            new Int32Const(2),
+            new identifier("t0")
+        })));
+
+Assert.IsTrue(availableExprs.Out[startIndex + 3]
+    .SetEquals(
+        new HashSet<Expression>(new Expression[]
+        {
+                new Int32Const(4),
+                new identifier("t0")
+        })));
+```
