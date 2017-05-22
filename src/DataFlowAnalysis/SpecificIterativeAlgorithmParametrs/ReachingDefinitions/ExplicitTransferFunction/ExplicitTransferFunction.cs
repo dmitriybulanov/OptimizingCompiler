@@ -6,10 +6,12 @@ using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator;
 using DataFlowAnalysis.Utilities;
 using DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator.Model;
+using System.Linq;
 
 namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.ExplicitTransferFunction
 {
-    class ExplicitTransferFunction : SetIterativeAlgorithmParameters<CommandNumber>
+    public class ExplicitTransferFunction : SetIterativeAlgorithmParameters<CommandNumber>
     {
         private GenKillOneCommandCalculator commandCalc;
 
@@ -52,22 +54,19 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitio
 
         public override ISet<CommandNumber> GetGen(BasicBlock block)
         {
-            //list of kill-sets for every command in block
-            List<ISet<CommandNumber>> listKill = new List<ISet<CommandNumber>>(block.Commands.Count);
-            foreach (var command in block.Commands)
-                listKill.Add(commandCalc.CalculateGenAndKill(block, command).Kill);
-
+            List<GenKillOneCommand> listGenKill = block.Commands.Select((x, i) => commandCalc.CalculateGenAndKill(block, i)).ToList();
+            
             ISet<CommandNumber> genB = SetFactory.GetSet<CommandNumber>();
-
+            ISet<CommandNumber> killS = SetFactory.GetSet<CommandNumber>(); 
             for (int i = block.Commands.Count - 1; i >= 0; i--)
             {
                 ISet<CommandNumber> genS = SetFactory.GetSet<CommandNumber>();
-                genS.Add(commandCalc.CalculateGenAndKill(block, block.Commands[i]).Gen);
-                for (int j = i; j < block.Commands.Count - 1; j++)
-                {
-                    genS.IntersectWith(listKill[i]);
-                }
+                if(listGenKill[i].Gen != null)
+                    genS.Add(listGenKill[i].Gen);
+                genS.ExceptWith(killS);
                 genB.UnionWith(genS);
+
+                killS.UnionWith(listGenKill[i].Kill);
             }
 
             return genB;
@@ -75,10 +74,13 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitio
 
         public override ISet<CommandNumber> GetKill(BasicBlock block)
         {
-            ISet<CommandNumber> killB = SetFactory.GetSet<CommandNumber>();
-            foreach (var command in block.Commands)
-                killB.UnionWith(commandCalc.CalculateGenAndKill(block, command).Kill);
-            return killB;
+            return block.Commands.Select((b, i) => commandCalc.CalculateGenAndKill(block, i).Kill).Aggregate(SetFactory.GetSet<CommandNumber>(), 
+            (result, x) =>
+            {
+                result.UnionWith(x);
+                return result;
+            });
+            
         }
     }
 }

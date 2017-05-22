@@ -12,13 +12,13 @@ namespace DataFlowAnalysis.IterativeAlgorithm
 {
     public static class IterativeAlgorithm
     {
-        public static IterativeAlgorithmOutput<V> Apply<V>(Graph graph, BasicIterativeAlgorithmParameters<V> param, int[] order = null)
+        public static IterativeAlgorithmOutput<V> Apply<V>(Graph graph, BasicIterativeAlgorithmParameters<V> param, Dictionary<int, int> order = null)
         {
             IterativeAlgorithmOutput<V> result = new IterativeAlgorithmOutput<V>();
             
             foreach (BasicBlock bb in graph)
                 result.Out[bb.BlockId] = param.StartingValue;
-            IEnumerable<BasicBlock> g = order == null ? graph : order.Select(i => graph.getBlockById(i));
+            IEnumerable<BasicBlock> g = order == null ? graph : graph.OrderBy(x => order[x.BlockId]).Select(x=>x);// order.Select(i => graph.getBlockById(i));
             bool changed = true;
             while (changed)
             {
@@ -32,7 +32,7 @@ namespace DataFlowAnalysis.IterativeAlgorithm
                         result.In[bb.BlockId] = param.FirstValue;
                     V newOut = param.TransferFunction(result.In[bb.BlockId], bb);
                     changed = changed || !param.AreEqual(result.Out[bb.BlockId], newOut);
-                    result.Out[bb.BlockId] = param.TransferFunction(result.In[bb.BlockId], bb);
+                    result.Out[bb.BlockId] = newOut;
                 }
             }
             if (!param.ForwardDirection)

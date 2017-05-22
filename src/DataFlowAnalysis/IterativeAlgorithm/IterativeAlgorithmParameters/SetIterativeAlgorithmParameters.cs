@@ -10,7 +10,10 @@ namespace DataFlowAnalysis.IterativeAlgorithm.IterativeAlgorithmParameters
     {
         public override ISet<T> TransferFunction(ISet<T> input, BasicBlock block)
         {
-            return SetFactory.GetSet<T>(GetGen(block).Union(input.Except(GetKill(block))));
+            var result = SetFactory.GetSet<T>(input);
+            result.ExceptWith(GetKill(block));
+            result.UnionWith(GetGen(block));
+            return result;
         }
 
         public abstract ISet<T> GetGen(BasicBlock block);
