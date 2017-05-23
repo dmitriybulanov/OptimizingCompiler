@@ -16,12 +16,12 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
         public Dictionary<Region, int> regionMapId = new Dictionary<Region, int>();
         public Dictionary<int, Region> idMapRegion = new Dictionary<int, Region>();
         private Dictionary<int, LeafRegion> regionMapBlockId = new Dictionary<int, LeafRegion>();
-		public BidirectionalGraph<Region, Edge<Region>> regionCFG =
-		  new BidirectionalGraph<Region, Edge<Region>>();
+        public BidirectionalGraph<Region, Edge<Region>> regionCFG =
+          new BidirectionalGraph<Region, Edge<Region>>();
 
-		// FindAllNaturalLoops helpers private members
-		private ISet<int> Loop;
-		private Stack<int> Stack;
+        // FindAllNaturalLoops helpers private members
+        private ISet<int> Loop;
+        private Stack<int> Stack;
         private void Insert(int m)
         {
             if (!Loop.Contains(m))
@@ -30,11 +30,11 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
                 Stack.Push(m);
             }
         }
-	    public RegionSequence()
-	    {
+        public RegionSequence()
+        {
             // проверка на приводимость графа
             // если неприводим, то выкидывать из конструктора
-	    }
+        }
 
         private bool checkLoopInclusion(KeyValuePair<Edge<Region>, ISet<int>> curLoop, Dictionary<Edge<Region>, ISet<int>> regionLoops) {
             foreach (var loop in regionLoops)
@@ -52,7 +52,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
             {
                 return (r as LeafRegion).Block;
             }
-            else if (r.GetType() == typeof(LeafRegion))
+            else if (r.GetType() == typeof(LoopRegion))
             {
                 return getBasicBlockHead((r as LoopRegion).Body);
             }
@@ -96,79 +96,105 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
 
                     var header = getBasicBlockHead(loop.Key.Target);
                     BodyRegion newReg = new BodyRegion(header, outputBlocks, curRegions);
+                    LoopRegion newLoopReg = new LoopRegion(newReg);
                     regionList.Add(newReg);
-
+                    regionList.Add(newLoopReg);
 
                     // add new vertex to regionCFG
                     regionCFG.AddVertex(newReg);
+
+                    // старый алгоритм, возможно не будет работать, потому что неизвестно как поведет себя граф при уничтожении связи с подграфом
+                    // сначала нужно найти вершину из которой дуга ведет в header
+                    // затем, заменить таргет дуги на новый регион
+                    //foreach (var edge in regionCFG.Edges)
+                    //{
+                    //    if (getBasicBlockHead(edge.Target) == header)
+                    //    {
+                    //        Edge<Region> newEdge = new Edge<Region>(edge.Source, newReg);
+                    //        regionCFG.RemoveEdge(edge);
+                    //        regionCFG.AddEdge(newEdge);
+                    //    }
+                    //}
+
+
+                    // "вроде должно работать" алгоритм
                     foreach (var reg in regionCFG.Vertices)
                     {
                         if (newReg.Regions.Contains(reg))
                         {
-                            //foreach (var outReg in reg.OutputBlocks)
-                            //{
-                            //    if (!newReg.Regions.Contains(reg))
-                            //    {
-                            //        regionCFG.AddEdge(new Edge<Region>(newReg, regionMapBlockId[outReg]));
-                            //    }
-                            //}
+                            foreach (var outReg in reg.OutputBlocks)
+                            {
+                                // regionMapBlockId - у нас только leaf, а может быть любая область. Надо шото сделать
+                                regionCFG.RemoveEdge(new Edge<Region>(reg, regionMapBlockId[outReg]));
 
-                            // здесь обработка 
-                        }   
+                                if (!newReg.Regions.Contains(regionMapBlockId[outReg]))
+                                {
+                                    regionCFG.AddEdge(new Edge<Region>(newReg, regionMapBlockId[outReg]));
+                                }
+                            }
+
+                        } else {
+                            foreach (var outReg in reg.OutputBlocks)
+                            {
+                                if (newReg.Regions.Contains(regionMapBlockId[outReg]))
+                                {
+                                    regionCFG.RemoveEdge(new Edge<Region>(reg, regionMapBlockId[outReg]));
+                                    regionCFG.AddEdge(new Edge<Region>(reg, newReg));
+                                }
+                            }
+                        }
                     }
-
-
                 }
             }
-            return null;
+            return regionList;
         }
 
 
-		public Dictionary<Edge<Region>, ISet<int>> FindAllNaturalLoops(Graph g)
-		{
-			var classify = EdgeClassification.EdgeClassification.ClassifyEdge(g);
-			var result = new Dictionary<Edge<Region>, ISet<int>>();
-			foreach (var pair in classify)
+        public Dictionary<Edge<Region>, ISet<int>> FindAllNaturalLoops(Graph g)
+        {
+            var classify = EdgeClassification.EdgeClassification.ClassifyEdge(g);
+            var result = new Dictionary<Edge<Region>, ISet<int>>();
+            foreach (var pair in classify)
             {
-				if (pair.Value == EdgeClassification.Model.EdgeType.Retreating)
-				{
-					Stack = new Stack<int>();
-					Loop = SetFactory.GetSet<int>(new int[] { regionMapId[regionMapBlockId[pair.Key.Target.BlockId]] });
-					Insert(regionMapId[regionMapBlockId[pair.Key.Source.BlockId]]);
-					while (Stack.Count > 0)
-					{
-						int m = Stack.Pop();
-						foreach (BasicBlock p in g.getParents(m))
-							Insert(regionMapId[regionMapBlockId[p.BlockId]]);
-					}
+                if (pair.Value == EdgeClassification.Model.EdgeType.Retreating)
+                {
+                    Stack = new Stack<int>();
+                    Loop = SetFactory.GetSet<int>(new int[] { regionMapId[regionMapBlockId[pair.Key.Target.BlockId]] });
+                    Insert(regionMapId[regionMapBlockId[pair.Key.Source.BlockId]]);
+                    while (Stack.Count > 0)
+                    {
+                        int m = Stack.Pop();
+                        foreach (BasicBlock p in g.getParents(m))
+                            Insert(regionMapId[regionMapBlockId[p.BlockId]]);
+                    }
                     var edgeRegion = new Edge<Region>(regionMapBlockId[pair.Key.Source.BlockId], regionMapBlockId[pair.Key.Target.BlockId]);
                     result.Add(edgeRegion, Loop);
-				}
-			}
-			return result;
-		}
+                }
+            }
+            return result;
+        }
 
         public void CreateRegionCFG(Graph g) {
             
-			var count = 0;
-			foreach (var vertex in g.GetVertices())
-			{
-				LeafRegion block = new LeafRegion(vertex);
-				regionList.Add(block);
-				regionMapId.Add(block, count);
+            var count = 0;
+            foreach (var vertex in g.GetVertices())
+            {
+                LeafRegion block = new LeafRegion(vertex);
+                regionList.Add(block);
+                regionMapId.Add(block, count);
                 idMapRegion.Add(count, block);
                 count++;
-				regionMapBlockId.Add(vertex.BlockId, block);
-			}
-			regionCFG.AddVertexRange(regionList);
+                regionMapBlockId.Add(vertex.BlockId, block);
+            }
+            regionCFG.AddVertexRange(regionList);
 
-			foreach (LeafRegion reg in regionList)
-			{
-				foreach (var outBlock in reg.Block.OutputBlocks)
-				{
-					regionCFG.AddEdge(new Edge<Region>(reg, regionMapBlockId[outBlock]));
-				}
-			}
+            foreach (LeafRegion reg in regionList)
+            {
+                foreach (var outBlock in reg.Block.OutputBlocks)
+                {
+                    regionCFG.AddEdge(new Edge<Region>(reg, regionMapBlockId[outBlock]));
+                }
+            }
         }
 
 
@@ -194,30 +220,30 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
     //            }
 
     //            foreach (var inBlockId in block.OutputBlocks)
-				//{
-				//	BasicBlock inBlock = g.getBlockById(inBlockId);
+                //{
+                //    BasicBlock inBlock = g.getBlockById(inBlockId);
 
-				//	if (!blockList.Blocks.Contains(inBlock))
-				//	{
-				//		block.OutputBlocks.Remove(inBlockId);
-				//	}
-				//}
+                //    if (!blockList.Blocks.Contains(inBlock))
+                //    {
+                //        block.OutputBlocks.Remove(inBlockId);
+                //    }
+                //}
         //    }
 
         //    return new Graph(blockList);
         //}
 
-		//// Рекурсивная функция для добавления 
-		//private void AddLoopRegions(Graph g)
+        //// Рекурсивная функция для добавления 
+        //private void AddLoopRegions(Graph g)
    //     {
-			//Dictionary<Edge<BasicBlock>, ISet<int>> loops = SearchNaturalLoops.FindAllNaturalLoops(g);
+            //Dictionary<Edge<BasicBlock>, ISet<int>> loops = SearchNaturalLoops.FindAllNaturalLoops(g);
 
     //        if (loops.Count != 0)
     //        {
-				//foreach (var loop in loops)
-				//{
-					//Graph loopGraph = GetGraphFromLoop(loop, g);
-					//AddLoopRegions(loopGraph);
+                //foreach (var loop in loops)
+                //{
+                    //Graph loopGraph = GetGraphFromLoop(loop, g);
+                    //AddLoopRegions(loopGraph);
         //        }
 
 
