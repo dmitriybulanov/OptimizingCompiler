@@ -91,7 +91,15 @@ Dictionary<int, Tuple<ISet<string>, ISet<string>>> SetStorage - словарь, 
       ExpressionParser(((UnaryOperation)expr).Operand, Def, Use);
     }
   }
+ ``` 
+ ### Пример использования
  ```
+ DefUseBlockCalculator DefUseCalc = new DefUseBlockCalculator();
+ var UseDefTuple = DefUseCalc.GetDefUseSetsByBlock(block);
+ var Def = UseDefTuple.Item1;
+ var Use = UseDefTuple.Item2;
+ ```
+ 
  ### Тест 
 Программа:
 ```
@@ -104,4 +112,23 @@ else
     b = 2;
 print(c);
 ```
+Базовый блок BlockId = 0
+```
+Commands:
+  a = 4
+  b = 4
+  t0 = a + b
+  c = t0
 
+Def(B) = {a, b, t0, c}
+Use(B) = {}
+```
+Базовый блок BlockId = 3
+```
+Commands:
+  $GL_1: <no-op>
+  print c
+
+Def(B) = {}
+Use(B) = {c}
+```
