@@ -62,6 +62,13 @@ public Graph(BasicBlocksList listBlocks)
 
 
 ### Пример использования
+```
+...
+var b = BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode);
+Graph g = new Graph(b);
+...
+```
+### Тест
 Программа
 ```cs 
 b = 1;
@@ -72,10 +79,6 @@ else
 ```
 
 Список базовых блоков 
-``` C#
-var b = BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode);
-```
-
 ```
 BlockId = 0
 Commands:
@@ -103,9 +106,6 @@ OutputBlocksNumbers = {}
 ```
 
 Граф потока управления
-```C#
-Graph g = new Graph(b);
-```
 ```
 0:
 <-- 
