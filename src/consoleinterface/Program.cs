@@ -19,6 +19,8 @@ using DataFlowAnalysis.IntermediateRepresentation.NaturalLoops;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.CompositionTransferFunction;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.ExplicitTransferFunction;
+using DataFlowAnalysis.RegionsAlgorithm;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagation;
 
 namespace ConsoleInterface
 {
