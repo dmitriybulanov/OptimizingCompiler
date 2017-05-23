@@ -204,62 +204,81 @@ namespace UnitTests
         [TestMethod]
         public void FindAllPathsTest()
         {
-            var blocks = CreateTestGraph1Blocks();
-            var graph = new Graph(blocks);
+            // Test graph 1
+            {
+                var blocks = CreateTestGraph1Blocks();
+                var graph = new Graph(blocks);
 
-            var benchmarkPaths = new List<List<int>>
+                var benchmarkPaths = new List<List<int>>
             {
                 // 0 -> 1 -> 3 -> 4 -> 6
-                new List<int>{
-                blocks.Blocks[0].BlockId,
-                blocks.Blocks[1].BlockId,
-                blocks.Blocks[3].BlockId,
-                blocks.Blocks[4].BlockId,
-                blocks.Blocks[6].BlockId },
+                new List<int>{ 0,1,3,4,6 },
                 // 0 -> 1 -> 3 -> 5 -> 6
-                new List<int>{
-                blocks.Blocks[0].BlockId,
-                blocks.Blocks[1].BlockId,
-                blocks.Blocks[3].BlockId,
-                blocks.Blocks[5].BlockId,
-                blocks.Blocks[6].BlockId
-                },
+                new List<int>{ 0,1,3,5,6 },
                 // 0 -> 2 -> 3 -> 4 -> 6
-                new List<int>{
-                blocks.Blocks[0].BlockId,
-                blocks.Blocks[2].BlockId,
-                blocks.Blocks[3].BlockId,
-                blocks.Blocks[4].BlockId,
-                blocks.Blocks[6].BlockId
-                },
+                new List<int>{ 0,2,3,4,6 },
                 // 0 -> 2 -> 3 -> 5 -> 6
-                new List<int>{
-                blocks.Blocks[0].BlockId,
-                blocks.Blocks[2].BlockId,
-                blocks.Blocks[3].BlockId,
-                blocks.Blocks[5].BlockId,
-                blocks.Blocks[6].BlockId
-                }
-            };
-            var benchmarkPathsChecked = Enumerable.Repeat(false, benchmarkPaths.Count).ToList();
+                new List<int>{ 0,2,3,5,6 }
+            }.Select(x => x.Select(y => blocks.Blocks[y].BlockId)).ToList();
 
-            var paths = GraphAlgorithms.FindAllPaths(graph, blocks.Blocks[6].BlockId).ToList();
-            Assert.AreEqual(paths.Count, 4);
-            foreach (var path in paths)
-            {
-                foreach (var block in path)
-                {
-                    Trace.Write(blocks.Blocks.FindIndex(basicBlock => basicBlock.BlockId == block.BlockId) + " ");
-                }
-                Trace.WriteLine("");
+                var benchmarkPathsChecked = Enumerable.Repeat(false, benchmarkPaths.Count).ToList();
 
-                for (int i = 0; i < benchmarkPaths.Count; i++)
+                var paths = GraphAlgorithms.FindAllPaths(graph, blocks.Blocks[6].BlockId).ToList();
+                Assert.AreEqual(paths.Count, 4);
+                foreach (var path in paths)
                 {
-                    benchmarkPathsChecked[i] = benchmarkPathsChecked[i] || benchmarkPaths[i].SequenceEqual(path.Select(block => block.BlockId));
+                    foreach (var block in path)
+                    {
+                        Trace.Write(blocks.Blocks.FindIndex(basicBlock => basicBlock.BlockId == block.BlockId) + " ");
+                    }
+                    Trace.WriteLine("");
+
+                    for (int i = 0; i < benchmarkPaths.Count; i++)
+                    {
+                        benchmarkPathsChecked[i] = benchmarkPathsChecked[i] || benchmarkPaths[i].SequenceEqual(path.Select(block => block.BlockId));
+                    }
                 }
+
+                Assert.IsTrue(benchmarkPathsChecked.All(x => x));
             }
 
-            Assert.IsTrue(benchmarkPathsChecked.All(x => x));
+            {
+                // Test graph 2
+                var blocks = CreateTestGraph2Blocks();
+                var graph = new Graph(blocks);
+
+                var benchmarkPaths = new List<List<int>>
+                {
+                    new List<int>{ 0,1,2,3,11 },
+                    new List<int>{ 0,4,5,3,11 },
+                    new List<int>{ 0,4,5,7,11 },
+                    new List<int>{ 0,4,6,7,11 },
+                    new List<int>{ 0,4,6,10,11 },
+                    new List<int>{ 0,8,10,11 },
+                    new List<int>{ 0,8,9,10,11 }
+                }.Select(x => x.Select(y => blocks.Blocks[y].BlockId)).ToList();
+
+                var benchmarkPathsChecked = Enumerable.Repeat(false, benchmarkPaths.Count).ToList();
+
+                var paths = GraphAlgorithms.FindAllPaths(graph, blocks.Blocks[11].BlockId).ToList();
+                Assert.AreEqual(paths.Count, 7);
+                foreach (var path in paths)
+                {
+                    foreach (var block in path)
+                    {
+                        Trace.Write(blocks.Blocks.FindIndex(basicBlock => basicBlock.BlockId == block.BlockId) + " ");
+                    }
+                    Trace.WriteLine("");
+
+                    for (int i = 0; i < benchmarkPaths.Count; i++)
+                    {
+                        benchmarkPathsChecked[i] = benchmarkPathsChecked[i] || benchmarkPaths[i].SequenceEqual(path.Select(block => block.BlockId));
+                    }
+                }
+
+                Assert.IsTrue(benchmarkPathsChecked.All(x => x));
+            }
+            
         }
     }
 }
