@@ -54,7 +54,12 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
             if (expr.GetType() == typeof(Int32Const))
                 result = (expr as Int32Const).ToString();
             else if (expr.GetType() == typeof(Identifier))
-                result = input[(expr as Identifier).ToString()];
+            {
+                string var = (expr as Identifier).ToString();
+                if (!input.ContainsKey(var))
+                    input[var] = UNDEF;
+                result = input[var];
+            }
             return result;
         }
 
@@ -84,8 +89,10 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagat
         {
             if (x1 == x2 || x2 == UNDEF || x1 == NAC)
                 return x1;
-            else
+            else if (x1 == UNDEF || x2 == NAC)
                 return x2;
+            else
+                return NAC;
         }
         public override Dictionary<string, string> GatherOperation(IEnumerable<Dictionary<string, string>> blocks)
         {
