@@ -61,39 +61,37 @@ print(c);
 
             int startIndex = availableExprs.Out.Keys.Min();
             Assert.IsTrue(availableExprs.Out[startIndex]
-                .SetEquals(
-                    new HashSet<Expression>(new Expression[]
+                .SetEquals(new Expression[]
                     {
                         new Int32Const(4),
                         new BinaryOperation(new identifier("a"), Operation.Add, new identifier("b")),
                         new identifier("t0")
-                    })));
+                    }));
 
             Assert.IsTrue(availableExprs.Out[startIndex + 1]
-                .SetEquals(
-                    new HashSet<Expression>(new Expression[]
+                .SetEquals(new Expression[]
                     {
                         new Int32Const(4),
                         new Int32Const(3),
                         new identifier("t0")
-                    })));
+                    }));
 
             Assert.IsTrue(availableExprs.Out[startIndex + 2]
                 .SetEquals(
-                    new HashSet<Expression>(new Expression[]
+                    new Expression[]
                     {
                         new Int32Const(4),
                         new Int32Const(2),
                         new identifier("t0")
-                    })));
+                    }));
 
             Assert.IsTrue(availableExprs.Out[startIndex + 3]
                 .SetEquals(
-                    new HashSet<Expression>(new Expression[]
-                    {
-                        new Int32Const(4),
-                        new identifier("t0")
-                    })));
+                   new Expression[]
+                   {
+                       new Int32Const(4),
+                       new identifier("t0")
+                   }));
         }
     }
 }

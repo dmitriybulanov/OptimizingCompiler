@@ -27,6 +27,8 @@
 
 [Посещение](https://docs.google.com/spreadsheets/d/1nqCRnxQ8e4WUuJopnV718vXQG6LPi29PySZhQeGYSOw/edit#gid=0)
 
+[Оценивание вклада](https://docs.google.com/spreadsheets/d/1zwSrdDSbisponjYzz7TZCQg_SJJkTMlZSLBGs8I0Lq4/edit#gid=0)
+
 ## Список команд:
 
 ### End Frame
