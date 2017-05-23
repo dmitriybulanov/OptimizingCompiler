@@ -30,5 +30,15 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
         {
             return (Regions != null ? Regions.GetHashCode() : 0);
         }
+
+        public override string ToString()
+        {
+            var res = string.Format("BodyRegion: \n");
+            foreach (var reg in Regions)
+            {
+                res += reg.ToString();
+            }
+            return res;
+        }
     }
 }
