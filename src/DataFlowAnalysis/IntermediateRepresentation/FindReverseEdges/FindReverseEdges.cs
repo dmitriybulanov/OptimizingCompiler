@@ -26,16 +26,17 @@ namespace DataFlowAnalysis.IntermediateRepresentation.FindReverseEdges
             var RetreatingEdges = ClassifiedEdges.Where(x => x.Value == EdgeType.Retreating);
             foreach (var edg in RetreatingEdges)
             {
-                int key = edg.Key.Source.BlockId;
-                int value = edg.Key.Target.BlockId;
+                var edge = edg.Key;
+                int key = edge.Source.BlockId;
+                int value = edge.Target.BlockId;
                 bool isReverse = false;
-                while (Dominators.ContainsKey(key) && !isReverse)
+                while (Dominators.ContainsKey(key) && Dominators[key] != key && !isReverse)
                 {
                     key = Dominators[key];
-                    isReverse = key == value;
+                    isReverse = (key == value);
                 }
                 if (isReverse)
-                    res.Add(edg.Key);
+                    res.Add(edge);
             }
 
             return res;

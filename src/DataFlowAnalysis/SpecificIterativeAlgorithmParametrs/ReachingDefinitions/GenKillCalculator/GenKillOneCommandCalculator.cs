@@ -37,6 +37,7 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitio
         public GenKillOneCommand CalculateGenAndKill(BasicBlock block, ThreeAddressCommand command)
         {
             Kill.Clear();
+            Gen = null;
             if (command.GetType() == typeof(Assignment))
             {
                 Gen = new CommandNumber(block.BlockId, block.Commands.IndexOf(command));

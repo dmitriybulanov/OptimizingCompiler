@@ -72,6 +72,7 @@
     <Compile Include="IntermediateRepresentationTests\NaturalLoopTest.cs" />
     <Compile Include="IterativeAlgorithmTests\AvailableExpressionTest.cs" />
     <Compile Include="IterativeAlgorithmTests\DominatorsTreeTest.cs" />
+    <Compile Include="IterativeAlgorithmTests\ExplicitReachingDefinitionTest.cs" />
     <Compile Include="OtherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MeetOverPathsTests.cs" />

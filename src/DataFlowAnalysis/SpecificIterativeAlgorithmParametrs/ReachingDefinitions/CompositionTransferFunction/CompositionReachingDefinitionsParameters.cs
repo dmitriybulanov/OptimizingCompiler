@@ -29,13 +29,15 @@ namespace DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitio
 
         public override ISet<CommandNumber> CommandTransferFunction(ISet<CommandNumber> input, BasicBlock block, int commandNumber)
         {
-            GenKillOneCommand genKill = calculator.CalculateGenAndKill(block, commandNumber);
-            return SetFactory.GetSet<CommandNumber>(SetFactory.GetSet(genKill.Gen).Union(input.Except(genKill.Kill)));
+            GenKillOneCommand genKill = calculator.CalculateGenAndKill(block, commandNumber);var result = SetFactory.GetSet<CommandNumber>(input);
+            result.ExceptWith(genKill.Kill);
+            result.UnionWith(genKill.Gen == null ? SetFactory.GetSet<CommandNumber>() : SetFactory.GetSet(genKill.Gen));
+            return result;
         }
 
         public override bool AreEqual(ISet<CommandNumber> t1, ISet<CommandNumber> t2)
         {
-            return t1.IsSubsetOf(t2) && t2.IsSubsetOf(t1);
+            return t1.SetEquals(t2);
         }
 
         public override ISet<CommandNumber> GatherOperation(IEnumerable<ISet<CommandNumber>> blocks)
