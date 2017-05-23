@@ -69,6 +69,7 @@
     <Compile Include="IntermediateRepresentation\Regions\Model\LoopRegion.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\ComplexExpression.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\SimpleExpression.cs" />
+    <Compile Include="MeetOverPaths\MeetOverPaths.cs" />
     <Compile Include="RegionsAlgorithm\RegionsAlgorithm.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrs\AvailableExpressions\AvailableExpressionsCalculator.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmOutput.cs" />
@@ -107,9 +108,7 @@
     <Compile Include="Utilities\TransferFunctionKey.cs" />
     <Compile Include="Utilities\TransferFunctionStorage.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MeetOverPath\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\SyntaxTree\SyntaxTree.csproj">
       <Project>{C9ECD184-80DD-4834-80AD-1C2B50C1A53C}</Project>
