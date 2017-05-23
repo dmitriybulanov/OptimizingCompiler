@@ -18,5 +18,29 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model
             new Assignment(variable, new BinaryOperation(variable, Operation.Add, 1));
 
         public override string ToString() => base.ToString() + $"{Target.Name} = {Value}";
+
+        protected bool Equals(Assignment other)
+        {
+            return base.Equals(other) && Equals(Target, other.Target) && Equals(Value, other.Value);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Assignment) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = base.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Target != null ? Target.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Value != null ? Value.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
     }
 }

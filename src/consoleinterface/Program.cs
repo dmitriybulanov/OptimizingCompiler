@@ -7,18 +7,6 @@ using System.Threading.Tasks;
 using GPPGParser;
 using SyntaxTree.SyntaxNodes;
 using SyntaxTree.Visitors;
-using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode;
-using DataFlowAnalysis.IterativeAlgorithm;
-using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
-using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
-using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
-using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators;
-using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressions;
-using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification;
-using DataFlowAnalysis.IntermediateRepresentation.NaturalLoops;
-using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.CompositionTransferFunction;
-using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.GenKillCalculator;
-using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ReachingDefinitions.ExplicitTransferFunction;
 
 namespace ConsoleInterface
 {
