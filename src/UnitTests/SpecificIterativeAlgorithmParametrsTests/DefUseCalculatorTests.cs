@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
-using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
-using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification;
-using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification.Model;
 using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DeadAliveVariables.DefUseCalculator;
 using GPPGParser;
@@ -50,8 +45,8 @@ namespace UnitTests.SpecificIterativeAlgorithmParametrsTests
                     new HashSet<string>(new string[]
                     {
                         "a",
-                        "b",
                         "t0",
+                        "b",
                         "c"
                     })));
             Assert.IsTrue(defUseList[0].Value.Item2.Count == 0);

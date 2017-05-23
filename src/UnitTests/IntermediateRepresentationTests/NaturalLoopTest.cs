@@ -42,6 +42,20 @@ if i > 0
   goto 1;
 ";
 
+            string programText_4 = @"
+i = 1; 
+j = 4; 
+a = 2; 
+while i < 20 
+{ 
+  i = i + 1; 
+  j = j + 1; 
+  if i > a 
+    a = a + 5; 
+  i = i + 1; 
+}
+";
+
             Trace.WriteLine("===============");
             Trace.WriteLine("Тест 1");
             Trace.WriteLine("===============");
@@ -143,6 +157,45 @@ if i > 0
             check = new List<Tuple<int, int, SortedSet<int>>>()
             {
                new Tuple<int, int, SortedSet<int>>(start + 2, start + 1, new SortedSet<int>() { start + 1, start + 2 })
+            };
+
+            Assert.IsTrue(tuples.Count == 1);
+            Assert.IsTrue(tuples[0].Item1 == check[0].Item1);
+            Assert.IsTrue(tuples[0].Item2 == check[0].Item2);
+            Assert.IsTrue(tuples[0].Item3.SequenceEqual(check[0].Item3));
+
+            Trace.WriteLine("===============");
+            Trace.WriteLine("Тест 4");
+            Trace.WriteLine("===============");
+
+            root = ParserWrap.Parse(programText_4);
+            threeAddressCode = ThreeAddressCodeGenerator.CreateAndVisit(root).Program;
+            Trace.WriteLine(threeAddressCode);
+
+            basicBlocks = BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode);
+            Trace.WriteLine(Environment.NewLine + "Базовые блоки");
+            Trace.WriteLine(basicBlocks);
+
+            Trace.WriteLine(Environment.NewLine + "Управляющий граф программы");
+            g = new Graph(basicBlocks);
+            Trace.WriteLine(g);
+
+            allNaturalLoops = SearchNaturalLoops.FindAllNaturalLoops(g);
+            tuples = new List<Tuple<int, int, SortedSet<int>>>();
+            foreach (var v in allNaturalLoops)
+            {
+                Trace.Write(v.Key.Source.BlockId + " -> " + v.Key.Target.BlockId + " : ");
+                foreach (int k in v.Value)
+                    Trace.Write(k.ToString() + " ");
+                Trace.WriteLine("");
+                tuples.Add(new Tuple<int, int, SortedSet<int>>(v.Key.Source.BlockId, v.Key.Target.BlockId, new SortedSet<int>(v.Value)));
+            }
+
+            start = g.GetMinBlockId();
+
+            check = new List<Tuple<int, int, SortedSet<int>>>()
+            {
+               new Tuple<int, int, SortedSet<int>>(start + 4, start + 1, new SortedSet<int>() { start + 1, start + 2, start + 3, start + 4 })
             };
 
             Assert.IsTrue(tuples.Count == 1);
