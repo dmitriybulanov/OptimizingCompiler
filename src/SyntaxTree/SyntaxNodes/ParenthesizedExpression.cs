@@ -27,5 +27,23 @@ namespace SyntaxTree.SyntaxNodes
         {
             return visitor.VisitParenthesizedExpression(this);
         }
+
+        protected bool Equals(ParenthesizedExpression other)
+        {
+            return Equals(Expression, other.Expression);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ParenthesizedExpression) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Expression != null ? Expression.GetHashCode() : 0);
+        }
     }
 }

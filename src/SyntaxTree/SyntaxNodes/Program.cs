@@ -27,5 +27,23 @@ namespace SyntaxTree.SyntaxNodes
         {
             return visitor.VisitProgram(this);
         }
+
+        protected bool Equals(Program other)
+        {
+            return Equals(Body, other.Body);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Program) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Body != null ? Body.GetHashCode() : 0);
+        }
     }
 }

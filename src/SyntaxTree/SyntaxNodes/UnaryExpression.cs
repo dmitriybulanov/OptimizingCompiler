@@ -29,5 +29,26 @@ namespace SyntaxTree.SyntaxNodes
         {
             return visitor.VisitUnaryExpression(this);
         }
+
+        protected bool Equals(UnaryExpression other)
+        {
+            return Operation == other.Operation && Equals(Operand, other.Operand);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((UnaryExpression) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((int) Operation * 397) ^ (Operand != null ? Operand.GetHashCode() : 0);
+            }
+        }
     }
 }
