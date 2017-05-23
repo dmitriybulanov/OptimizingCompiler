@@ -20,6 +20,7 @@
 3. *Поперечные* (cross) - все остальные ребра.
 
 Пример:
+
 ![](img/ExampleEC.png?raw=true)
 
 Рёбра 1 <html>&rarr;</html> 3, 6 <html>&rarr;</html> 7, 9 <html>&rarr;</html> 10 являются наступающими, рёбра 4 <html>&rarr;</html> 3, 7 <html>&rarr;</html> 4, 8 <html>&rarr;</html> 3 являются отступающими, рёбра 2 <html>&rarr;</html> 3, 5 <html>&rarr;</html> 7 - поперечными.
