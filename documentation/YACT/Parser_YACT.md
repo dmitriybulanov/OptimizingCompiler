@@ -56,14 +56,14 @@
 Формирование синтаксического дерева происходит в действиях, совершаемых парсером в файле [SimpleYacc.y](https://github.com/wisestump/OptimizingCompiler/blob/master/src/gppgparser/SimpleYacc.y). Например, формирование списка операторов выглядит следующим образом:
 ``` 
 stlist	: statement
-            { 
-                $$ = new StatementList($1); 
-            }
-		| stlist statement
-            {
-                $$ = ($1 as StatementList).Add($2); 
-            }
-		;
+	{ 
+		$$ = new StatementList($1); 
+	}
+	| stlist statement
+	{
+		$$ = ($1 as StatementList).Add($2); 
+	}
+	;
 ```
 
 Иерархия синтаксических узлов:
@@ -83,6 +83,13 @@ if (root != null)
     var prettyPrintedProgram = PrettyPrinter.CreateAndVisit(root).FormattedCode;
     Console.WriteLine(prettyPrintedProgram);
 }
+```
+Вывод:
+
+```
+a = 40;
+b = a + 2;
+print(b);
 ```
 
 ### Тест
