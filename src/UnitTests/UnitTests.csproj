@@ -76,6 +76,7 @@
     <Compile Include="OtherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MeetOverPathsTests.cs" />
+    <Compile Include="SpecificIterativeAlgorithmParametrsTests\DefUseCalculatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataFlowAnalysis\DataFlowAnalysis.csproj">
