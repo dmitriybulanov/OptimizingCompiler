@@ -40,7 +40,6 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
             }
 
             var loops = SearchNaturalLoops.FindAllNaturalLoops(g);
-            Console.WriteLine(loops.Count);
 
             var regionMade = new Dictionary<Edge<BasicBlock>, bool>();
 
@@ -95,7 +94,6 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
                     }
                 }
             }
-            Console.WriteLine(regionList.Count);
 
 
             // check if program has become one region
