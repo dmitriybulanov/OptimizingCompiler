@@ -5,6 +5,7 @@ using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode;
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 
 namespace UnitTests.IntermediateRepresentationTests
 {
@@ -30,10 +31,12 @@ namespace UnitTests.IntermediateRepresentationTests
             Graph g = new Graph(BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode));
             var DFN = g.GetDFN();
 
-            Assert.IsTrue(DFN[0] == 1);
-            Assert.IsTrue(DFN[1] == 3);
-            Assert.IsTrue(DFN[2] == 2);
-            Assert.IsTrue(DFN[3] == 4);
+            int startIndex = g.GetMinBlockId();
+
+            Assert.IsTrue(DFN[startIndex] == 1);
+            Assert.IsTrue(DFN[startIndex + 1] == 3);
+            Assert.IsTrue(DFN[startIndex + 2] == 2);
+            Assert.IsTrue(DFN[startIndex + 3] == 4);
         }
     }
 }
