@@ -32,5 +32,26 @@ namespace SyntaxTree.SyntaxNodes
         {
             return visitor.VisitPrint(this);
         }
+
+        protected bool Equals(PrintStatement other)
+        {
+            return Equals(Expression, other.Expression) && NewLine == other.NewLine;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((PrintStatement) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Expression != null ? Expression.GetHashCode() : 0) * 397) ^ NewLine.GetHashCode();
+            }
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.NaturalLoops
 
         public static Dictionary<Edge<BasicBlock>, ISet<int>> FindAllNaturalLoops(ControlFlowGraph.Graph g)
         {
-            var classify = EdgeClassification.EdgeClassification.ClassifyEdge(g); 
+            var classify = EdgeClassification.EdgeClassification.ClassifyEdge(g);
             var result = new Dictionary<Edge<BasicBlock>, ISet<int>>();
             foreach (var pair in classify)
             {
