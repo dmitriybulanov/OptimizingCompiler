@@ -209,28 +209,32 @@ namespace UnitTests
 
             var benchmarkPaths = new List<List<int>>
             {
-                // 1 -> 3 -> 4 -> 6
+                // 0 -> 1 -> 3 -> 4 -> 6
                 new List<int>{
+                blocks.Blocks[0].BlockId,
                 blocks.Blocks[1].BlockId,
                 blocks.Blocks[3].BlockId,
                 blocks.Blocks[4].BlockId,
                 blocks.Blocks[6].BlockId },
-                // 1 -> 3 -> 5 -> 6
+                // 0 -> 1 -> 3 -> 5 -> 6
                 new List<int>{
+                blocks.Blocks[0].BlockId,
                 blocks.Blocks[1].BlockId,
                 blocks.Blocks[3].BlockId,
                 blocks.Blocks[5].BlockId,
                 blocks.Blocks[6].BlockId
                 },
-                // 2 -> 3 -> 4 -> 6
+                // 0 -> 2 -> 3 -> 4 -> 6
                 new List<int>{
+                blocks.Blocks[0].BlockId,
                 blocks.Blocks[2].BlockId,
                 blocks.Blocks[3].BlockId,
                 blocks.Blocks[4].BlockId,
                 blocks.Blocks[6].BlockId
                 },
-                // 2 -> 3 -> 5 -> 6
+                // 0 -> 2 -> 3 -> 5 -> 6
                 new List<int>{
+                blocks.Blocks[0].BlockId,
                 blocks.Blocks[2].BlockId,
                 blocks.Blocks[3].BlockId,
                 blocks.Blocks[5].BlockId,

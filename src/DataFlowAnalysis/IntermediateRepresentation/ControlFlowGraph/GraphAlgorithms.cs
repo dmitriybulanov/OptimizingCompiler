@@ -20,7 +20,10 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
             
             // when target and root are the same
             if (root.BlockId == idTargetBlock)
+            {
+                yield return new List<BasicBlock> { root };
                 yield break;
+            }
 
             var rootChildrens = graph.getChildren(root.BlockId).GetEnumerator();
             
@@ -34,7 +37,8 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
                 var currentBlockEnumerator = pathEnumerators.Peek();
                 if (currentBlockEnumerator.Current.BlockId == idTargetBlock)
                 {
-                    yield return pathEnumerators.Select(x => x.Current).Reverse().ToList();
+                    
+                    yield return new List<BasicBlock> { root }.Concat(pathEnumerators.Select(x => x.Current).Reverse()).ToList();
                     if (currentBlockEnumerator.MoveNext())
                     {
                         continue;
