@@ -31,12 +31,12 @@ namespace DataFlowAnalysis.Utilities
             return new HashSet<Expression>(data);
         }
 
-        public static ISet<Edge<BasicBlock>> GetSet(IEnumerable<Edge<BasicBlock>> data)
+        public static ISet<Edge<BasicBlock>> GetEdgesSet(IEnumerable<Edge<BasicBlock>> data)
         {
             return new HashSet<Edge<BasicBlock>>(data, new EdgeHashComparer());
         }
 
-        public static ISet<Edge<BasicBlock>> GetSet(params Edge<BasicBlock>[] data)
+        public static ISet<Edge<BasicBlock>> GetEdgesSet(params Edge<BasicBlock>[] data)
         {
             return new HashSet<Edge<BasicBlock>>(data, new EdgeHashComparer());
         }

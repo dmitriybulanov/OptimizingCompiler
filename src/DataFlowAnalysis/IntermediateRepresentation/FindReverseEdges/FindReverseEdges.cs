@@ -7,6 +7,7 @@ using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification.Model;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.Dominators;
 using DataFlowAnalysis.IntermediateRepresentation.EdgeClassification;
+using DataFlowAnalysis.Utilities;
 using QuickGraph;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.FindReverseEdges
@@ -15,7 +16,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.FindReverseEdges
     {
         public static ISet<Edge<BasicBlock>> FindReverseEdges(ControlFlowGraph.Graph g)
         {
-            ISet<Edge<BasicBlock>> res = new SortedSet<Edge <BasicBlock>>();
+            ISet<Edge<BasicBlock>> res = SetFactory.GetEdgesSet();//new SortedSet<Edge <BasicBlock>>();
 
             Dictionary<Edge<BasicBlock>, EdgeType> ClassifiedEdges =
                 EdgeClassification.EdgeClassification.ClassifyEdge(g);
