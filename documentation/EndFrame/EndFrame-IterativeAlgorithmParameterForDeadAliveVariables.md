@@ -43,7 +43,7 @@ IN[B] = useB U (OUT[B] - defB).
  - ISet<string> input - IN[B]
 
 ### Реализация алгоритма
-
+```C#
     public class DeadAliveIterativeAlgorithmParameters : SetIterativeAlgorithmParameters<string>
     {
         public override ISet<string> GatherOperation(IEnumerable<ISet<string>> blocks)
@@ -79,7 +79,7 @@ IN[B] = useB U (OUT[B] - defB).
         public override ISet<string> FirstValue { get { return SetFactory.GetSet<string>(); } }
         /* Начальное приближение - пустое множество */
         public override ISet<string> StartingValue { get { return SetFactory.GetSet<string>(); } }
-
+```
 ### Пример использования
 ```
 SyntaxNode root = ParserWrap.Parse(text);

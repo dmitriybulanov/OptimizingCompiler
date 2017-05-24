@@ -253,3 +253,6 @@ paket-files/
 
 # VS Settings
 *.vssettings
+
+# VS15 folder
+Visual Studio 2015/

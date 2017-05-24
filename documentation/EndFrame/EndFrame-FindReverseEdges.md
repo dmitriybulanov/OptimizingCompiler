@@ -32,7 +32,7 @@
  - Dictionary<Edge<BasicBlock>, EdgeType> RetreatingEdges - отступающие ребра со своим типом
 
 ### Реализация алгоритма
-
+```C#
         public static ISet<Edge<BasicBlock>> FindReverseEdges(ControlFlowGraph.Graph g)
         {
             ISet<Edge<BasicBlock>> res = SetFactory.GetEdgesSet();//new SortedSet<Edge <BasicBlock>>();
@@ -57,7 +57,7 @@
             }
             return res;
         }
-
+```
 ### Пример использования
 
 var ReverseEdges = FindReverseEdge.FindReverseEdges(g);
