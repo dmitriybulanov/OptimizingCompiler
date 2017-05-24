@@ -74,6 +74,7 @@
     <Compile Include="IntermediateRepresentationTests\NaturalLoopTest.cs" />
     <Compile Include="IntermediateRepresentationTests\DFNTest.cs" />
     <Compile Include="IntermediateRepresentationTests\ThreeAddressCodeTests.cs" />
+    <Compile Include="IntermediateRepresentationTests\RegionSequenceTest.cs" />
     <Compile Include="IterativeAlgorithmTests\AvailableExpressionTest.cs" />
     <Compile Include="IterativeAlgorithmTests\CompositionReachingDefinitionTests.cs" />
     <Compile Include="IterativeAlgorithmTests\ConstantPropagationIterativeAlgorithmTests.cs" />
