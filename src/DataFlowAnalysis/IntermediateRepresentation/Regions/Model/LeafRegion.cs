@@ -38,15 +38,16 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
             return (Block != null ? Block.GetHashCode() : 0);
         }
 
-        public override string ToString()
-        {
-            var res = string.Format("LeafRegion: Block={0} \n", Block);
-            res += "OutputBlocks: ";
-            foreach (var blockId in OutputBlocks) {
-                res += blockId + ", ";
-            }
-            res += "\n";
-            return res;
-        }
+		public override string ToString()
+		{
+			var res = string.Format("LeafRegion: Block={0} \n", Block.BlockId);
+			res += "OutputBlocks: ";
+			foreach (var blockId in OutputBlocks)
+			{
+				res += blockId + ", ";
+			}
+			res += "\n";
+			return res;
+		}
     }
 }
