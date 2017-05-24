@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.CheckRetreatingIsReverse
 {
-    class CheckRetreatingIsReverse
+    public class CheckRetreatingIsReverse
     {
         public static bool CheckReverseEdges(ControlFlowGraph.Graph g)
         {
@@ -19,7 +19,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.CheckRetreatingIsReverse
 
             var ReverseEdges = FindReverseEdge.FindReverseEdges(g);
 
-            return ReverseEdges.IsSubsetOf(RetreatingEdges);
+            return ReverseEdges.SetEquals(RetreatingEdges);
         }
     }
 }
