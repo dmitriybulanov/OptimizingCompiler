@@ -31,6 +31,8 @@
 
 [Задания для не посещавших](https://docs.google.com/document/d/1PSTwc1MkSHh8p4-5HYvztyo3EVKat5N_VNiDk0_bp7M/edit)
 
+[Анкета](https://docs.google.com/forms/d/e/1FAIpQLSe-7EiN9H7RFoCpuor3NleQ_B7fujx_x1fAGimw1Ynq41KmdQ/viewform?usp=send_form)
+
 ## Список команд:
 
 ### End Frame

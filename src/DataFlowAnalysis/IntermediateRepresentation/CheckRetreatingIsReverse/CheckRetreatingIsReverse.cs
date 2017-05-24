@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.CheckRetreatingIsReverse
 {
-    class CheckRetreatingIsReverse
+    public class CheckRetreatingIsReverse
     {
         public static bool CheckReverseEdges(ControlFlowGraph.Graph g)
         {

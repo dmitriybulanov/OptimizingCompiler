@@ -69,6 +69,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="IntermediateRepresentationTests\BasicBlockListTest.cs" />
+    <Compile Include="IntermediateRepresentationTests\CFG2TACodeTransformationTest.cs" />
     <Compile Include="IntermediateRepresentationTests\EdgeClassificationTest.cs" />
     <Compile Include="IntermediateRepresentationTests\FindReverseEdgeTest.cs" />
     <Compile Include="IntermediateRepresentationTests\NaturalLoopTest.cs" />

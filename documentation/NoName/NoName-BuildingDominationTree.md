@@ -193,7 +193,7 @@ else
 
 *Граф потока управления*:
 
-![](../documentation/GoogleDogs/img/TestEC.png?raw=true)
+![](../GoogleDogs/img/TestEC.png?raw=true)
 
 *Вывод программы*:
 
