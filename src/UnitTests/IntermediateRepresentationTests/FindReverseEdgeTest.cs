@@ -17,7 +17,7 @@ namespace UnitTests.IntermediateRepresentationTests
     public class FindReverseEdgeTest
     {
         [TestMethod]
-        public void FindReverseEdgesTest1()
+        public void FindReverseEdges1()
         {
             string programText = @"
             for i = 1 + 2 * 3 .. 10
@@ -45,7 +45,7 @@ namespace UnitTests.IntermediateRepresentationTests
         }
 
         [TestMethod]
-        public void FindReverseEdgesTest2()
+        public void FindReverseEdges2()
         {
             string programText = @"
             x = 5;
@@ -76,7 +76,7 @@ namespace UnitTests.IntermediateRepresentationTests
         }
 
         [TestMethod]
-        public void FindReverseEdgesTest3()
+        public void FindReverseEdges3()
         {
             string programText = @"
             for i = 1..10

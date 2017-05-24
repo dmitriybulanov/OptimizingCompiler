@@ -17,7 +17,7 @@ namespace UnitTests.IterativeAlgorithmTests
     public class DeadAliveVariablesTest
     {
         [TestMethod]
-        public void DeadAliveVariables()
+        public void DeadAliveVariables1()
         {
             string text = @"
 a = 2;
@@ -58,6 +58,45 @@ b = 4;
             Assert.IsTrue(deadAliveVars.In[startIndex + 1].SetEquals(deadAliveVars.Out[startIndex]));
             Assert.IsTrue(deadAliveVars.In[startIndex + 2].SetEquals(deadAliveVars.Out[startIndex + 1]));
             Assert.IsTrue(deadAliveVars.In[startIndex + 3].SetEquals(deadAliveVars.Out[startIndex + 2]));
+        }
+
+        [TestMethod]
+        public void DeadAliveVariables2()
+        {
+            string text = @"
+x = 1;
+y = z + 2;
+
+1: z = x - 1;
+2: x = y * z;
+";
+            SyntaxNode root = ParserWrap.Parse(text);
+            Graph graph = new Graph(
+                BasicBlocksGenerator.CreateBasicBlocks(
+                    ThreeAddressCodeGenerator.CreateAndVisit(root).Program));
+
+            var deadAliveVars = IterativeAlgorithm.Apply(graph, new DeadAliveIterativeAlgorithmParameters());
+
+            var startIndex = graph.GetMinBlockId();
+            // check outs
+            Assert.IsTrue(deadAliveVars.Out[startIndex]
+                .SetEquals(new[]
+                {
+                    "x", "y"
+                }));
+
+            Assert.IsTrue(deadAliveVars.Out[startIndex + 1]
+                .SetEquals(new[]
+                {
+                    "y", "z"
+                }));
+
+            Assert.IsTrue(deadAliveVars.Out[startIndex + 2].Count == 0);
+
+            // check ins
+            Assert.IsTrue(deadAliveVars.In[startIndex].Count == 1);
+            Assert.IsTrue(deadAliveVars.In[startIndex + 1].SetEquals(deadAliveVars.Out[startIndex]));
+            Assert.IsTrue(deadAliveVars.In[startIndex + 2].SetEquals(deadAliveVars.Out[startIndex + 1]));
         }
     }
 }

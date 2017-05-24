@@ -17,7 +17,7 @@ namespace UnitTests.IntermediateRepresentationTests
     public class BasicBlockListTests
     {
         [TestMethod]
-        public void BasicBlockListTest1()
+        public void BasicBlockList1()
         {
             string programText = @"
 for i = 1 + 2 * 3 .. 10
@@ -66,25 +66,25 @@ for i = 1 + 2 * 3 .. 10
 
             int start = basicBlocks.Blocks[0].BlockId;
 
-            Assert.IsTrue(basicBlocks.Blocks[0].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[0].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[0].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].InputBlocks) &&
-                          basicBlocks.Blocks[0].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].OutputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[0].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[0].Commands.Select(x => x.ToString())));
+            Assert.IsTrue(basicBlocks.Blocks[0].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].InputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[0].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].OutputBlocks));
 
-            Assert.IsTrue(basicBlocks.Blocks[1].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[1].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[1].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].InputBlocks) &&
-                          basicBlocks.Blocks[1].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].OutputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[1].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[1].Commands.Select(x => x.ToString())));
+            Assert.IsTrue(basicBlocks.Blocks[1].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].InputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[1].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].OutputBlocks));
 
-            Assert.IsTrue(basicBlocks.Blocks[2].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[2].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[2].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].InputBlocks) &&
-                          basicBlocks.Blocks[2].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].OutputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[2].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[2].Commands.Select(x => x.ToString())));
+            Assert.IsTrue(basicBlocks.Blocks[2].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].InputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[2].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].OutputBlocks));
 
-            Assert.IsTrue(basicBlocks.Blocks[3].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[3].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[3].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].InputBlocks) &&
-                          basicBlocks.Blocks[3].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].OutputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[3].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[3].Commands.Select(x => x.ToString())));
+            Assert.IsTrue(basicBlocks.Blocks[3].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].InputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[3].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].OutputBlocks));
         }
 
         [TestMethod]
-        public void BasicBlockListTest2()
+        public void BasicBlockList2()
         {
             string programText = @"
 x = 5;
@@ -141,21 +141,21 @@ println(x);
 
             int start = basicBlocks.Blocks[0].BlockId;
 
-            Assert.IsTrue(basicBlocks.Blocks[0].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[0].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[0].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].InputBlocks) &&
-                          basicBlocks.Blocks[0].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].OutputBlocks));
-            
-            Assert.IsTrue(basicBlocks.Blocks[1].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[1].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[1].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].InputBlocks) &&
-                          basicBlocks.Blocks[1].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].OutputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[0].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[0].Commands.Select(x => x.ToString())));
+            Assert.IsTrue(basicBlocks.Blocks[0].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].InputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[0].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].OutputBlocks));
 
-            Assert.IsTrue(basicBlocks.Blocks[2].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[2].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[2].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].InputBlocks) &&
-                          basicBlocks.Blocks[2].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].OutputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[1].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[1].Commands.Select(x => x.ToString())));
+            Assert.IsTrue(basicBlocks.Blocks[1].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].InputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[1].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].OutputBlocks));
 
-            Assert.IsTrue(basicBlocks.Blocks[3].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[3].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[3].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].InputBlocks) &&
-                          basicBlocks.Blocks[3].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].OutputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[2].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[2].Commands.Select(x => x.ToString())));
+            Assert.IsTrue(basicBlocks.Blocks[2].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].InputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[2].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].OutputBlocks));
+
+            Assert.IsTrue(basicBlocks.Blocks[3].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[3].Commands.Select(x => x.ToString())));
+            Assert.IsTrue(basicBlocks.Blocks[3].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].InputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[3].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].OutputBlocks));
             
         }
     }
