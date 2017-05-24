@@ -40,39 +40,42 @@ IN[Rn] = IN[Входа]
  ``` C#
  /* реализация нисходящей части алгоритма анализа на основе областей. в классе RegionsAlgorithm */
  
- static IterativeAlgorithmOutput<ISet<V>> ApplyDescendingPart<V>(List<Region> regions,
+  static IterativeAlgorithmOutput<ISet<V>> ApplyDescendingPart<V>(List<Region> regions,
             TransferFunctionStorage<ISet<V>> functions, SetIterativeAlgorithmParameters<V> param, Graph graph)
         {
             Dictionary<int, ISet<V>> regionsInputs = new Dictionary<int, ISet<V>>();
             IterativeAlgorithmOutput<ISet<V>> result = new IterativeAlgorithmOutput<ISet<V>>();
 
-            Dictionary<Region, int> RegionIndexes = new Dictionary<Region, int>();
-            for (int i = 0; i < regions.Count; ++i)
+            regionsInputs[regions.Count - 1] = param.FirstValue;
+            
+            Dictionary<Region, Region> parents = new Dictionary<Region, Region>();
+            
+            for (int i = regions.Count - 1; i >= 0; --i)
             {
-                RegionIndexes[regions[i]] = i;
-            }
-
-            int lastIndex = RegionIndexes[regions.Last()];
-            int prevIndex = lastIndex;
-            regionsInputs[lastIndex] = param.FirstValue;
-
-            foreach (var r in regions.Reverse<Region>())
-            {
-                int curIndex = RegionIndexes[r];
-                if (curIndex != lastIndex)
+                BodyRegion body = regions[i] as BodyRegion;
+                if(body != null)
+                    foreach (Region r in body.Regions)
+                        parents[r] = body;
+                
+                LoopRegion loop = regions[i] as LoopRegion;
+                if (loop != null)
+                    parents[loop.Body] = loop;
+                if (parents.ContainsKey(regions[i]))
                 {
-                    regionsInputs[curIndex] = functions[regions[prevIndex], RegionDirection.In, regions[curIndex]](regionsInputs[prevIndex]);
+                    Region parent = parents[regions[i]];
+                    regionsInputs[i] = functions[parent, RegionDirection.In, regions[i]](regionsInputs[regions.IndexOf(parent)]);
                 }
             }
 
             int numOfBlocks = graph.Count();
+            
             for(int i = 0; i < numOfBlocks; ++i)
             {
-                int curBlockId =  regions[i].OutputBlocks.First();
-                var curBlock = graph.getBlockById(curBlockId);
-
+                var curBlock = regions[i].Header;
+                int curBlockId =  curBlock.BlockId;
+                
                 result.In[curBlockId] = regionsInputs[i];
-                result.Out[curBlockId] = param.TransferFunction(result.In[curBlockId], curBlock);
+                result.Out[curBlockId] = param.TransferFunction(regionsInputs[i], curBlock);
             }
 
             return result;
