@@ -26,10 +26,11 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
 
         public List<Region> CreateSequence(Graph g)
         {
-            //if (!CheckRetreatingIsReverse.CheckRetreatingIsReverse.CheckReverseEdges(g)){
-            //    Console.WriteLine("there are some retreating edges which aren't reverse");
-            //    Environment.Exit(0);
-            //}
+            if (!CheckRetreatingIsReverse.CheckRetreatingIsReverse.CheckReverseEdges(g))
+            {
+                Console.WriteLine("there are some retreating edges which aren't reverse");
+                Environment.Exit(0);
+            }
             var basicBlockLastRegion = new Dictionary<BasicBlock, Region>();
 
             foreach (var v in g.GetVertices())
