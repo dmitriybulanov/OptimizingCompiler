@@ -19,7 +19,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.CheckRetreatingIsReverse
 
             var ReverseEdges = FindReverseEdge.FindReverseEdges(g);
 
-            return ReverseEdges.IsSubsetOf(RetreatingEdges);
+            return ReverseEdges.SetEquals(RetreatingEdges);
         }
     }
 }

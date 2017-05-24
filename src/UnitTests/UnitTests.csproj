@@ -74,6 +74,7 @@
     <Compile Include="IntermediateRepresentationTests\FindReverseEdgeTest.cs" />
     <Compile Include="IntermediateRepresentationTests\NaturalLoopTest.cs" />
     <Compile Include="IntermediateRepresentationTests\DFNTest.cs" />
+    <Compile Include="IntermediateRepresentationTests\RetreatingNotReverseEdgesTests.cs" />
     <Compile Include="IntermediateRepresentationTests\ThreeAddressCodeTests.cs" />
     <Compile Include="IntermediateRepresentationTests\RegionSequenceTest.cs" />
     <Compile Include="IterativeAlgorithmTests\AvailableExpressionTest.cs" />
