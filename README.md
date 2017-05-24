@@ -29,6 +29,8 @@
 
 [Оценивание вклада](https://docs.google.com/spreadsheets/d/1zwSrdDSbisponjYzz7TZCQg_SJJkTMlZSLBGs8I0Lq4/edit#gid=0)
 
+[Задания для не посещавших](https://docs.google.com/document/d/1PSTwc1MkSHh8p4-5HYvztyo3EVKat5N_VNiDk0_bp7M/edit)
+
 ## Список команд:
 
 ### End Frame
