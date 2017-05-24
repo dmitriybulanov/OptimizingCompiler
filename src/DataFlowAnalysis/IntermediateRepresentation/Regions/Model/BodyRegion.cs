@@ -15,7 +15,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
 
         protected bool Equals(BodyRegion other)
         {
-            return Regions.SequenceEqual(other.Regions);
+            return base.Equals(other) && Regions.SequenceEqual(other.Regions);
         }
 
         public override bool Equals(object obj)
@@ -28,7 +28,10 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
 
         public override int GetHashCode()
         {
-            return (Regions != null ? Regions.GetHashCode() : 0);
+            unchecked
+            {
+                return (base.GetHashCode() * 397) ^ (Regions != null ? Regions.GetHashCode() : 0);
+            }
         }
 
         public override string ToString()

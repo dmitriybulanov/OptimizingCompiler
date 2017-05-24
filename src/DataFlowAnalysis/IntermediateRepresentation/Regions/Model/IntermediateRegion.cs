@@ -19,7 +19,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
 
         protected bool Equals(IntermediateRegion other)
         {
-            return Equals(Header, other.Header) && OutputBlocks.SequenceEqual(other.OutputBlocks);
+            return Equals(Header, other.Header) && outputBlocks.SequenceEqual(other.outputBlocks);
         }
 
         public override bool Equals(object obj)

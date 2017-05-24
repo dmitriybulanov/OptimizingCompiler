@@ -22,7 +22,7 @@ namespace DataFlowAnalysis.Utilities
         {
             unchecked
             {
-                return obj.Source.BlockId * 397 ^ obj.Target.BlockId;
+                return (obj.Source.BlockId * 397) ^ obj.Target.BlockId;
             }
         }
     }

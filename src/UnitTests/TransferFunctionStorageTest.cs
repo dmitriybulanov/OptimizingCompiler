@@ -32,14 +32,17 @@ string text = @"
             SyntaxNode root = ParserWrap.Parse(text);
             var graph = new Graph(BasicBlocksGenerator.CreateBasicBlocks(ThreeAddressCodeGenerator.CreateAndVisit(root).Program));
             var regions = new RegionSequence().CreateSequence(graph);
-            var storage = new TransferFunctionStorage<int>();
+            var storage = new AbstractTransferFunctionStorage<int>();
             for (var i = 0; i < regions.Count - 1; i++)
             {
-                storage[regions[i], RegionDirection.Out, regions[i + 1]] = x => i;
-                Assert.IsTrue(storage[regions[i], RegionDirection.Out, regions[i + 1]](0) == i);
+                storage[regions[i], RegionDirection.Out, regions[i + 1]] = 2 * i;
+                storage[regions[i], RegionDirection.In, regions[i + 1]] = 2 * i + 1;
+            }
 
-                storage[regions[i], RegionDirection.In, regions[i + 1]] = x => i;
-                Assert.IsTrue(storage[regions[i], RegionDirection.Out, regions[i + 1]](0) == i);
+            for (var i = 0; i < regions.Count - 1; i++)
+            {
+                Assert.IsTrue(storage[regions[i], RegionDirection.Out, regions[i + 1]] == 2 * i);
+                Assert.IsTrue(storage[regions[i], RegionDirection.In, regions[i + 1]] == 2 * i + 1);
             }
         }
     }
