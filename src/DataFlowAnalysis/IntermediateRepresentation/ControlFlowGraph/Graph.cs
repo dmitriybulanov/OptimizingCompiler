@@ -225,32 +225,32 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
                         string labelSecond = outSecond.Commands[0].Label;
                         string gotoLabel = lastStatement.GotoLabel;
 
-                        if (gotoLabel == labelSecond)
+                        if (gotoLabel == labelFirst)
                         {
                             BasicBlock t = outFirst;
                             outFirst = outSecond;
                             outSecond = t;
                         }
 
-                        int secondLastIndex = outSecond.Commands.Count - 1;
-                        ThreeAddressCommand secondLast = outSecond.Commands[secondLastIndex];
+                        int firstLastIndex = outFirst.Commands.Count - 1;
+                        ThreeAddressCommand secondLast = outFirst.Commands[firstLastIndex];
                         if ((secondLast is Goto) && !(secondLast is ConditionalGoto))
                         {
-                            BasicBlock afterIfStatement = getBlockById(outSecond.OutputBlocks[0]);
+                            BasicBlock afterIfStatement = getBlockById(outFirst.OutputBlocks[0]);
                             if (!stack.Contains(afterIfStatement) && !done.Contains(afterIfStatement))
                             {
                                 stack.Push(afterIfStatement);
                             }
                         }
 
-                        if (!done.Contains(outFirst) && !stack.Contains(outFirst))
-                        {
-                            stack.Push(outFirst);
-                        }
-
                         if (!done.Contains(outSecond) && !stack.Contains(outSecond))
                         {
                             stack.Push(outSecond);
+                        }
+
+                        if (!done.Contains(outFirst) && !stack.Contains(outFirst))
+                        {
+                            stack.Push(outFirst);
                         }
                         break;
                     default:
