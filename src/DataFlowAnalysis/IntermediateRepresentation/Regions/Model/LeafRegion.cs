@@ -8,6 +8,13 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
     {
         public BasicBlock Block { get; set; }
 
+        public override BasicBlock Header
+        {
+            get
+            {
+                return Block;
+            }
+        }
         public override List<int> OutputBlocks
         {
             get

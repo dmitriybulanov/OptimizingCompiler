@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
+using System.Collections.Generic;
 
 namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
 {
@@ -6,5 +7,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
     {
         public abstract List<int> OutputBlocks { get; }
 
+
+        public abstract BasicBlock Header { get; }
     }
 }

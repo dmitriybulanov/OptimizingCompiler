@@ -16,10 +16,10 @@ using System.Threading.Tasks;
 
 namespace UnitTests.RegionsAlgorithmTest
 {
-    //[TestClass]
+    [TestClass]
     public class RegionsAlgorithmTest
     {
-        //[TestMethod]
+        [TestMethod]
         public void RegionsAlgorithm1()
         {
             string programText = @"

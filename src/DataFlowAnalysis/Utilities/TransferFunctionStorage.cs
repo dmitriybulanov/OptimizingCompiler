@@ -45,7 +45,11 @@ namespace DataFlowAnalysis.Utilities
             }
             set
             {
-                Functions.Add(new TransferFunctionKey(from, direction, to), value);
+                var key = new TransferFunctionKey(from, direction, to);
+                if (Functions.ContainsKey(key))
+                    Functions[key] = value;
+                else
+                    Functions.Add(new TransferFunctionKey(from, direction, to), value);
             }
         }
     }

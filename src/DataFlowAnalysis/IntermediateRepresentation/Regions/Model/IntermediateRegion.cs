@@ -7,13 +7,14 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
 {
     public class IntermediateRegion : Region
     {
-        public BasicBlock Header { get; set; }
+        BasicBlock header;
+        public override  BasicBlock Header { get { return header; } }
 
         List<int> outputBlocks;
         public override List<int> OutputBlocks { get { return outputBlocks; } }
         public IntermediateRegion(BasicBlock header, List<int> outputBlocks)
         {
-            Header = header;
+            this.header = header;
             this.outputBlocks = outputBlocks;
         }
 

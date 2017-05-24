@@ -76,7 +76,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
                         {
                             if (!loop.Value.Contains(outputBlock))
                             {
-                                outputBlocks.Add(outputBlock);
+                                outputBlocks.Add(block.BlockId);
                                 break;
                             }
                         }
