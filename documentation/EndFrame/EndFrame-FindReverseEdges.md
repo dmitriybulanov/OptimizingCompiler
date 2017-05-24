@@ -76,3 +76,4 @@ var ReverseEdges = FindReverseEdge.FindReverseEdges(g);
 ```
 ```  
 Обратное ребро: 2 --> 1
+```
