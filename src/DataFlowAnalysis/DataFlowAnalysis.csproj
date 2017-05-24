@@ -88,6 +88,7 @@
     <Compile Include="IterativeAlgorithm\IterativeAlgorithmParameters\SetIterativeAlgorithmParameters.cs" />
     <Compile Include="IterativeAlgorithm\IterativeAlgorithm.cs" />
     <Compile Include="Utilities\ArithmeticOperationCalculator.cs" />
+    <Compile Include="Utilities\EdgeHashComparer.cs" />
     <Compile Include="Utilities\SetFactory.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\Assignment.cs" />
     <Compile Include="IntermediateRepresentation\ThreeAddressCode\Model\BinaryOperation.cs" />

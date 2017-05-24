@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
+using QuickGraph;
 
 namespace DataFlowAnalysis.Utilities
 {
@@ -26,7 +28,17 @@ namespace DataFlowAnalysis.Utilities
 
         public static ISet<Expression> GetSet(params Expression[] data)
         {
-            return new HashSet<Expression>(data);;
+            return new HashSet<Expression>(data);
+        }
+
+        public static ISet<Edge<BasicBlock>> GetSet(IEnumerable<Edge<BasicBlock>> data)
+        {
+            return new HashSet<Edge<BasicBlock>>(data, new EdgeHashComparer());
+        }
+
+        public static ISet<Edge<BasicBlock>> GetSet(params Edge<BasicBlock>[] data)
+        {
+            return new HashSet<Edge<BasicBlock>>(data, new EdgeHashComparer());
         }
     }
 }
