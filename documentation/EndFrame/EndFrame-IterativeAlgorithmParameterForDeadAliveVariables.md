@@ -1,4 +1,4 @@
-# Название задачи: IterativeAlgorithmParameter for DeadAliveVariables
+# Название задачи: Iterative Algorithm Parameter for DeadAliveVariables
 
 ### Выполнено командой: EndFrame
 
@@ -27,12 +27,11 @@ TransferFunction, являющийся передаточной функцией
 ее использованием, и на всем промежутке нет других присваиваний переменной x.
 defB - множество переменных, определенных в B до любого их использования
 useB - множество переменных, использующихся в B до любого их определения.
-fB - передаточная функция для блока B
-fB(OUT[B]) = IN[B]
-IN[B] = useB U (OUT[B] - defB)
+fB - передаточная функция для блока B.
+fB(OUT[B]) = IN[B].
+IN[B] = useB U (OUT[B] - defB).
 
 ### Входные данные:
- - 
 
 ### Выходные данные:
  - DeadAliveIterativeAlgorithmParameters : SetIterativeAlgorithmParameters<string>
@@ -82,21 +81,23 @@ IN[B] = useB U (OUT[B] - defB)
         public override ISet<string> StartingValue { get { return SetFactory.GetSet<string>(); } }
 
 ### Пример использования
-
+```
 SyntaxNode root = ParserWrap.Parse(text);
 Graph graph = new Graph(BasicBlocksGenerator.CreateBasicBlocks(ThreeAddressCodeGenerator.CreateAndVisit(root).Program));
 var deadAliveVars = IterativeAlgorithm.Apply(graph, new DeadAliveIterativeAlgorithmParameters());
-
+```
 ### Тест
-
+```
    a = 2;
    b = 3;
 1: c = a + b;
 2: a = 3; 
    b = 4;
 3: c = a;
-
+```
+```
 OUT[0] = {a, b}
 OUT[1] = {}
 OUT[2] = {a}
 OUT[3] = {}
+```

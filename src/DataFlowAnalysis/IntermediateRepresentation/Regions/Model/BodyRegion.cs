@@ -7,11 +7,24 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
     public class BodyRegion : IntermediateRegion
     {
         public List<Region> Regions { get; set; }
+        private Region regionParent;
 
         public BodyRegion(BasicBlock header, List<int> outputBlocks, List<Region> regions) : base(header, outputBlocks)
         {
             Regions = regions;
         }
+
+		public override Region RegionParent
+		{
+			get
+			{
+				return regionParent;
+			}
+			set
+			{
+				regionParent = value;
+			}
+		}
 
         protected bool Equals(BodyRegion other)
         {
