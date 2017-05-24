@@ -12,6 +12,20 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
             Body = body;
         }
 
+		private Region regionParent;
+
+		public override Region RegionParent
+		{
+			get
+			{
+				return regionParent;
+			}
+			set
+			{
+				regionParent = value;
+			}
+		}
+
         public LoopRegion(BodyRegion body) : base(body.Header, body.OutputBlocks)
         {
             Body = body;
