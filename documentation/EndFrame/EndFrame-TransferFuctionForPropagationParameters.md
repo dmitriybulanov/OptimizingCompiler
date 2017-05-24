@@ -14,6 +14,7 @@
 1. Итерационный алгоритм
 
 ### Теория
+```
 После применения передаточной функции к значению потока данных получаются новые.
 
 Поток данных - m
@@ -33,6 +34,7 @@
       m'(x) = UNDEF - в остальных случаях
   3.3. x := f(...), где f - оператор вызова функции
       m'(x) = NAC
+```
 
 ### Входные данные:
  - Dictionary<string, string> input - значение потока данных
@@ -101,21 +103,20 @@
  //вспомогательные функции calculateVal реализованы другой командой
 
 ### Пример использования
+```C#
+   Dictionary<string, string> m = new Dictionary(/* ... */);
+   BasicBlock block = new BasicBlock(/*...*/);
+   Dictionary<string, string> m2 = CommandTransferFunction(m, block, 0)
+```
 
 ### Тест
 Программа
 ```cs 
-a = 4;
-b = 4;
-c = a + b;
-if 1 
-  a = 3;
-else
-  b = 2;
-print(c);
+x = y + z;
 ```
 
 ```
-
+m: x = UNDEF; y = "2"; z = "3";
+m': x = "5"; y = "2"; z = "3";
 ```
 
