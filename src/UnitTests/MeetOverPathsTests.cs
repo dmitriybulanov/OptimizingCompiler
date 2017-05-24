@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode;
 using DataFlowAnalysis.IntermediateRepresentation.BasicBlockCode.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph;
+using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode;
 using DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model;
+using DataFlowAnalysis.IterativeAlgorithm;
 using QuickGraph;
+using DataFlowAnalysis.MeetOverPaths;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressions;
+using GPPGParser;
+using SyntaxTree;
+using SyntaxTree.SyntaxNodes;
+using Expression = DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Expression;
+using Identifier = DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier;
+using Int32Const = DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const;
 
 namespace UnitTests
 {
@@ -279,6 +290,45 @@ namespace UnitTests
                 Assert.IsTrue(benchmarkPathsChecked.All(x => x));
             }
             
+        }
+
+        [TestMethod]
+        public void MeetOverPathsPositive()
+        {
+            string programText = @"
+a = 4;
+b = 4;
+c = a + b;
+if 1 
+  a = 3;
+else
+  b = 2;
+print(c);
+";
+            SyntaxNode root = ParserWrap.Parse(programText);
+            var threeAddressCode = ThreeAddressCodeGenerator.CreateAndVisit(root).Program;
+            var basicBlocks = BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode);
+            Graph g = new Graph(basicBlocks);
+
+            var availableExprsIterative = IterativeAlgorithm.Apply(g, new AvailableExpressionsCalculator(g));
+            var availableExprsMOP = MeetOverPaths.Apply(g, new AvailableExpressionsCalculator(g));
+            var it = availableExprsIterative.Out.Select(
+                pair => $"{pair.Key}: {string.Join(", ", pair.Value.Select(ex => ex.ToString()))}");
+
+            foreach (var outInfo in it)
+            {
+                Trace.WriteLine(outInfo);
+            }
+
+            var mop = availableExprsMOP.Select(
+                pair => $"{pair.Key}: {string.Join(", ", pair.Value.Select(ex => ex.ToString()))}");
+            Trace.WriteLine("====");
+            foreach (var outInfo in mop)
+            {
+                Trace.WriteLine(outInfo);
+            }
+            
+            Assert.IsTrue(availableExprsIterative.Out.OrderBy(kvp => kvp.Key).Zip(availableExprsMOP.OrderBy(kvp => kvp.Key), (v1, v2) => v1.Key == v2.Key && v1.Value.SetEquals(v2.Value)).All(x => x));
         }
     }
 }

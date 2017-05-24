@@ -18,10 +18,10 @@ namespace DataFlowAnalysis.MeetOverPaths
 
             foreach (BasicBlock blockTo in graph)
             {
-                MOP[blockTo.BlockId] = param.FirstValue;
+                MOP[blockTo.BlockId] = param.StartingValue;
                 foreach (var path in GraphAlgorithms.FindAllPaths(graph, blockTo.BlockId))
                 {
-                    var value = path.Aggregate(param.StartingValue, param.TransferFunction);
+                    var value = path.Aggregate(param.FirstValue, param.TransferFunction);
                     MOP[blockTo.BlockId] = param.GatherOperation(new List<V> { MOP[blockTo.BlockId], value});
                 }
 
