@@ -70,7 +70,9 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
                     {
                         var block = g.getBlockById(blockId);
                         if (!curRegions.Contains(basicBlockLastRegion[block]))
+                        {
                             curRegions.Add(basicBlockLastRegion[block]);
+                        }
 
                         foreach (var outputBlock in block.OutputBlocks)
                         {
@@ -115,6 +117,20 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions
                     regionList.Add(newReg);
                     break;
                 }
+            }
+
+            foreach(var reg in regionList) {
+                if (reg.GetType() == typeof(LoopRegion))
+                {
+                    (reg as LoopRegion).Body.RegionParent = reg;
+                }
+                if (reg.GetType() == typeof(BodyRegion))
+				{
+                    foreach(var children in (reg as BodyRegion).Regions)
+                    {
+                        children.RegionParent = reg;
+                    }
+				}
             }
 
             return regionList;

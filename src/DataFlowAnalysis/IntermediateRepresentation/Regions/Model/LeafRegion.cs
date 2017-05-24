@@ -7,6 +7,19 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
     public class LeafRegion : Region
     {
         public BasicBlock Block { get; set; }
+        private Region regionParent; 
+
+        public override Region RegionParent
+        {
+            get
+            {
+                return regionParent;
+            }
+            set 
+            {
+                regionParent = value;
+            }
+        }
 
         public override BasicBlock Header
         {

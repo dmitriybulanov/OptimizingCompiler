@@ -7,7 +7,8 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
     {
         public abstract List<int> OutputBlocks { get; }
 
-
         public abstract BasicBlock Header { get; }
+
+        public abstract Region RegionParent { get; set; }
     }
 }

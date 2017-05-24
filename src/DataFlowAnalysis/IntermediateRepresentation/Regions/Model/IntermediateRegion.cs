@@ -12,6 +12,21 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
 
         List<int> outputBlocks;
         public override List<int> OutputBlocks { get { return outputBlocks; } }
+		private Region regionParent;
+
+		public override Region RegionParent
+		{
+			get
+			{
+				return regionParent;
+			}
+			set
+			{
+				regionParent = value;
+			}
+		}
+
+
         public IntermediateRegion(BasicBlock header, List<int> outputBlocks)
         {
             this.header = header;
