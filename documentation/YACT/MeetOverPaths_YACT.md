@@ -26,7 +26,7 @@ IDEAL[B] = ⋀ f<sub>p</sub>(V<sub>Вход</sub>), где ⋀ это опера
 
 Рассмотрим пример №1
 
-![](YACT/img/MOP_Example1.png?raw=true)
+![](img/MOP_Example1.png)
 
 Из этого примера видно, что не зная ничего о sqr нельзя сказать какие пути возможны, а какие нет. Поэтому будем рассматривать Meet Over All Paths(MOP)
 
@@ -34,7 +34,7 @@ MOP[B] = ⋀ f<sub>p</sub>(V<sub>Вход</sub>), где ⋀ это операт
 
 Сравним Meet Over All Paths с итерационным алгоритмом(Maximum Fix Point) на примере следующего графа
 
-![](YACT/img/MOP_Example2.png?raw=true)
+![](img/MOP_Example2.png)
 
 MOP[B] = f<sub>B3</sub>(f<sub>B1</sub>(V<sub>Вход</sub>)) ⋀ f<sub>B3</sub>(f<sub>B2</sub>(V<sub>Вход</sub>))
 
