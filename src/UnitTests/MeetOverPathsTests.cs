@@ -13,6 +13,7 @@ using DataFlowAnalysis.IterativeAlgorithm;
 using QuickGraph;
 using DataFlowAnalysis.MeetOverPaths;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressions;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.ConstantsPropagation;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DeadAliveVariables;
 using GPPGParser;
 using SyntaxTree;
@@ -329,7 +330,8 @@ print(c);
                 Trace.WriteLine(outInfo);
             }
             
-            Assert.IsTrue(availableExprsIterative.Out.OrderBy(kvp => kvp.Key).Zip(availableExprsMOP.OrderBy(kvp => kvp.Key), (v1, v2) => v1.Key == v2.Key && v1.Value.SetEquals(v2.Value)).All(x => x));
+            Assert.IsTrue(availableExprsIterative.Out.OrderBy(kvp => kvp.Key).
+                Zip(availableExprsMOP.OrderBy(kvp => kvp.Key), (v1, v2) => v1.Key == v2.Key && v1.Value.SetEquals(v2.Value)).All(x => x));
         }
 
         [TestMethod]
@@ -367,8 +369,52 @@ b = 4;
                 Trace.WriteLine(outInfo);
             }
 
-            Assert.IsTrue(deadAliveVarsIterative.In.OrderBy(kvp => kvp.Key).Zip(deadAliveVarsMOP.OrderBy(kvp => kvp.Key), (v1, v2) => v1.Key == v2.Key && v1.Value.SetEquals(v2.Value)).All(x => x));
+            Assert.IsTrue(deadAliveVarsIterative.In.OrderBy(kvp => kvp.Key).
+                Zip(deadAliveVarsMOP.OrderBy(kvp => kvp.Key), (v1, v2) => v1.Key == v2.Key && v1.Value.SetEquals(v2.Value)).All(x => x));
         }
 
+        [TestMethod]
+        public void ConstantPropagation()
+        {
+            string text = @"
+if 1
+{
+    x = 2;
+    y = 3;
+}
+else
+{
+    x = 3;
+    y = 2;
+}
+z = x + y;
+";
+            SyntaxNode root = ParserWrap.Parse(text);
+            Graph graph = new Graph(
+                BasicBlocksGenerator.CreateBasicBlocks(
+                    ThreeAddressCodeGenerator.CreateAndVisit(root).Program));
+
+            var constantPropagationIterative = IterativeAlgorithm.Apply(graph, new ConstantsPropagationParameters());
+            var constantPropagationMOP = MeetOverPaths.Apply(graph, new ConstantsPropagationParameters());
+            var it = constantPropagationIterative.Out.Select(
+                pair => $"{pair.Key}: {string.Join(", ", pair.Value.Select(ex => ex.ToString()))}");
+
+            foreach (var outInfo in it)
+            {
+                Trace.WriteLine(outInfo);
+            }
+
+            var mop = constantPropagationMOP.Select(
+                pair => $"{pair.Key}: {string.Join(", ", pair.Value.Select(ex => ex.ToString()))}");
+            Trace.WriteLine("====");
+            foreach (var outInfo in mop)
+            {
+                Trace.WriteLine(outInfo);
+            }
+
+            Assert.IsFalse(constantPropagationIterative.In.OrderBy(kvp => kvp.Key).
+                Zip(constantPropagationMOP.OrderBy(kvp => kvp.Key), (v1, v2) => 
+                    v1.Key == v2.Key && v1.Value.OrderBy(kvp => kvp.Key).SequenceEqual(v2.Value.OrderBy(kvp => kvp.Key))).All(x => x));
+        }
     }
 }
