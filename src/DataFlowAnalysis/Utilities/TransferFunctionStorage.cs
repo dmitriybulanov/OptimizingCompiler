@@ -10,7 +10,20 @@ namespace DataFlowAnalysis.Utilities
 {
     public delegate T TransferFunction<T>(T input);
 
-    public class TransferFunctionStorage<T> : AbstractTransferFunctionStorage<TransferFunction<T>> { }
+    public class TransferFunctionStorage<T> : AbstractTransferFunctionStorage<TransferFunction<T>>
+    {
+        public TransferFunctionStorage<T> Clone()
+        {
+            var cloned = new TransferFunctionStorage<T>();
+
+            foreach (var transferFunction in Functions)
+            {
+                cloned.Functions.Add(transferFunction.Key, (TransferFunction<T>)transferFunction.Value.Clone());
+            }
+
+            return cloned;
+        }
+    }
 
     public class AbstractTransferFunctionStorage<TFunc>
     {
