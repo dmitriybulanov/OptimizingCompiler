@@ -7,12 +7,54 @@
 1. Общий итерационный алгоритм
 2. Передаточная функция для задачи распостронения констант
 
-### Зависимые проекты:
--
-
 ### Постановка задачи:
+Создать класс, реализующий итерационный алгоритм для задачи распостронения констант
 
 ### Теория
+Распространение констант – хорошо известная проблема глобального анализа потока данных. Цель распространения констант состоит в обнаружении величин, которые являются постоянными при любом возможном пути выполнения программы, и в распространении этих величин так далеко по тексту программы, как только это возможно. Выражения, чьи операнды являются константами, могут быть вычислены на этапе компиляции. Поэтому использование алгоритмов распространения констант позволяет компилятору выдавать более компактный и быстрый код.
+
+Исходный алгоритм:
+
+∀ t ∈ tuples
+  lattice(t) = T
+  unvisited(t) = true
+
+
+Visit all basic blocks B in the program
+  Visit all tuples t within B
+    if unvisited(t) then propagate(t)
+
+
+propagate (tuple t)
+  unvisited(t) = false
+  if ssa_link(t) ≠ 0 then
+     if unvisited(ssa_link(t))
+        then propagate(ssa_link(t))
+     lattice(t) = lattice(t) П lattice(ssa_link(t))
+  endif
+  if unvisited(left(t)) then propagate(left(t))
+  if unvisited(right(t)) then propagate(right(t))
+  case on type (t)
+    constant C: lattice(t) = C
+    arithmetic operation:
+      if all operands have constant lattice value
+        then lattice(t) = arithmetic result of lattice 
+  values of operands
+        else lattice(t) = ⊥
+      endif
+    store: lattice(t) = lattice(RHS)
+    φ-function: lattice(t) = П of φ-arguments of t
+    γ-function:
+      if lattice(predicate) = C then
+        lattice(t) = lattice value of γ-argument
+  corresponding to C
+        else lattice(t) = П of all γ-arguments of t
+      endif
+    μ-function: lattice(t) = ⊥
+    η-function: lattice(t) = lattice(η-argument)
+    default: lattice(t) = ⊥
+  end case
+end propagate
 
 ### Используемые структуры данных
 - ` Dictionary<Edge<BasicBlock>, EdgeType>` - словарь классифицированных ребер
