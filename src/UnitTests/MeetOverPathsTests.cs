@@ -13,6 +13,7 @@ using DataFlowAnalysis.IterativeAlgorithm;
 using QuickGraph;
 using DataFlowAnalysis.MeetOverPaths;
 using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.AvailableExpressions;
+using DataFlowAnalysis.SpecificIterativeAlgorithmParametrs.DeadAliveVariables;
 using GPPGParser;
 using SyntaxTree;
 using SyntaxTree.SyntaxNodes;
@@ -293,7 +294,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void MeetOverPathsPositive()
+        public void AvailableExpression()
         {
             string programText = @"
 a = 4;
@@ -330,5 +331,44 @@ print(c);
             
             Assert.IsTrue(availableExprsIterative.Out.OrderBy(kvp => kvp.Key).Zip(availableExprsMOP.OrderBy(kvp => kvp.Key), (v1, v2) => v1.Key == v2.Key && v1.Value.SetEquals(v2.Value)).All(x => x));
         }
+
+        [TestMethod]
+        public void DeadAliveVariables()
+        {
+            string text = @"
+a = 2;
+b = 3;
+
+1: c = a + b;
+2: a = 3; 
+b = 4;
+3: c = a;
+";
+            SyntaxNode root = ParserWrap.Parse(text);
+            Graph graph = new Graph(
+                BasicBlocksGenerator.CreateBasicBlocks(
+                    ThreeAddressCodeGenerator.CreateAndVisit(root).Program));
+
+            var deadAliveVarsIterative = IterativeAlgorithm.Apply(graph, new DeadAliveIterativeAlgorithmParameters());
+            var deadAliveVarsMOP = MeetOverPaths.Apply(graph, new DeadAliveIterativeAlgorithmParameters());
+            var it = deadAliveVarsIterative.In.Select(
+                pair => $"{pair.Key}: {string.Join(", ", pair.Value.Select(ex => ex.ToString()))}");
+
+            foreach (var outInfo in it)
+            {
+                Trace.WriteLine(outInfo);
+            }
+
+            var mop = deadAliveVarsMOP.Select(
+                pair => $"{pair.Key}: {string.Join(", ", pair.Value.Select(ex => ex.ToString()))}");
+            Trace.WriteLine("====");
+            foreach (var outInfo in mop)
+            {
+                Trace.WriteLine(outInfo);
+            }
+
+            Assert.IsTrue(deadAliveVarsIterative.In.OrderBy(kvp => kvp.Key).Zip(deadAliveVarsMOP.OrderBy(kvp => kvp.Key), (v1, v2) => v1.Key == v2.Key && v1.Value.SetEquals(v2.Value)).All(x => x));
+        }
+
     }
 }
