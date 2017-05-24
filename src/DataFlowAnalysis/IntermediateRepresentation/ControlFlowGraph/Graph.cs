@@ -189,7 +189,7 @@ namespace DataFlowAnalysis.IntermediateRepresentation.ControlFlowGraph
 
             var done = new HashSet<BasicBlock>();
             var stack = new Stack<BasicBlock>();
-            stack.Push(getBlockById(0));
+            stack.Push(getBlockById(GetMinBlockId()));
 
             BasicBlock cur = null;
 
