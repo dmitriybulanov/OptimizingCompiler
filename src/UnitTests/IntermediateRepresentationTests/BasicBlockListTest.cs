@@ -17,14 +17,76 @@ namespace UnitTests.IntermediateRepresentationTests
     public class BasicBlockListTests
     {
         [TestMethod]
-        public void FindReverseEdgesTest()
+        public void BasicBlockListTest1()
         {
-            string programText_1 = @"
+            string programText = @"
 for i = 1 + 2 * 3 .. 10
   println(i);
 ";
 
-            string programText_2 = @"
+            SyntaxNode root = ParserWrap.Parse(programText);
+            var threeAddressCode = ThreeAddressCodeGenerator.CreateAndVisit(root).Program;
+            var basicBlocks = BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode);
+
+            BasicBlocksList BBL = new BasicBlocksList();
+            List<ThreeAddressCommand> commands = new List<ThreeAddressCommand>();
+
+            commands.Add(new Assignment("t0",
+                                        new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(2),
+                                                            SyntaxTree.Operation.Multiply,
+                                                            new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(3))));
+            commands.Add(new Assignment("t1",
+                                        new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(1),
+                                                            SyntaxTree.Operation.Add,
+                                                            new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("t0"))));
+            commands.Add(new Assignment("i",
+                                        new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("t1")));
+            BBL.Add(new BasicBlock(commands, new List<int>(), new List<int>() { 1 }));
+
+            commands.Clear();
+            commands.Add(new ConditionalGoto("$GL_2",
+                                             new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("i"),
+                                                                 SyntaxTree.Operation.Greater,
+                                                                 new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(10))));
+            commands[0].Label = "$GL_1";
+            BBL.Add(new BasicBlock(commands, new List<int>() { 0, 2 }, new List<int>() { 2, 3 }));
+
+            commands.Clear();
+            commands.Add(new Print(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("i"), true));
+            commands.Add(new Assignment("i",
+                                        new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("i"),
+                                                            SyntaxTree.Operation.Add,
+                                                            new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(1))));
+            commands.Add(new Goto("$GL_1"));
+            BBL.Add(new BasicBlock(commands, new List<int>() { 1 }, new List<int>() { 1 }));
+
+            commands.Clear();
+            commands.Add(new NoOperation("$GL_2"));
+            BBL.Add(new BasicBlock(commands, new List<int>() { 1 }, new List<int>()));
+
+            int start = basicBlocks.Blocks[0].BlockId;
+
+            Assert.IsTrue(basicBlocks.Blocks[0].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[0].Commands.Select(x => x.ToString())) &&
+                          basicBlocks.Blocks[0].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].InputBlocks) &&
+                          basicBlocks.Blocks[0].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].OutputBlocks));
+
+            Assert.IsTrue(basicBlocks.Blocks[1].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[1].Commands.Select(x => x.ToString())) &&
+                          basicBlocks.Blocks[1].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].InputBlocks) &&
+                          basicBlocks.Blocks[1].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].OutputBlocks));
+
+            Assert.IsTrue(basicBlocks.Blocks[2].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[2].Commands.Select(x => x.ToString())) &&
+                          basicBlocks.Blocks[2].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].InputBlocks) &&
+                          basicBlocks.Blocks[2].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].OutputBlocks));
+
+            Assert.IsTrue(basicBlocks.Blocks[3].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[3].Commands.Select(x => x.ToString())) &&
+                          basicBlocks.Blocks[3].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].InputBlocks) &&
+                          basicBlocks.Blocks[3].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].OutputBlocks));
+        }
+
+        [TestMethod]
+        public void BasicBlockListTest2()
+        {
+            string programText = @"
 x = 5;
 if x < 5 
   x = x + 1;
@@ -33,83 +95,13 @@ else
 println(x);
 ";
 
-            Trace.WriteLine("===============");
-            Trace.WriteLine("Тест 1");
-            Trace.WriteLine("===============");
-            SyntaxNode root = ParserWrap.Parse(programText_1);
+            SyntaxNode root = ParserWrap.Parse(programText);
             var threeAddressCode = ThreeAddressCodeGenerator.CreateAndVisit(root).Program;
-            Trace.WriteLine(threeAddressCode);
-
             var basicBlocks = BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode);
-            Trace.WriteLine(Environment.NewLine + "Базовые блоки");
-            Trace.WriteLine(basicBlocks);
 
             BasicBlocksList BBL = new BasicBlocksList();
             List<ThreeAddressCommand> commands = new List<ThreeAddressCommand>();
-            
-            commands.Add(new Assignment("t0", 
-                                        new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(2), 
-                                                            SyntaxTree.Operation.Multiply, 
-                                                            new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(3))));
-            commands.Add(new Assignment("t1", 
-                                        new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(1),
-                                                            SyntaxTree.Operation.Add,
-                                                            new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("t0"))));
-            commands.Add(new Assignment("i",
-                                        new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("t1")));
-            BBL.Add(new BasicBlock(commands, new List<int>(), new List<int>(){1}));
 
-            commands.Clear();
-            commands.Add(new ConditionalGoto("$GL_2",
-                                             new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("i"),
-                                                                 SyntaxTree.Operation.Greater,
-                                                                 new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(10))));
-            commands[0].Label = "$GL_1";
-            BBL.Add( new BasicBlock( commands, new List<int>() { 0, 2 }, new List<int>() { 2, 3 } ) );
-
-            commands.Clear();
-            commands.Add(new Print(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("i"), true));
-            commands.Add(new Assignment("i", 
-                                        new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("i"),
-                                                            SyntaxTree.Operation.Add,
-                                                            new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(1))));
-            commands.Add(new Goto("$GL_1"));
-            BBL.Add( new BasicBlock( commands, new List<int>() {1}, new List<int>() {1} ) );
-
-            commands.Clear();
-            commands.Add(new NoOperation("$GL_2"));
-            BBL.Add( new BasicBlock( commands, new List<int>() {1}, new List<int>() ) );
-
-            Assert.IsTrue(basicBlocks.Blocks[0].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[0].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[0].InputBlocks.SequenceEqual(BBL.Blocks[0].InputBlocks) &&
-                          basicBlocks.Blocks[0].OutputBlocks.SequenceEqual(BBL.Blocks[0].OutputBlocks) &&
-
-                          basicBlocks.Blocks[1].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[1].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[1].InputBlocks.SequenceEqual(BBL.Blocks[1].InputBlocks) &&
-                          basicBlocks.Blocks[1].OutputBlocks.SequenceEqual(BBL.Blocks[1].OutputBlocks) &&
-
-                          basicBlocks.Blocks[2].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[2].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[2].InputBlocks.SequenceEqual(BBL.Blocks[2].InputBlocks) &&
-                          basicBlocks.Blocks[2].OutputBlocks.SequenceEqual(BBL.Blocks[2].OutputBlocks) &&
-
-                          basicBlocks.Blocks[3].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[3].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[3].InputBlocks.SequenceEqual(BBL.Blocks[3].InputBlocks) &&
-                          basicBlocks.Blocks[3].OutputBlocks.SequenceEqual(BBL.Blocks[3].OutputBlocks));
-
-            Trace.WriteLine("===============");
-            Trace.WriteLine("Тест 2");
-            Trace.WriteLine("===============");
-
-            root = ParserWrap.Parse(programText_2);
-            threeAddressCode = ThreeAddressCodeGenerator.CreateAndVisit(root).Program;
-            Trace.WriteLine(threeAddressCode);
-
-            basicBlocks = BasicBlocksGenerator.CreateBasicBlocks(threeAddressCode);
-            Trace.WriteLine(Environment.NewLine + "Базовые блоки");
-            Trace.WriteLine(basicBlocks);
-
-            BBL.Blocks.Clear();
-            commands.Clear();
             commands.Add(new Assignment("x",
                                         new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(5)));
             commands.Add(new Assignment("t0",
@@ -120,8 +112,8 @@ println(x);
                                              new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("t0"),
                                                                 SyntaxTree.Operation.Equal,
                                                                 new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(0))));
-            BBL.Add( new BasicBlock( commands, new List<int>(), new List<int>() { 1, 2 } ) );
-             
+            BBL.Add(new BasicBlock(commands, new List<int>(), new List<int>() { 1, 2 }));
+
             commands.Clear();
             commands.Add(new Assignment("t1",
                                         new BinaryOperation(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("x"),
@@ -130,7 +122,7 @@ println(x);
             commands.Add(new Assignment("x",
                                         new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("t1")));
             commands.Add(new Goto("$GL_1"));
-            BBL.Add( new BasicBlock( commands, new List<int>() {0}, new List<int>() {3} ) );
+            BBL.Add(new BasicBlock(commands, new List<int>() { 0 }, new List<int>() { 3 }));
 
             commands.Clear();
             commands.Add(new NoOperation("$GL_2"));
@@ -140,28 +132,31 @@ println(x);
                                                 new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Int32Const(1))));
             commands.Add(new Assignment("x",
                                         new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("t2")));
-            BBL.Add( new BasicBlock( commands, new List<int>() {0}, new List<int>() {3} ) );
+            BBL.Add(new BasicBlock(commands, new List<int>() { 0 }, new List<int>() { 3 }));
 
             commands.Clear();
             commands.Add(new NoOperation("$GL_1"));
             commands.Add(new Print(new DataFlowAnalysis.IntermediateRepresentation.ThreeAddressCode.Model.Identifier("x"), true));
-            BBL.Add( new BasicBlock( commands, new List<int>() { 1, 2 }, new List<int>() ) );
+            BBL.Add(new BasicBlock(commands, new List<int>() { 1, 2 }, new List<int>()));
+
+            int start = basicBlocks.Blocks[0].BlockId;
 
             Assert.IsTrue(basicBlocks.Blocks[0].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[0].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[0].InputBlocks.SequenceEqual(BBL.Blocks[0].InputBlocks) &&
-                          basicBlocks.Blocks[0].OutputBlocks.SequenceEqual(BBL.Blocks[0].OutputBlocks) &&
+                          basicBlocks.Blocks[0].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].InputBlocks) &&
+                          basicBlocks.Blocks[0].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[0].OutputBlocks));
+            
+            Assert.IsTrue(basicBlocks.Blocks[1].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[1].Commands.Select(x => x.ToString())) &&
+                          basicBlocks.Blocks[1].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].InputBlocks) &&
+                          basicBlocks.Blocks[1].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[1].OutputBlocks));
 
-                          basicBlocks.Blocks[1].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[1].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[1].InputBlocks.SequenceEqual(BBL.Blocks[1].InputBlocks) &&
-                          basicBlocks.Blocks[1].OutputBlocks.SequenceEqual(BBL.Blocks[1].OutputBlocks) &&
+            Assert.IsTrue(basicBlocks.Blocks[2].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[2].Commands.Select(x => x.ToString())) &&
+                          basicBlocks.Blocks[2].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].InputBlocks) &&
+                          basicBlocks.Blocks[2].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[2].OutputBlocks));
 
-                          basicBlocks.Blocks[2].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[2].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[2].InputBlocks.SequenceEqual(BBL.Blocks[2].InputBlocks) &&
-                          basicBlocks.Blocks[2].OutputBlocks.SequenceEqual(BBL.Blocks[2].OutputBlocks) &&
-
-                          basicBlocks.Blocks[3].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[3].Commands.Select(x => x.ToString())) &&
-                          basicBlocks.Blocks[3].InputBlocks.SequenceEqual(BBL.Blocks[3].InputBlocks) &&
-                          basicBlocks.Blocks[3].OutputBlocks.SequenceEqual(BBL.Blocks[3].OutputBlocks));
+            Assert.IsTrue(basicBlocks.Blocks[3].Commands.Select(x => x.ToString()).SequenceEqual(BBL.Blocks[3].Commands.Select(x => x.ToString())) &&
+                          basicBlocks.Blocks[3].InputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].InputBlocks) &&
+                          basicBlocks.Blocks[3].OutputBlocks.Select(x => x - start).SequenceEqual(BBL.Blocks[3].OutputBlocks));
+            
         }
     }
 }

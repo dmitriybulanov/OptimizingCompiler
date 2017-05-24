@@ -37,5 +37,11 @@ namespace DataFlowAnalysis.IntermediateRepresentation.Regions.Model
                 return (base.GetHashCode() * 397) ^ (Body != null ? Body.GetHashCode() : 0);
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("[LoopRegion: Body={0}]", Body.ToString());
+        }
+
     }
 }
