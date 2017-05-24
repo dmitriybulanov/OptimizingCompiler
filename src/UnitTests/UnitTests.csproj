@@ -86,6 +86,7 @@
     <Compile Include="RegionsAlgorithmTest\RegionsAlgorithmTest.cs" />
     <Compile Include="SpecificIterativeAlgorithmParametrsTests\DefUseCalculatorTests.cs" />
     <Compile Include="ParserTests.cs" />
+    <Compile Include="TransferFunctionStorageTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataFlowAnalysis\DataFlowAnalysis.csproj">
