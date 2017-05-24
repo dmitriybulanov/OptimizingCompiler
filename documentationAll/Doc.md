@@ -1,3 +1,42 @@
+Введение
+Описание языков программирования
+	Создание парсера языка программирования (Parser-YACT)
+Оптимизации
+	В пределах базового блока
+		Генерация трехадресного кода (ThreeAddressCode-YACT)
+		Def-Use информация о переменных (DefUseCalculation-PiedPiper)
+		Устранение мертвого кода (IterativeAlgorithmParameterForDeadAliveVariables-EndFrame)
+		Передаточная функция для задачи распространения констант (TransferFuctionForPropagationParameters-EndFrame)
+		Протяжка констант (ConstantPropagation-Ampersand)
+		Выделение базовых блоков (BasicBlock-EndFrame)
+	Построение графа потока управления (ControlFlowGraph-PiedPiper)
+		Построение трехадресного кода по CFG (CreateCodeCFG-YetYetAnotherTeam)
+	Итерационные алгоритмы
+		Достигающие определения
+			Вычисление Gen и Kill для одной команды (GenKillForOneCommandDocumentation-NoName)
+			Вычисление множеств Gen и Kill (ExplicitTransferFunction-Ampersand)
+			Передаточная функция (TransferFunction-GoogleDogs)
+		Доступные выражения
+			Итерационный алгоритм для доступных выражений (AvailableExpressionsIterativeAlgorithm-GoogleDogs)
+			Множества Gen и Kill для доступных выражений (GenAndKillSetsForAvailableExpressions-YACT)
+		Распространение констант (ConstantPropagation-Ampersand)
+		Итерационный алгоритм (IterativeAlgorithm-Ampersand)
+		Отношение доминирования
+			Построение дерева доминаторов (BuildingDominationTree-NoName)
+	Анализ графа для алгоритма выделения областей
+		Построение остовного дерева (DFN-PiedPiper)
+		Классификация ребер (EdgeClassification-GoogleDogs)
+		Определить обратные ребра в CFG (FindReverseEdges-EndFrame)
+		Проверка отступающие ребра = обратные ребра в CFG (CheckReverseEdges-Ampersand)
+		Определение всех естественных циклов (SearchNaturalLoops-GoogleDogs)
+	Алгоритм выделения областей
+		Выделение областей (RegionClassDocumentation-NoName)
+		Восходящая часть алгоритма анализа на основе областей (RegionsAlgorithmAscendingPart-Ampersand)
+		Формирование восходящей последовательности областей (RegionSequence-PiedPiper)
+		Нисходящая часть алгоритма анализа на основе областей (DescendingPartOfIterativeAlgoritmByRegionsAlgorithm-EndFrame)
+		Хранение передаточных функций (TransferFunctionStorage-YACT)
+		MeetOverAllPaths (MeetOverPaths-YACT)
+
 # 01: Создание парсера языка программирования
 
 ### Выполнено командой: YACT
